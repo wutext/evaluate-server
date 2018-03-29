@@ -3,43 +3,45 @@ package com.litsoft.evaluateserver.api;
 import com.litsoft.evaluateserver.model.SysUser;
 import com.litsoft.evaluateserver.service.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 @RequestMapping("/sys")
 public class SysUserController {
 
-    @Autowired
-    private CustomUserService customUserService;
-
-    @RequestMapping("/")
-    public ModelAndView index(Model model, ModelAndView mav) {
-
-        mav.setViewName("/login");
-        return mav;
+    @RequestMapping("/desktop")
+    public String desktop() {
+        return "/view/front/desktop";
     }
 
-    @RequestMapping("/login")
-    public ModelAndView login(String username, String password, ModelAndView mav) throws Exception {
-        SysUser sysUser = customUserService.loadUserByUsername(username, password);
-        mav.setViewName("/view/research");
-        return mav;
+    @RequestMapping("/adminLilst")
+    public String adminList() {
+        return "/view/front/admin-list";
     }
 
-    @GetMapping("/register")
-    public ModelAndView register(ModelAndView mav) {
-        mav.setViewName("/register");
-        return mav;
+    @RequestMapping("/adminRole")
+    public String adminRole() {
+        return "/view/front/admin-role";
     }
 
-    @GetMapping("/index")
-    public ModelAndView index(ModelAndView mav) {
-        mav.setViewName("/index");
-        return mav;
+    @RequestMapping("/adminCate")
+    public String adminCate() {
+        return "/view/front/admin-cate";
+    }
+
+    @RequestMapping("/adminRule")
+    public String adminRule() {
+        return "/view/front/admin-rule";
+    }
+
+    @RequestMapping("/register")
+    public String register() {
+        return "/register";
     }
 
 }
