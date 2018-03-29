@@ -1,0 +1,36 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: evaluate-server
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lisoft
+    username: root
+    password: 123456
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  thymeleaf:
+    cache: false
+
+  mvc:
+    view:
+      prefix: /static/
+      suffix: .html
+
+
+
+book:
+  author: Mr.wu
+logging:
+  file: D:/u disk/log.log
+  level:
+    org:
+      springframework:
+        web: DEBUG
+      security: INFO

@@ -1,0 +1,226 @@
+﻿body { font-family:"微软雅黑",arial,verdana,tahoma;background-color:#f5f5f5; font-size:12px; }
+img { vertical-align:middle;max-width: 100%; max-height: 100%;  }
+li{ list-style:none;}
+ul{ margin:0px;padding:0px;}
+h5{font-size:12px;}
+h4{font-size:14px;}
+h3{font-size:16px;}
+h2{font-size:18px;}
+h1{font-size:20px;}
+.left{float:left;}
+.clear{ clear:both;}
+.right{float:right;}
+.widthpercent25{width:25%}
+.widthpercent50{width:50%}
+.widthpercent75{width:75%}
+.widthpercent100{width:98%}
+.templatepercent25{width:50px;}
+.templatepercent50{width:100px;}
+.templatepercent75{width:150px;}
+.templatepercent100{width:200px;}
+.formwrap { text-align:center; padding:0; margin:10px auto 10px auto;max-width:900px;-width:900px;}
+.contain{border:1px solid #dcdcdc;background-color:#FFF;}
+.content
+{
+    margin-top:10px;
+    -webkit-box-shadow:rgba(0,0,0,0.2) 0px 0px 5px;-moz-box-shadow:rgba(0,0,0,0.2) 0px 
+0px 5px;-o-box-shadow:rgba(0,0,0,0.2) 0px 0px 5px;box-shadow:rgba(0,0,0,0.2) 0px 0px 5px;
+border:1px solid #cccccc;}
+.formheader  { border-bottom:1px solid #dcdcdc;background-color:#42a4e0;color:white; }
+.logo{text-align:left;}
+.logo img{border:0px}
+.formheader h1 { font-weight:bold; text-align:center;padding:20px 0px;margin:0px;  }
+.formdone{padding:10px 0px;text-align:center;}
+.formbody { padding:10px 0 10px 0;  text-align:center }
+.formpage{background-color:#FFF;}
+.formdescription {text-align:left;padding:10px;}
+.pagetitle{ margin-top:10px;font-size:14px;font-weight:bold;}
+.pagedescription{text-align:left;font-size:12px;color:Black;padding-left:10px;}
+.formpager{padding:10px;text-align:left;}
+.formstatus{position:fixed !important; left:5px;top:5px;position:absolute; width:150px;color:#333;}
+.sidebar{border:1px solid #ddd;border-radius:5px;background-color:White;}
+.formstatus h5{font-size:12px;margin:0px 0px;color:#333;}
+.formthankyou,.formpreface{min-height:400px;padding:20px;text-align:left;display:none;}
+.thankyoubody{text-align:left;padding:50px 0px;}
+.prefaceaction{margin-top:10px; text-align:center;}
+.formloading{ position: fixed;  bottom: 0;    right: 0;    z-index: 5000;    background-color: red;    font-size: 150%;    color: white;    padding: 2px;}
+.formwidget {padding:0px 10px 12px 10px; text-align:left; margin:5px 0px; border-bottom:1px dashed #bcbcbc;overflow:hidden;}
+.statuswidget {padding:5px; text-align:left; margin:0px 0px; border-bottom:1px dashed #bcbcbc;overflow:hidden;}
+.sidebar .overview {border-bottom: 0px none #bcbcbc ;}
+.formwidget h4{margin:5px;}
+.formwidget[type=delimiter] h4{text-align:center;}
+.formwidget footer{clear:both;}
+.widgettitle { font-size:16px; font-weight:bold; padding:0; margin:0; color:#dc5151;padding:10px 0px; }
+.widgetdescription { font-size:14px; padding-bottom:10px; margin:0; font-weight:normal; color:#666 }
+.widgetbody{width:100%;clear:both;}
+.choicetext { font-size: 13px; padding-right:5px;padding-left:3px;}
+.templatelabel{font-size:13px;line-height:25px;}
+.section{ border:#bcbcbc 1px dashed; vertical-align:top;}
+.widgetmessage { text-align:left; font-weight:bold; margin:0; color:#cd0a0a; padding:0px;clear:both;min-height:16px;}
+.fieldtip{color:Gray; padding:5px 0px;}
+.fieldmatrix { border-collapse:collapse; /*width:100%;*/ text-align:center; }
+.numbermatrix input{width:50px;}
+.widgetmatrix,.numbermatrix{border-collapse:collapse;}
+.fieldmatrix td,.widgetmatrix td,.numbermatrix td  { border:1px solid #dcdcdc;padding:5px; }
+.fieldtable { border-collapse:collapse; width:100%; }
+.fieldtable td { border:1px solid #dcdcdc;padding:5px; }
+.fieldmatrix .rowheader,.` .fieldheader { font-size:12px; text-align:left; width:40%; }
+.fieldheader_left{width:20%;}
+.fieldheader_right{width:20%;}
+.colheader { text-align:center;font-size:12px;font-weight:bold; }
+.colinput{text-align:center;}
+.templateinput{margin:0px 5px; border:0px solid white;border-bottom:1px solid grey; }
+.button { cursor:pointer; 
+          line-height: 38px;
+text-align: center;
+font-weight: bold;
+color: #fff;
+text-shadow:1px 1px 1px #333;
+border-radius: 5px;
+font-size:16px;
+padding:0px 30px;
+border:1px solid #1e7db9;
+background-color:#2e88c0;
+            }
+.button:hover { background: -webkit-linear-gradient(top,#70bfef,#4097ce);
+background: -moz-linear-gradient(top,#70bfef,#4097ce);
+background: linear-gradient(top,#70bfef,#4097ce); }
+.fieldchoice{padding:5px 5px 5px 0px;}
+.fieldchoice input{vertical-align: middle;}
+.fieldchoice label{vertical-align: middle;}
+.cascade select{margin:5px;display:block;}
+.cascade label{padding:5px;}
+.cascadeleft{float:left;}
+.cascadeleft label{padding:5px;}
+.fieldorder{min-height:30px;width:49%; list-style-type:none;margin:0px;padding:0px;border:1px dashed #bcbcbc;}
+.orderitem{border : #d8dcdf 1px solid;padding:5px;margin:5px;font-weight:bold;}
+.ordertip{padding:5px;display:block;}
+.sliderinput{width:200px;float:left;margin-left:10px;}
+.sliderinput input {width:200px;height:15px;}
+.fieldslider{width:50%;float:left;}
+.required { font-weight:bold; color:#FF0000;  font-family:verdana }
+.focus{background: #EFEFEF;}
+.invalid{border:1px solid #cd0a0a !important;}
+.passwordContent{text-align:center;padding:10px;}
+.thankyouaction{text-align:center;}
+#formEntry{display:none;}
+.sliderInput{width:25px;margin-left:5px;}
+.formfooter {background:#F4F5F6;border-top: dotted 1px #AAB4BE;border-bottom: dotted 1px #AAB4BE;padding: 5px 10px;font-weight:bold;margin-bottom:10px; text-align:center;}
+.formfooter a {color:Black;}
+.actionpager{padding:10px; text-align:left; clear:both;}
+.actionpager div{width:100px;display:inline;}
+.fieldinput{background: rgb(247, 248, 248); border-width: 1px; border-style: solid; border-color: rgb(201, 202, 204) rgb(201, 202, 204) rgb(177, 179, 181); padding: 9px 8px; border-radius: 4px; height: 15px; color: rgb(102, 102, 102); line-height: 18px; overflow: hidden; font-size: 13px; box-shadow: 0px 1px 1px #c9cacc; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+.fieldradiotext,.fieldcheckboxtext,.fieldtemplate{background: rgb(247, 248, 248); border-width: 1px; border-style: solid; border-color: rgb(201, 202, 204) rgb(201, 202, 204) rgb(177, 179, 181); border-radius: 4px; height: 15px; color: rgb(102, 102, 102); overflow: hidden; box-shadow: 0px 1px 1px #c9cacc; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+.fieldtextarea{background: rgb(247, 248, 248); border-width: 1px; border-style: solid; border-color: rgb(201, 202, 204) rgb(201, 202, 204) rgb(177, 179, 181); padding: 9px 8px; border-radius: 4px; height: 90px; color: rgb(102, 102, 102); line-height: 18px; overflow: hidden; font-size: 13px; box-shadow: 0px 1px 1px #c9cacc; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+.fieldinput:hover,.fieldinput:focus,.fieldtextarea:hover,.fieldtextarea:focus{background: rgb(255, 255, 255); color: rgb(68, 68, 68); border-bottom-color: rgb(161, 163, 165); border-bottom-width: 1px; border-bottom-style: solid;}
+.fieldselect{border-width: 1px; border-style: solid; border-color: rgb(201, 202, 204) rgb(201, 202, 204) rgb(177, 179, 181); border-radius: 4px; height: 28px; line-height: 18px; overflow: hidden; font-size: 13px; box-shadow: 0px 1px 1px #c9cacc; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+.ui-pg-div 
+{
+    font-weight:bold;
+    color:Black;
+    cursor:pointer;
+}
+.fieldrow.alt
+{
+    background-color: #EBEBEB;
+}
+.formverify{text-align:left;padding:10px;}
+#formLogin label{text-align:right;width:60px;display:inline-block;padding-right:10px;}
+.formnext{float:right;margin-right:10px;}
+.formprevious{float:left;}
+
+.formsection.sectionlayout1 .formwidget
+{
+    
+} 
+.formsection.sectionlayout0 .formwidget
+{  
+    border: 1px dashed transparent;
+    border-bottom:1px dashed #bcbcbc;
+    _border-color:tomato; 
+    min-height:85px;
+    _height:85px;
+    _filter:chroma(color=tomato); 
+    padding:10px 10px 0px 10px; text-align:left; margin:2px 2px; display:inline; float:left; 
+} 
+.formsection.sectionlayout0 .pager,
+.formsection.sectionlayout0 .delimiter
+{
+     min-height:0px;
+    _height:0px;
+      border-bottom:1px dashed transparent;
+}
+.formsection.sectionlayout0 .widgetmessage
+{
+    min-height:17px;_height:20px;
+}
+.formaction{clear:both;}
+.formsection.sectionlayout0 .col25{width:21%}
+.formsection.sectionlayout0 .col50{width:46%}
+.formsection.sectionlayout0 .col75{width:70%}
+.formsection.sectionlayout0 .col100{width:96%}
+.formsection.sectionlayout0 .col25 .fieldinput,
+.formsection.sectionlayout0 .col25 .fieldtextarea,
+.formsection.sectionlayout0 .col25 .fieldselect{width:88%}
+.formsection.sectionlayout0 .col50 .fieldinput,
+.formsection.sectionlayout0 .col50 .fieldtextarea,
+.formsection.sectionlayout0 .col50 .fieldselect{width:94%}
+.formsection.sectionlayout0 .col75 .fieldinput,
+.formsection.sectionlayout0 .col75 .fieldtextarea,
+.formsection.sectionlayout0 .col75 .fieldselect{width:96%}
+.formsection.sectionlayout0 .col100 .fieldinput,
+.formsection.sectionlayout0 .col100 .fieldtextarea,
+.formsection.sectionlayout0 .col100 .fieldselect{width:97%}
+
+.formsection.sectionlayout1 .col25 .fieldinput,
+.formsection.sectionlayout1 .col25 .fieldtextarea,
+.formsection.sectionlayout1 .col25 .widgetmatrix,
+.formsection.sectionlayout1 .col25 .numbermatrix,
+.formsection.sectionlayout1 .col25 .fieldselect{width:25%}
+.formsection.sectionlayout1 .col50 .fieldinput,
+.formsection.sectionlayout1 .col50 .fieldtextarea,
+.formsection.sectionlayout1 .col50 .widgetmatrix,
+.formsection.sectionlayout1 .col50 .numbermatrix,
+.formsection.sectionlayout1 .col50 .fieldselect{width:50%}
+.formsection.sectionlayout1 .col75 .fieldinput,
+.formsection.sectionlayout1 .col75 .fieldtextarea,
+.formsection.sectionlayout1 .col75 .widgetmatrix,
+.formsection.sectionlayout1 .col75 .numbermatrix,
+.formsection.sectionlayout1 .col75 .fieldselect{width:75%}
+.formsection.sectionlayout1 .col100 .fieldinput,
+.formsection.sectionlayout1 .col100 .fieldtextarea,
+.formsection.sectionlayout1 .col100 .widgetmatrix,
+.formsection.sectionlayout1 .col100 .numbermatrix,
+.formsection.sectionlayout1 .col100 .fieldselect{width:98%}
+
+@media print  
+{
+    #bdshare,
+    .actionpager,
+    .actiondone,
+    .formfooter{display:none;}
+ }
+
+#start_sidebar{text-align:left;}
+#start_sidebar a {
+    width:25px;
+    height:16px;
+    position:relative;
+    display:inline-block;
+    border-top:4px solid gray;
+}
+#start_sidebar a:after, #start_sidebar a:before {
+	content: '';
+	width: 100%;
+	height:4px;
+	background-color:gray;
+	position:absolute;
+}
+#start_sidebar a:after {
+	bottom:0px;
+	left:0;
+}
+#start_sidebar a:before {
+	top:4px;
+	left:0;
+}
