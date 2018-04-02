@@ -8,11 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/front/css/font.css" />
-    <link rel="stylesheet" href="/front/css/xadmin.css" />
+    <link rel="stylesheet" href="/layui/css/font.css" />
+    <link rel="stylesheet" href="/layui/css/xadmin.css" />
     <script type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/front/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/front/js/xadmin.js"></script>
+    <script type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/layui/js/xadmin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -42,7 +42,7 @@
       </div>
       <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./admin-add.html')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="x_admin_show('添加用户','/userInfo/userAdd')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
       </xblock>
       <table class="layui-table">
@@ -62,18 +62,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <#list users as user>
+          <tr >
             <td>
               <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td>1</td>
-            <td>admin</td>
+            <td text="${user.id}"></td>
+            <td text="${user.username}"></td>
             <td>18925139194</td>
             <td>113664000@qq.com</td>
-            <td>超级管理员</td>
+            <td >超级管理员</td>
             <td>2017-01-01 11:11:42</td>
             <td class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+              <span class="layui-btn layui-btn-normal layui-btn-mini" th:text="${user.state}"></span></td>
             <td class="td-manage">
               <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
                 <i class="layui-icon">&#xe601;</i>
@@ -86,6 +87,7 @@
               </a>
             </td>
           </tr>
+          </#list>
         </tbody>
       </table>
       <div class="page">

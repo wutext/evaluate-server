@@ -68,7 +68,7 @@
 <form id="453e32b3-cc46-44cd-97bd-a1a0b2f708ca" name="Survey" data-version="2" data-confirmmessage=""
       data-pagename="af2" data-questioncheck="true" data-isshowsave="false" data-isshowstatus="false"
       data-islocalsave="false" data-invalidmessage="" data-ok="确定" data-cancel="取消" data-language="zh-cn"
-      data-countdown="0" action="http://app.askform.cn/Form.ashx?FormGuid=453e32b3-cc46-44cd-97bd-a1a0b2f708ca"
+      data-countdown="0" action="/visit/save"
       method="post" style="">
 
     <article id="Survey_form" data-role="page" class="formwrap">
@@ -77,7 +77,9 @@
         <section class="contentwrap">
             <div class="logo" id="Survey_logo">
                 <div class="logotitle">
-                    <img src="/researchstyle/logo_48.png" alt="logo"/></div>
+                    <!--<img src="/researchstyle/logo_48.png" alt="logo"/>-->
+                    <img src="/image/lit.png" alt="logo"/>
+                </div>
             </div>
             <div class="content">
                 <article class="container">

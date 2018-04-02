@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns="http://www.thymeleaf.org">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 <title>登陆丨Sharelink</title>
-<link rel="stylesheet" th:href="@{/css/style.css}"/>
+<link rel="stylesheet" href="/css/style.css"/>
 <body>
 
 <div class="login-container">
@@ -12,7 +12,7 @@
         <p>Link the world. Share to world.</p>
     </div>
 
-    <form th:action="@{/login}" method="post" id="loginForm">
+    <form action="/login" method="post" id="loginForm">
         <div>
             <input type="text" name="username" class="username" placeholder="用户名" autocomplete="off"/>
         </div>
@@ -22,18 +22,18 @@
         <button id="submit" type="submit">登 陆</button>
     </form>
 
-    <a th:href="@{/sys/register}">
+    <a href="/sys/register">
         <button type="button" class="register-tis">还有没有账号？</button>
     </a>
 
 </div>
 
 </body>
-<script th:src="@{/jquery/js/jquery-3.1.1.min.js}"></script>
-<script th:src="@{/jquery/js/common.js}"></script>
+<script src="/jquery/js/jquery-3.1.1.min.js"></script>
+<script src="/jquery/js/common.js"></script>
 <!--背景图片自动更换-->
-<script th:src="@{/jquery/js/supersized.3.2.7.min.js}"></script>
-<script th:src="@{/jquery/js/supersized-init.js}"></script>
+<script src="/jquery/js/supersized.3.2.7.min.js"></script>
+<script src="/jquery/js/supersized-init.js"></script>
 <!--表单验证-->
 <script src="/jquery/js/jquery.validate.min.js?var1.14.0"></script>
 

@@ -44,5 +44,5 @@
 <script th:src="@{/jquery/js/supersized.3.2.7.min.js}"></script>
 <script th:src="@{/jquery/js/supersized-init.js}"></script>
 <!--表单验证-->
-<script th:src="@{jquery/js/jquery.validate.min.js?var1.14.0}"></script>
+<script th:src="@{/jquery/js/jquery.validate.min.js?var1.14.0}"></script>
 </html>

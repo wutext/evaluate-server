@@ -4,11 +4,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/visit")
 public class VisitorController {
 
-    @RequestMapping("/visitor")
+    @RequestMapping("/research")
     public String visit() {
 
-        return "";
+        return "/view/research/research";
     }
+
+    @RequestMapping("/save")
+    public String save() {
+
+        return "/view/research/success";
+    }
+
 }
