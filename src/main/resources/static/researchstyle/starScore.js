@@ -25,7 +25,7 @@ function scoreFun(object,opts){
 		var fen_d=options.fen_d;     // 每个a的宽度
 		var len=options.ScoreGrade;  // 把a的个数赋值给len
 		startParent.width(fen_d*len); //包含a的div盒子的宽度
-		var preA=(5/len);
+		var preA=(100/len);
 		for(var i=0;i<len;i++){
 			var newSpan=$("<a href='javascript:void(0)'></a>");     // 不整体刷新页面的情况下，可以使用void(0)
 			newSpan.css({"left":0,"width":fen_d*(i+1),"z-index":len-i});  // 设置a的宽度、层级

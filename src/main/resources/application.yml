@@ -1,12 +1,13 @@
 server:
   port: 8086
 
+
 spring:
   application:
     name: evaluate-server
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/lisoft
+    url: jdbc:mysql://localhost:3306/company
     username: root
     password: 123456
   jpa:
@@ -44,3 +45,21 @@ logging:
       springframework:
         web: DEBUG
       security: INFO
+
+userScore:
+   #项目进度占比
+   progress-completion-proportion: 30
+   #工作量占比
+   workload-proportion: 10
+   #工作质量占比
+   work-quality-proportion: 20
+   #工作效率占比
+   work-efficiency-proportion: 10
+   #工作态度占比
+   working-attitude-proportion: 5
+   #出勤率占比
+   attendance-proportion: 5
+   #进度偏差占比
+   progress-deviation-proportion: 10
+   #工作配合情况占比
+   work-cooperate-proportion: 10
