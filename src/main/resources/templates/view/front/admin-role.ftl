@@ -48,7 +48,7 @@
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
       </xblock>
 
-      <table class="layui-hide" id="role_data" lay-filter="table_demo" ></table>
+      <table class="layui-table" id="role_data" lay-filter="table_demo" ></table>
 
     </div>
 

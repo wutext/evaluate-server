@@ -52,7 +52,7 @@
         <span class="x-right" style="line-height:40px">共有数据： 条</span>
     </xblock>
 
-    <table class="layui-hide" id="table_user" lay-filter="table_demo"></table>
+    <table class="layui-table" lay-size="sm" id="table_user" lay-filter="table_demo"></table>
 
 </div>
 

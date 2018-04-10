@@ -107,7 +107,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                     }
                 });
             });
-        } else if(layEvent === 'edit'){ //编辑
+        } else if(layEvent === 'edit' || layEvent === 'detail'){ //编辑
             roleOperation("编辑", "/sys/userEdit?id=" + data.id+"&operate=edit");
         }else if(layEvent === 'clone1'){ //编辑
             getUrl(data.username, 1, cloneUrl);

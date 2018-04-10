@@ -1,10 +1,15 @@
 package com.litsoft.evaluateserver.service;
 
 import com.litsoft.evaluateserver.entity.Permission;
+import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.repository.PermissionRepository;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -68,5 +73,14 @@ public class PermissionService {
     public List<Permission> findAll() {
 
         return permissionRepository.findAll();
+    }
+
+    public List<Permission> findMenuByUserId() {
+
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        List<Permission> permissionList = new ArrayList<>();
+
+        return permissionList;
     }
 }

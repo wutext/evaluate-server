@@ -26,9 +26,9 @@ public class Permission implements Serializable {
     private String resourceType;//资源类型，[menu|button]
     private String url;//资源路径.
     private String permission; //权限字符串,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
-    /*private Long parentId; //父编号*/
     private String parentIds; //父编号列表
-    //private Boolean available = Boolean.FALSE;
+    private Integer sort;
+    private String status;
     @ManyToMany(fetch= FetchType.EAGER)
     @JoinTable(name="RolePermission",joinColumns={@JoinColumn(name="permissionId")},inverseJoinColumns={@JoinColumn(name="roleId")})
     private List<Role> roles;
@@ -97,14 +97,21 @@ public class Permission implements Serializable {
         this.parentIds = parentIds;
     }
 
+    public Integer getSort() {
+        return sort;
+    }
 
-    //    public Boolean getAvailable() {
-//        return available;
-//    }
-//
-//    public void setAvailable(Boolean available) {
-//        this.available = available;
-//    }
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public List<Role> getRoles() {
         return roles;

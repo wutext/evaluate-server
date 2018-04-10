@@ -73,12 +73,6 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="admin-cate.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>权限分类</cite>
-                        </a>
-                    </li >
-                    <li>
                         <a _href="/per/perListView">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>权限管理</cite>

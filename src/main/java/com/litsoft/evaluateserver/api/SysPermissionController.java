@@ -46,18 +46,14 @@ public class SysPermissionController {
         List<Permission> perList = permissionService.findAll();
         model.addAttribute("perList", perList);
         return "/view/sys/admin-rule";
-      /*  QueryParam param = new QueryParam(params);
-        Page<Permission> pagePermission = pageQueryService.findPermissionNoCriteria(param);
-
-        PageInfo<Permission> pageInfo = new PageInfo((int) pagePermission.getTotalElements(), param.getPage(),
-            param.getLimit(), pagePermission.getContent());
-        return LayUiData.data(pageInfo.getTotalSize(), pageInfo.getPageList());*/
     }
 
     @RequestMapping("/perListView")
     public String addPerm() {
-        List<Permission> perList = permissionService.findAll();
-        return  "/view/front/perm-add";
+        List<Permission> perList = permissionService.findMenuByUserId();
+        System.out.println("dsjk");
+        String s = "";
+        return  "/view/front/admin-rule";
     }
 
     @ResponseBody
