@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/per")
 public class SysPermissionController {
 
     @Autowired
@@ -37,21 +39,24 @@ public class SysPermissionController {
     @Autowired
     public PageQueryService pageQueryService;
 
-
-    @ResponseBody
-    @RequiresPermissions("userInfo:view")
-    @RequestMapping("/roleList")
-    public LayUiData adminList(@RequestParam Map<String, Object> params){
-        QueryParam param = new QueryParam(params);
+    @SuppressWarnings("unchecked")
+    @RequiresPermissions("sys:menu")
+    @RequestMapping("/perList")
+    public String adminList(Model model, @RequestParam Map<String, Object> params){
+        List<Permission> perList = permissionService.findAll();
+        model.addAttribute("perList", perList);
+        return "/view/sys/admin-rule";
+      /*  QueryParam param = new QueryParam(params);
         Page<Permission> pagePermission = pageQueryService.findPermissionNoCriteria(param);
 
         PageInfo<Permission> pageInfo = new PageInfo((int) pagePermission.getTotalElements(), param.getPage(),
             param.getLimit(), pagePermission.getContent());
-        return LayUiData.data(pageInfo.getTotalSize(), pageInfo.getPageList());
+        return LayUiData.data(pageInfo.getTotalSize(), pageInfo.getPageList());*/
     }
 
-    @RequestMapping("/addPerm")
+    @RequestMapping("/perListView")
     public String addPerm() {
+        List<Permission> perList = permissionService.findAll();
         return  "/view/front/perm-add";
     }
 

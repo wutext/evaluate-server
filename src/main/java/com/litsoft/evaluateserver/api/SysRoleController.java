@@ -51,7 +51,7 @@ public class SysRoleController {
     public PageQueryService pageQueryService;
 
     @ResponseBody
-    @RequiresPermissions("userInfo:view")
+    @RequiresPermissions("sys:menu")
     @RequestMapping("/roleList")
     public LayUiData adminList(@RequestParam Map<String, Object> params) {
         QueryParam param = new QueryParam(params);

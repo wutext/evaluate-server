@@ -28,6 +28,9 @@ public class User implements Serializable{
     private byte state;//用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态,2：用户被锁定.
     private String phone;
     private String email;
+    private String company;
+    private String project;
+
     @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
     @JoinTable(name = "UserRole", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
     private List<Role> roleList;// 一个用户具有多个角色
@@ -114,6 +117,22 @@ public class User implements Serializable{
 
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
     }
 
     /**

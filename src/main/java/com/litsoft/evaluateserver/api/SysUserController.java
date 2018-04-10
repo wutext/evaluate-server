@@ -53,7 +53,6 @@ public class SysUserController {
 
     @ResponseBody
     @SuppressWarnings("unchecked")
-    @RequiresPermissions("userInfo:view")
     @RequestMapping("/adminList")
     public LayUiData adminList(@RequestParam Map<String, Object> params){
         QueryParam param = new QueryParam(params);

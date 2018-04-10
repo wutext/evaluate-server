@@ -58,10 +58,23 @@
 
 
 <script type="text/html" id="toolBar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">
+        <i class="layui-icon">&#xe63c;</i>
+    </a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" >
+        <i class="layui-icon">&#xe642;</i>
+    </a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+        <i class="layui-icon">&#xe640;</i>
+    </a>
+
+    |
+    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone1">clone1</a>
+    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone2">clone2</a>
+    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone3">clone3</a>
 </script>
+
+
 
 <script>
     layui.use(['laydate', 'layer'], function(){

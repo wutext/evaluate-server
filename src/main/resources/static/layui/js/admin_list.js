@@ -18,7 +18,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
             ,{field:'phone', title:'电话/手机',width:80,sort: true}
             ,{field:'email', title:'邮箱',width:80,sort: true}
             ,{field:'state', title:'状态',width:80}
-            ,{fixed: 'right',title: '操作', width:300, align:'center', toolbar: '#toolBar'}
+            ,{fixed: 'right',title: '操作', width:500, align:'center', toolbar: '#toolBar'}
         ]]
         ,page: true //开启分页
         ,limit:6   //默认十条数据一页
@@ -78,6 +78,12 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
+        var curWwwPath = window.document.location.href;
+        //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+        var pathName = window.document.location.pathname;
+        var pos = curWwwPath.indexOf(pathName);
+        var cloneUrl= curWwwPath.substring(0, pos)
+
         if(layEvent === 'detail'){ //查看
 
             addOperation("编辑", "/sys/userEdit?id=" + data.id+"&operate=detail");
@@ -103,12 +109,29 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
             });
         } else if(layEvent === 'edit'){ //编辑
             roleOperation("编辑", "/sys/userEdit?id=" + data.id+"&operate=edit");
+        }else if(layEvent === 'clone1'){ //编辑
+            getUrl(data.username, 1, cloneUrl);
+        }else if(layEvent === 'clone2'){ //编辑
+            getUrl(data.username, 2, cloneUrl);
+        }else if(layEvent === 'clone3'){ //编辑
+            getUrl(data.username, 3, cloneUrl);
         }
 
     });
 
 });
 
+
+function getUrl(name, number, cloneUrl) {
+    var url= cloneUrl+"/visit/research?name="+name+"&role="+number;
+    layer.alert(url, {
+        area: ['300px', '200px']
+        ,skin: 'layui-layer-lan'
+        ,closeBtn: 0
+        ,anim: 1
+        ,title: "clone"
+    });
+}
 function searchUserPage() {
 
     var department = $("#department").val();

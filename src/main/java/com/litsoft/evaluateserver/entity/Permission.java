@@ -8,8 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,12 +26,20 @@ public class Permission implements Serializable {
     private String resourceType;//资源类型，[menu|button]
     private String url;//资源路径.
     private String permission; //权限字符串,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
-    private Long parentId; //父编号
+    /*private Long parentId; //父编号*/
     private String parentIds; //父编号列表
     //private Boolean available = Boolean.FALSE;
     @ManyToMany(fetch= FetchType.EAGER)
     @JoinTable(name="RolePermission",joinColumns={@JoinColumn(name="permissionId")},inverseJoinColumns={@JoinColumn(name="roleId")})
     private List<Role> roles;
+
+    @ManyToOne
+    private Permission par;
+
+    @OneToMany
+    @JoinColumn(name = "par_id")
+    private List<Permission> permissionList = new ArrayList();
+
 
     public Integer getId() {
         return id;
@@ -70,12 +81,12 @@ public class Permission implements Serializable {
         this.permission = permission;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public Permission getPar() {
+        return par;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setPar(Permission par) {
+        this.par = par;
     }
 
     public String getParentIds() {
@@ -86,7 +97,8 @@ public class Permission implements Serializable {
         this.parentIds = parentIds;
     }
 
-//    public Boolean getAvailable() {
+
+    //    public Boolean getAvailable() {
 //        return available;
 //    }
 //
@@ -100,5 +112,13 @@ public class Permission implements Serializable {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Permission> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<Permission> permissionList) {
+        this.permissionList = permissionList;
     }
 }
