@@ -120,7 +120,7 @@
                                          class="formfield">
                                         <div class="fieldlabel"></div>
                                         <div class="fieldbody"><input required="" id="Survey.F23700001-3"
-                                                                      name="deptName" class="fieldinput"
+                                                                      name="Survey.F23700001-3" class="fieldinput"
                                                                       type="text"/></div>
                                         <div class="fieldmessage" data-uniquemessage="输入的内容已经存在，请更改"></div>
                                     </div>

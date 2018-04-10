@@ -1,6 +1,7 @@
 package com.litsoft.evaluateserver.repository;
 
 import com.litsoft.evaluateserver.entity.UserScore;
+<<<<<<< 3e05f365e5779ac15fd6acabca45858ef119f472
 import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
 import com.litsoft.evaluateserver.util.QueryParam;
 import org.springframework.data.domain.Page;
