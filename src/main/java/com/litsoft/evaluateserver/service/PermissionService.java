@@ -5,6 +5,7 @@ import com.litsoft.evaluateserver.repository.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.List;
 
 
 @Service
@@ -57,5 +58,15 @@ public class PermissionService {
             flag = true;
         }
         return flag;
+    }
+
+
+    public Permission findById(Integer id) {
+        return permissionRepository.findOne(id);
+    }
+
+    public List<Permission> findAll() {
+
+        return permissionRepository.findAll();
     }
 }

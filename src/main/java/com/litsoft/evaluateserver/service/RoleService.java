@@ -1,10 +1,17 @@
 package com.litsoft.evaluateserver.service;
 
+import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.Role;
+import com.litsoft.evaluateserver.entity.User;
+import com.litsoft.evaluateserver.entity.sysVo.RoleVo;
 import com.litsoft.evaluateserver.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -13,7 +20,9 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-
+    public List<Role> findAll() {
+        return roleRepository.findAll();
+    }
 
     //角色添加
     @Transactional
@@ -39,17 +48,8 @@ public class RoleService {
 
     //角色删除
     @Transactional
-    public boolean delete(Integer id) {
-        boolean flag = false;
+    public void delete(Integer id) {
         roleRepository.delete(id);
-        boolean userRoleFalg = false;
-        boolean rolePermissionFlag = false;
-        userRoleFalg = this.deleteUserRoleByRoleId(id);
-        rolePermissionFlag = this.deleteRolePermissionByRoleId(id);
-        if (userRoleFalg && rolePermissionFlag) {
-            flag = true;
-        }
-        return flag;
     }
 
     //角色删除时，用户角色关联的数据删除
@@ -72,5 +72,53 @@ public class RoleService {
             flag = true;
         }
         return flag;
+    }
+
+    public RoleVo findById(Integer id) {
+        Role role = roleRepository.findOne(id);
+        RoleVo roleVo = new RoleVo();
+        if(!ObjectUtils.isEmpty(role)) {
+
+            roleVo.setId(role.getId());
+            roleVo.setRole(role.getRole());
+            roleVo.setDescription(role.getDescription());
+            roleVo.setPerIds(getPerIds(role.getPermissions()));
+        }
+        return roleVo;
+    }
+
+    private List<Integer> getPerIds(List<Permission> permissions) {
+        List<Integer> perIds = new ArrayList();
+         permissions.forEach(permission -> {
+            perIds.add(permission.getId());
+        });
+        return perIds;
+    }
+
+    public Role getRoleFromRoleVo(RoleVo roleVo) {
+
+        Role role = new Role();
+        if(roleVo.getId()!=null) {
+            role.setId(roleVo.getId());
+        }
+        role.setDescription(roleVo.getDescription());
+        role.setRole(roleVo.getRole());
+        List<Permission> permissionList = new ArrayList<>();
+        roleVo.getPerIds().stream().forEach(perId -> {
+            Permission permission = new Permission();
+            permission.setId(perId);
+            permissionList.add(permission);
+        });
+        role.setPermissions(permissionList);
+
+        //添加user
+        /*List<User> userList = new ArrayList<>();
+
+        role.setUserInfos();*/
+        return role;
+    }
+
+    public void deleteArrayIds(List<Long> roleIds) {
+        roleIds.forEach(id -> roleRepository.delete(id.intValue()));
     }
 }

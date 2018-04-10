@@ -8,11 +8,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/front/css/font.css" />
-    <link rel="stylesheet" href="/front/css/xadmin.css" />
     <script type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="/front/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/front/js/xadmin.js"></script>
+    <link rel="stylesheet" href="/layui/css/font.css" />
+    <link rel="stylesheet" href="/layui/css/xadmin.css" />
+    <link rel="stylesheet" href="/layui/css/layui.css" />
+
+    <script type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/layui/js/admin_role.js"></script>
+      <script type="text/javascript" src="/layui/js/admin_common.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -35,71 +38,29 @@
     <div class="x-body">
       <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
-          <input class="layui-input" placeholder="开始日" name="start" id="start" />
-          <input class="layui-input" placeholder="截止日" name="end" id="end" />
-          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input" />
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+          <input type="text" id="searchRole" name="roleSearch"  placeholder="请输入角色名称" autocomplete="off" class="layui-input" value="${roleSearch!""}"/>
+          <button class="layui-btn"  lay-submit="" lay-filter="sreach" onclick="searchRolePage()"><i class="layui-icon">&#xe615;</i></button>
         </form>
       </div>
       <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./role-add.html')"><i class="layui-icon"></i>添加</button>
+        <button id="deleteAll" class="layui-btn layui-btn-danger" ><i class="layui-icon"></i>批量删除</button>
+        <button class="layui-btn" onclick="roleOperation('角色添加', '/role/addRoleView')"><i class="layui-icon"></i>添加</button>
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
       </xblock>
-      <table class="layui-table">
-        <thead>
-          <tr>
-            <th>
-              <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
-            <th>ID</th>
-            <th>角色名</th>
-            <th>拥有权限规则</th>
-            <th>描述</th>
-            <th>状态</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
-            </td>
-            <td>1</td>
-            <td>超级管理员</td>
-            <td>会员列表，问题列表</td>
-            <td>具有至高无上的权利</td>
-            <td class="td-status">
-              <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
-            <td class="td-manage">
-              <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                <i class="layui-icon">&#xe601;</i>
-              </a>
-              <a title="编辑"  onclick="x_admin_show('编辑','role-add.html')" href="javascript:;">
-                <i class="layui-icon">&#xe642;</i>
-              </a>
-              <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
-                <i class="layui-icon">&#xe640;</i>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="page">
-        <div>
-          <a class="prev" href="">&lt;&lt;</a>
-          <a class="num" href="">1</a>
-          <span class="current">2</span>
-          <a class="num" href="">3</a>
-          <a class="num" href="">489</a>
-          <a class="next" href="">&gt;&gt;</a>
-        </div>
-      </div>
+
+      <table class="layui-hide" id="role_data" lay-filter="table_demo" ></table>
 
     </div>
+
+    <script type="text/html" id="toolBar">
+        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail"  >查看</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
     <script>
-      layui.use('laydate', function(){
-        var laydate = layui.laydate;
+      layui.use(['laydate', 'table'], function(){
+        var laydate = layui.laydate
+                ,table = layui.table;
         
         //执行一个laydate实例
         laydate.render({
@@ -110,6 +71,8 @@
         laydate.render({
           elem: '#end' //指定元素
         });
+
+
       });
 
        /*用户-停用*/
@@ -136,27 +99,6 @@
           });
       }
 
-      /*用户-删除*/
-      function member_del(obj,id){
-          layer.confirm('确认要删除吗？',function(index){
-              //发异步删除数据
-              $(obj).parents("tr").remove();
-              layer.msg('已删除!',{icon:1,time:1000});
-          });
-      }
-
-
-
-      function delAll (argument) {
-
-        var data = tableCheck.getData();
-  
-        layer.confirm('确认要删除吗？'+data,function(index){
-            //捉到所有被选中的，发异步进行删除
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-        });
-      }
     </script>
     <script>var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");

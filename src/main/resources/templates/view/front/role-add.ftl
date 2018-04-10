@@ -2,17 +2,17 @@
 <html>
   
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>欢迎页面-X-admin2.0</title>
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="./css/font.css">
-    <link rel="stylesheet" href="./css/xadmin.css">
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <link rel="stylesheet" href="/layui/css/font.css" />
+    <link rel="stylesheet" href="/layui/css/xadmin.css" />
+    <script type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
+      <script type="text/javascript" src="/layui/js/admin_common.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -28,8 +28,11 @@
                         <span class="x-red">*</span>角色名
                     </label>
                     <div class="layui-input-inline">
+                        <input type="hidden" id="id" name="id" required=""
+                               autocomplete="off" class="layui-input"  <#if role??>value="${role.id}" </#if>/>
+
                         <input type="text" id="name" name="name" required="" lay-verify="required"
-                        autocomplete="off" class="layui-input">
+                                autocomplete="off" class="layui-input" <#if role?? >value="${role.role!""}" </#if>/>
                     </div>
                 </div>
                 <div class="layui-form-item layui-form-text">
@@ -41,46 +44,42 @@
                             <tr>
                                 <td>
                                     用户管理
-                                    <input name="id[]" type="checkbox" value="2">
+                                    <#--<input name="id[]" type="checkbox" value="">-->
                                 </td>
                                 <td>
                                     <div class="layui-input-block">
-                                        <input name="id[]" type="checkbox" value="2"> 用户停用
-                                        <input name="id[]" type="checkbox" value="2"> 用户删除
-                                        <input name="id[]" type="checkbox" value="2"> 用户修改
-                                        <input name="id[]" type="checkbox" value="2"> 用户改密
-                                        <input name="id[]" type="checkbox" value="2"> 用户列表
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    文章管理
-                                    <input name="id[]" type="checkbox" value="2">
-                                </td>
-                                <td>
-                                    <div class="layui-input-block">
-                                        <input name="id[]" type="checkbox" value="2"> 文章添加
-                                        <input name="id[]" type="checkbox" value="2"> 文章删除
-                                        <input name="id[]" type="checkbox" value="2"> 文章修改
-                                        <input name="id[]" type="checkbox" value="2"> 文章改密
-                                        <input name="id[]" type="checkbox" value="2"> 文章列表
+
+                                        <#if role??>
+                                            <#list permissions as permis>
+                                                <input name="perId" <#list role.perIds as perId><#if perId == permis.id>checked=""</#if></#list>  type="checkbox" value="${permis.id}" /> ${permis.name}
+                                            </#list>
+                                        <#else>
+
+                                           <#list permissions as permis>
+                                               <input name="perId"  type="checkbox" value="${permis.id}" /> ${permis.name}
+                                           </#list>
+
+                                        </#if>
+
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="layui-form-item layui-form-text">
+                <div class="layui-form-item">
                     <label for="desc" class="layui-form-label">
                         描述
                     </label>
-                    <div class="layui-input-block">
-                        <textarea placeholder="请输入内容" id="desc" name="desc" class="layui-textarea"></textarea>
+                    <div class="layui-input-inline">
+
+                        <input type="text" id="description" name="description" required="" lay-verify="required"
+                               autocomplete="off" class="layui-input" <#if role?? >value="${role.description!""}" </#if>/>
+
                     </div>
                 </div>
                 <div class="layui-form-item">
-                <button class="layui-btn" lay-submit="" lay-filter="add">增加</button>
+                <button  class="layui-btn" lay-submit="" lay-filter="add">增加</button>
               </div>
             </form>
     </div>
@@ -89,8 +88,8 @@
             $ = layui.jquery;
           var form = layui.form
           ,layer = layui.layer;
-        
-          //自定义验证规则
+
+
           form.verify({
             nikename: function(value){
               if(value.length < 5){
@@ -105,20 +104,40 @@
             }
           });
 
-          //监听提交
           form.on('submit(add)', function(data){
-            console.log(data);
-            //发异步，把数据提交给php
-            layer.alert("增加成功", {icon: 6},function () {
-                // 获得frame索引
-                var index = parent.layer.getFrameIndex(window.name);
-                //关闭当前frame
-                parent.layer.close(index);
-            });
-            return false;
+
+              var perIds=new Array();
+              $('input[name="perId"]:checked').each(function(){
+                  perIds.push($(this).val());
+              });
+
+              $.ajax({
+                  type: "post",
+                  url: "/role/addRoleDo",
+                  data: JSON.stringify({
+                      id: data.field.id,
+                      role: data.field.name,
+                      description: data.field.description,
+                      perIds: perIds
+                  }),
+                  contentType: "application/json;charset=UTF-8",
+                  success: function(res) {
+
+                      layer.alert("增加成功", {icon: 6});
+                          // 获得frame索引
+                      var index = parent.layer.getFrameIndex(window.name);
+                      //关闭当前frame
+                      parent.layer.close(index);
+
+                      return false;
+
+                  },
+                  error: function(data, status, e){
+                      alert(e+".......error");
+
+                  }
+              });
           });
-          
-          
         });
     </script>
     <script>var _hmt = _hmt || []; (function() {
@@ -126,7 +145,8 @@
         hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
-      })();</script>
+      })();
+    </script>
   </body>
 
 </html>

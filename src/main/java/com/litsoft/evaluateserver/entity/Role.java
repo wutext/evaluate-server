@@ -31,6 +31,13 @@ public class Role implements Serializable {
     @JoinTable(name="UserRole",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="userId")})
     private List<User> userInfos;// 一个角色对应多个用户
 
+    public Role() {
+    }
+
+    public Role(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -71,5 +78,10 @@ public class Role implements Serializable {
 
     public void setUserInfos(List<User> userInfos) {
         this.userInfos = userInfos;
+    }
+
+    public static void setPerIds(List<Integer> perIds) {
+
+
     }
 }

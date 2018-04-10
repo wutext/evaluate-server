@@ -11,9 +11,8 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/layui/css/font.css" />
     <link rel="stylesheet" href="/layui/css/xadmin.css" />
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js" charset="utf-8"></script>
     <script src="/layui/lib/layui/layui.js" charset="utf-8"></script>
-    <script src="/jquery/js/jquery-3.3.1.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/layui/js/index-a.js"></script>
 
 
@@ -62,13 +61,13 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/sys/adminList">
+                        <a _href="/sys/adminView">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>管理员列表</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="/sys/adminPageSearch">
+                        <a _href="/role/adminRoleView">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>角色管理</cite>
                         </a>
@@ -157,7 +156,7 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='./welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='/sys/desktop' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
         </div>
     </div>
