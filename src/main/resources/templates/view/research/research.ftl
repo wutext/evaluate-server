@@ -102,7 +102,7 @@
                                          class="formfield">
                                         <div class="fieldlabel"></div>
                                         <div class="fieldbody"><input required="" id="Survey.F23700001-2"
-                                                                      name="Survey.F23700001-2" class="fieldinput"
+                                                                      name="userName" class="fieldinput"
                                                                       type="text" /></div>
                                         <div class="fieldmessage" data-uniquemessage="输入的内容已经存在，请更改"></div>
                                     </div>
@@ -120,7 +120,7 @@
                                          class="formfield">
                                         <div class="fieldlabel"></div>
                                         <div class="fieldbody"><input required="" id="Survey.F23700001-3"
-                                                                      name="Survey.F23700001-3" class="fieldinput"
+                                                                      name="deptName" class="fieldinput"
                                                                       type="text"/></div>
                                         <div class="fieldmessage" data-uniquemessage="输入的内容已经存在，请更改"></div>
                                     </div>
@@ -131,15 +131,15 @@
                                                                        class="widgetmessage"></p></footer>
                             </article>
                             <article id="Survey.w23700001-2" data-displaytype="2" data-required="true"
-                                     data-type="textarea" tabindex="-1" class="formwidget textarea col50">
+                                     data-type="text" tabindex="-1" class="formwidget textarea col50">
                                 <header><h4>3. 所属公司<span class="required">*</span></h4></header>
                                 <div id="Survey.w23700001-2_body" class="widgetbody">
-                                    <div id="Survey.F23700001-4_body" data-required="true" data-type="textarea"
+                                    <div id="Survey.F23700001-4_body" data-required="true" data-type="text"
                                          class="formfield">
                                         <div class="fieldlabel"></div>
-                                        <div class="fieldbody"><textarea id="Survey.F23700001-4"
-                                                                         name="Survey.F23700001-4" min="0" max="1000000"
-                                                                         class="fieldtextarea" required=""></textarea>
+                                        <div class="fieldbody"><input id="Survey.F23700001-4"
+                                                                         name="companyName"
+                                                                         class="fieldinput" required=""></input>
                                         </div>
                                         <div class="fieldmessage" data-uniquemessage="输入的内容已经存在，请更改"></div>
                                     </div>
@@ -152,15 +152,15 @@
 <!--*****所属项目*********************************************************************************-->
 
                             <article id="Survey.w23700001-3" data-displaytype="2" data-required="true"
-                                     data-type="textarea" tabindex="-1" class="formwidget textarea col50">
+                                     data-type="text" tabindex="-1" class="formwidget textarea col50">
                                 <header><h4>4. 所属项目<span class="required">*</span></h4></header>
                                 <div id="Survey.w23700001-3_body" class="widgetbody">
-                                    <div id="Survey.F23700001-5_body" data-required="true" data-type="textarea"
+                                    <div id="Survey.F23700001-5_body" data-required="true" data-type="text"
                                          class="formfield">
                                         <div class="fieldlabel"></div>
-                                        <div class="fieldbody"><textarea id="Survey.F23700001-5"
-                                                                         name="Survey.F23700001-5" min="0" max="1000000"
-                                                                         class="fieldtextarea" required=""></textarea>
+                                        <div class="fieldbody"><input id="Survey.F23700001-5"
+                                                                         name="projectName"
+                                                                         class="fieldinput" required=""></input>
                                         </div>
                                         <div class="fieldmessage" data-uniquemessage="输入的内容已经存在，请更改"></div>
                                     </div>
@@ -191,7 +191,8 @@
 
                                 <div id="progress_startone"  class="block clearfix" >
                                         <div class="star_score"></div>
-                                        <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
+                                        <p style="float:left;">您的评分：<span class="fenshu" id="progressCompletion"></span> 分</p>
+                                        <input type="hidden" id="progressCompletionScoreString" name="progressCompletionScoreString"/>
 
                                 </div>
 
@@ -216,7 +217,8 @@
 
                                 <div id="work_load"  class="block clearfix" >
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
+                                    <p style="float:left;">您的评分：<span class="fenshu" id="workload"></span> 分</p>
+                                    <input type="hidden" id="workloadScoreString" name="workloadScoreString"/>
 
                                 </div>
 
@@ -238,15 +240,15 @@
 
                                 <div id="work_quality"  class="block clearfix" >
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
-
+                                    <p style="float:left;">您的评分：<span class="fenshu" id="workQuality"></span> 分</p>
+                                    <input type="hidden" id="workQualityScoreString" name="workQualityScoreString"/>
                                 </div>
 
                             </article>
  <!-- *******工作效率********************************************************* -->
                             <article id="Survey.w23700001-7" data-displaytype="2" data-required="true"
                                      data-type="textarea" tabindex="-1" class="formwidget textarea col50">
-                                <header><h4>8. 我察觉同事和领导的工作失误<span class="required">*</span></h4></header>
+                                <header><h4>8. 工作效率<span class="required">*</span></h4></header>
                                 <div id="Survey.w23700001-7_body" class="widgetbody">
                                     <div id="Survey.F23700001-9_body" data-required="true" data-type="textarea"
                                          class="formfield">
@@ -259,8 +261,8 @@
 
                                 <div id="work_efficiency"  class="block clearfix" >
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
-
+                                    <p style="float:left;">您的评分：<span class="fenshu" id="workEfficiency"></span> 分</p>
+                                    <input type="hidden" id="workEfficiencyScoreString" name="workEfficiencyScoreString"/>
                                 </div>
 
                             </article>
@@ -281,8 +283,8 @@
 
                                 <div id="working_attitude"  class="block clearfix" >
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
-
+                                    <p style="float:left;">您的评分：<span class="fenshu" id="workingAttitude"></span> 分</p>
+                                    <input type="hidden" id="workingAttitudeScoreString" name="workingAttitudeScoreString"/>
                                 </div>
 
                             </article>
@@ -290,7 +292,7 @@
 
                             <article id="Survey.w23700001-9" data-displaytype="2" data-required="true"
                                      data-type="textarea" tabindex="-1" class="formwidget textarea col50">
-                                <header><h4>10. 我的发展规划和需要的帮助<span class="required">*</span></h4></header>
+                                <header><h4>10. 出勤率<span class="required">*</span></h4></header>
                                 <div id="Survey.w23700001-9_body" class="widgetbody">
                                     <div id="Survey.F23700001-11_body" data-required="true" data-type="textarea"
                                          class="formfield">
@@ -303,8 +305,8 @@
 
                                 <div id="attendance"  class="block clearfix" >
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
-
+                                    <p style="float:left;">您的评分：<span class="fenshu" id="attendance1"></span> 分</p>
+                                    <input type="hidden" id="attendanceScoreString" name="attendanceScoreString"/>
                                 </div>
 
                             </article>
@@ -324,8 +326,8 @@
 
                                 <div id="progress_deviation"  class="block clearfix" >
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
-
+                                    <p style="float:left;">您的评分：<span class="fenshu"  id="progressDeviation"></span> 分</p>
+                                    <input type="hidden" id="progressDeviationScoreString" name="progressDeviationScoreString"/>
                                 </div>
 
                             </article>
@@ -345,8 +347,8 @@
 
                                 <div id="cooperate_work"  class="block clearfix" >
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu"></span> 分</p>
-
+                                    <p style="float:left;">您的评分：<span class="fenshu" id="workCooperate"></span> 分</p>
+                                    <input type="hidden" id="workCooperateScoreString" name="workCooperateScoreString"/>
                                 </div>
 
                             </article>
@@ -378,7 +380,7 @@
                                             <div class="fieldlabel"></div>
                                             <div class="fieldbody" style="">
                                                 <input required=""  style="width:200px;" id="manager_sign"
-                                                       name="sign" class="fieldinput"
+                                                       name="signName" class="fieldinput"
                                                        type="text" value="" />
                                             </div>
                                         </div>
@@ -393,7 +395,7 @@
 
                                             <div class="fieldbody">
                                                 <input required=""  style="width:223px;" id="data"
-                                                       name="sign" class="fieldinput date_picker"
+                                                       name="create" class="fieldinput date_picker"
                                                        type="text" value="" />
                                             </div>
                                         </div>
@@ -453,6 +455,17 @@
                     $(function(){
 
                         $('.date_picker').date_input();
+                         $('#Survey_submit').click(function(){
+                             $('#progressCompletionScoreString').val($('#progressCompletion').html());
+                             $('#workloadScoreString').val($('#workload').html());
+                             $('#workQualityScoreString').val($('#workQuality').html());
+                             $('#workEfficiencyScoreString').val($('#workEfficiency').html());
+                             $('#workingAttitudeScoreString').val($('#workingAttitude').html());
+                             $('#attendanceScoreString').val($('#attendance1').html());
+                             $('#progressDeviationScoreString').val($('#progressDeviation').html());
+                             $('#workCooperateScoreString').val($('#workCooperate').html());
+                             //$(this).submit();
+                         });
 
                     })
 
