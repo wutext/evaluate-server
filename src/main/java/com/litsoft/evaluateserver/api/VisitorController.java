@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,8 +55,11 @@ public class VisitorController {
 
     //员工考核页面
     @RequestMapping("/research")
-    public String visit() {
-
+    public String visit(HttpServletRequest request, Model model) {
+        String name = request.getParameter("name");
+        String role = request.getParameter("role");
+        model.addAttribute("userName", name);
+        model.addAttribute("type", role);
         return "/view/research/research";
     }
 
