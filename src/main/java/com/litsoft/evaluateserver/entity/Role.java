@@ -28,7 +28,8 @@ public class Role implements Serializable {
 
     // 用户 - 角色关系定义;
     @ManyToMany
-    @JoinTable(name="UserRole",joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="userId")})
+    @JoinTable(name="UserRole",
+        joinColumns={@JoinColumn(name="roleId")},inverseJoinColumns={@JoinColumn(name="userId")})
     private List<User> userInfos;// 一个角色对应多个用户
 
     public Role() {

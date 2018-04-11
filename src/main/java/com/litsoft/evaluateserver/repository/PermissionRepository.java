@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.PostRemove;
+import java.util.List;
 
 @Repository
 public interface PermissionRepository extends JpaRepository<Permission, Integer> {
@@ -14,4 +14,14 @@ public interface PermissionRepository extends JpaRepository<Permission, Integer>
     @Modifying
     @Query(value = "delete from role_permission where permission_id = ?1", nativeQuery = true)
     int deleteRolePermissionByPermissionId(Integer userId);
+
+    @Query(value = "select distinct p.* from permission p " +
+        " inner join role_permission rp on p.id = rp.permission_id " +
+        " inner join role r on r.id = rp.role_id" +
+        " where r.id in (" +
+        " select r.id from user u " +
+        " left join user_role ur on u.id = ur.user_id " +
+        " left join role r on r.id = ur.role_id" +
+        " where u.id=?1 and status=1 and resource_type='menu' order by sort)", nativeQuery = true)
+    List<Permission> findMenuByUserId(Integer uId);
 }

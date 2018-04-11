@@ -49,11 +49,19 @@ public class SysPermissionController {
     }
 
     @RequestMapping("/perListView")
-    public String addPerm() {
+    public String addPerm(Model model) {
         List<Permission> perList = permissionService.findMenuByUserId();
-        System.out.println("dsjk");
-        String s = "";
+        model.addAttribute("perList",perList);
         return  "/view/front/admin-rule";
+    }
+
+    @ResponseBody
+    @RequestMapping("/addPermView")
+    public String addPermView(Model model,Integer id) {
+
+        Permission permission = permissionService.findById(id);
+        model.addAttribute("permission", permission);
+        return "/view/front/per-add";
     }
 
     @ResponseBody

@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,5 +128,26 @@ public class Permission implements Serializable {
 
     public void setPermissionList(List<Permission> permissionList) {
         this.permissionList = permissionList;
+    }
+
+
+    @Transient
+    public static void sortList(List<Permission> list, List<Permission> sourcelist, Integer parentId){
+        for (int i=0; i<sourcelist.size(); i++){
+            Permission p = sourcelist.get(i);
+            if (p.getPar()!=null && p.getPar().getId()!=null
+                && p.getPar().getId().equals(parentId)){
+                list.add(p);
+                // 判断是否还有子节点, 有则继续获取子节点
+                for (int j=0; j<sourcelist.size(); j++){
+                    Permission child = sourcelist.get(j);
+                    if (child.getPar()!=null && child.getPar().getId()!=null
+                        && child.getPar().getId().equals(p.getId())){
+                        sortList(list, sourcelist, p.getId());
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

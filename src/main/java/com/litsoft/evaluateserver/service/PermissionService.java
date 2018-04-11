@@ -6,8 +6,12 @@ import com.litsoft.evaluateserver.repository.PermissionRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +19,9 @@ import java.util.List;
 
 @Service
 public class PermissionService {
+
+    @Autowired
+    private EntityManager entityManager;
 
     @Autowired
     private PermissionRepository permissionRepository;
@@ -79,8 +86,9 @@ public class PermissionService {
 
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
-        List<Permission> permissionList = new ArrayList<>();
-
+        List<Permission> perList = new ArrayList();
+        List<Permission> permissionList = permissionRepository.findMenuByUserId(user.getId());
+        Permission.sortList(perList, permissionList, 1);
         return permissionList;
     }
 }
