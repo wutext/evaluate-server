@@ -3,6 +3,7 @@ package com.litsoft.evaluateserver.api;
 import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
+import com.litsoft.evaluateserver.entity.sysVo.PerVo;
 import com.litsoft.evaluateserver.service.PageQueryService;
 import com.litsoft.evaluateserver.service.PermissionService;
 import com.litsoft.evaluateserver.service.RoleService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +57,6 @@ public class SysPermissionController {
         return  "/view/front/admin-rule";
     }
 
-    @ResponseBody
     @RequestMapping("/addPermView")
     public String addPermView(Model model,Integer id) {
 
@@ -66,8 +67,10 @@ public class SysPermissionController {
 
     @ResponseBody
     @RequestMapping("/addPermDo")
-    public String addPermDo(@RequestBody Permission permParam) {
-        return permissionService.insert(permParam)? "success" : "filed";
+    public String addPermDo(@RequestBody PerVo permission) {
+        System.out.println("come in");
+        /*return permissionService.insert(permParam)? "success" : "filed";*/
+        return "success";
     }
 
     @RequestMapping("roleDetail")

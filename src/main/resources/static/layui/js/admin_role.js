@@ -55,6 +55,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                         alert(e);
                     }
                 });
+                return false;
             });
         } else if(layEvent === 'edit'){ //编辑
             roleOperation("编辑", "/role/roleEdit?id=" + data.id);
@@ -96,6 +97,7 @@ function deleteAllDo(ids) {
             }
         });
         location.replace(location.href);
+        return false;
     });
 
 }

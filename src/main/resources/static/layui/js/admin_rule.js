@@ -56,6 +56,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
             }
 
         });
+        return false;
     });
 
     //编辑和单个删除
@@ -92,6 +93,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                         }
                     }
                 });
+                return false;
             });
         } else if(layEvent === 'edit' || layEvent === 'detail'){ //编辑
             roleOperation("编辑", "/sys/userEdit?id=" + data.id+"&operate=edit");
