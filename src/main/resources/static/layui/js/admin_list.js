@@ -125,8 +125,12 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
 
 
 function getUrl(name, number, cloneUrl) {
+
+    <!-- java.net.URLEncoder.encode(url)-->
+
     var url= cloneUrl+"/visit/research?name="+name+"&role="+number;
-    layer.alert(url, {
+    var urlEncode = encodeURI(url);
+    layer.alert(urlEncode, {
         area: ['300px', '200px']
         ,skin: 'layui-layer-lan'
         ,closeBtn: 0

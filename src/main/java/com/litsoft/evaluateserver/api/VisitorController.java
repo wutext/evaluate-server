@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("/visit")
@@ -56,8 +57,20 @@ public class VisitorController {
     //员工考核页面
     @RequestMapping("/research")
     public String visit(HttpServletRequest request, Model model) {
+
+
+        request.getPathInfo();
         String name = request.getParameter("name");
         String role = request.getParameter("role");
+
+        //***********************************************************
+
+        String decodeURL = java.net.URLDecoder.decode("http%3A%2F%2Flocalhost%3A8086%2Fvisit%2Fresearch%3Fname%3Dadmin%26role%3D");
+        System.out.println("Decoded URL: "+decodeURL);
+
+
+
+        //***********************************************************
         model.addAttribute("userName", name);
         model.addAttribute("type", role);
         return "/view/research/research";
