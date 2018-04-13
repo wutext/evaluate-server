@@ -128,15 +128,13 @@
                       var index = parent.layer.getFrameIndex(window.name);
                       //关闭当前frame
                       parent.layer.close(index);
-
-                      return false;
-
                   },
                   error: function(data, status, e){
                       alert(e+".......error");
 
                   }
               });
+              return false;
           });
         });
     </script>

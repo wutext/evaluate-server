@@ -21,7 +21,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
             layer.msg('请选择数据');
             return;
         }
-        var ids='';
+        var ids="";
         for(var i=0;i<data.length;i++){
             if(i!=(data.length-1)){
                 ids+=data[i].id+",";

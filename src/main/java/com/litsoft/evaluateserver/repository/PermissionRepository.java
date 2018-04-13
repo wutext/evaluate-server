@@ -24,4 +24,9 @@ public interface PermissionRepository extends JpaRepository<Permission, Integer>
         " left join role r on r.id = ur.role_id" +
         " where u.id=?1 and status=1 and resource_type='menu' order by sort)", nativeQuery = true)
     List<Permission> findMenuByUserId(Integer uId);
+
+    @Modifying
+    @Query(value = "update permission p set p.parent_ids = ?1 where p.id=?2", nativeQuery = true)
+    void updatePermissionById(String parentIds, Integer id);
+
 }

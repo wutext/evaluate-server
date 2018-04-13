@@ -12,16 +12,14 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                 ,table = layui.table
                 ,$ = layui.$;
 
-    //新增user
+    //新增permission
     form.on('submit(add)', function(data){
 
-        var strIds=new Array();
-        $('input[name="description"]:checked').each(function(){
-            strIds.push($(this).val());
-        });
+
+        layer.alert(data.field+"...");
         $.ajax({
             type: "post"
-            ,url: "/sys/addUserDo"
+            ,url: ""
             ,data: JSON.stringify({
                 "id":  data.field.id
                 ,"username": data.field.username
@@ -65,23 +63,16 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
-        var curWwwPath = window.document.location.href;
-        //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
-        var pathName = window.document.location.pathname;
-        var pos = curWwwPath.indexOf(pathName);
-        var cloneUrl= curWwwPath.substring(0, pos)
-
-        if(layEvent === 'detail'){ //查看
-
-            addOperation("编辑", "/sys/userEdit?id=" + data.id+"&operate=detail");
-        } else if(layEvent === 'del'){ //删除
+        if(layEvent === 'del'){ //删除
             layer.confirm('是否要删除数据', function(index){
                 obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+
+                alert(data.id+"................");
                 layer.close(index);
                 //向服务端发送删除指令
                 $.ajax({
                     type: "post",
-                    url: "/sys/deleteSingleUser",
+                    url: "/per/deleteSinglePerm",
                     data: JSON.stringify({"id": data.id}),
                     contentType: "application/json;charset=UTF-8",
                     success: function(res) {
@@ -95,14 +86,6 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                 });
                 return false;
             });
-        } else if(layEvent === 'edit' || layEvent === 'detail'){ //编辑
-            roleOperation("编辑", "/sys/userEdit?id=" + data.id+"&operate=edit");
-        }else if(layEvent === 'clone1'){ //编辑
-            getUrl(data.username, 1, cloneUrl);
-        }else if(layEvent === 'clone2'){ //编辑
-            getUrl(data.username, 2, cloneUrl);
-        }else if(layEvent === 'clone3'){ //编辑
-            getUrl(data.username, 3, cloneUrl);
         }
 
     });
@@ -166,6 +149,30 @@ function roleOperation(title,url,w,h){
         });
     });
 
+}
+
+function delPerm(url) {
+
+    layer.confirm('是否要删除数据', function(index){
+
+        layer.close(index);
+        //向服务端发送删除指令
+        $.ajax({
+            type: "post",
+            url: url,
+            data: {},
+            contentType: "application/json;charset=UTF-8",
+            success: function(res) {
+
+                if(res == "success") {
+                    layer.msg('删除成功', {
+                        time: 10000, //20s后自动关闭
+                    });
+                }
+            }
+        });
+        return false;
+    });
 }
 
 function deleteAllDo(ids) {

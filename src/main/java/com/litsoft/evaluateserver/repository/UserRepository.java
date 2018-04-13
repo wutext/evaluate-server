@@ -23,4 +23,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     int deleteUserRoleByUserId(Integer userId);
 
     Page<User> findAll(Specification<User> spec, Pageable pageable);
+
 }

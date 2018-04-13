@@ -67,20 +67,27 @@
                             <td>${perm.sort!""}</td>
                             <td>${perm.resourceType!""}</td>
                             <td>${perm.permission!""}</td>
+
+
                             <td>
+                            <#if perm.id!=1>
                                 <!-- 修改 -->
-                                <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('角色添加', '/per/addPermView')" lay-event="detail">
+                                <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('权限修改', '/per/permEdit?id=${perm.id}')" lay-event="edit">
                                     <i class="layui-icon">&#xe642;</i>
                                 </a>
+
                                 <!-- 删除 -->
-                                <a class="layui-btn layui-btn-danger" lay-event="edit" >
+                                <a class="layui-btn layui-btn-danger" lay-event="del" onclick="delPerm('/per/deleteSinglePerm?id=${perm.id}')" >
                                     <i class="layui-icon">&#xe640;</i>
                                 </a>
+                            </#if>
                                 <!-- 添加 -->
-                                <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="addOperation('添加下级菜单', '/per/addPermView?id=${perm.id}')" lay-event="del">
+                                <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="addOperation('添加下级菜单', '/per/addPermView?id=${perm.id}')" lay-event="add">
                                     <i class="layui-icon">&#xe61f</i>
                                 </a>
                             </td>
+
+
                         </tr>
                     <#--</#if>-->
                 </#list>

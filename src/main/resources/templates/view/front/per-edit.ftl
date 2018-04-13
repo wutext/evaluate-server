@@ -29,9 +29,9 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="hidden" id="parId" name="parId" required=""
-                           autocomplete="off" class="layui-input" value="${permission.id}"/>
+                           autocomplete="off" class="layui-input" value="${perm.par.id!""}"/>
 
-                    <input type="text" autocomplete="off" readonly="readonly" class="layui-input"value="${permission.name!""}" />
+                    <input type="text" autocomplete="off" readonly="readonly" class="layui-input"value="${perm.par.name!""}" />
                 </div>
             </div>
 
@@ -40,8 +40,11 @@
                     <span class="x-red">*</span>名称
                 </label>
                 <div class="layui-input-inline">
+                    <input type="hidden" id="id" name="id" required=""
+                           autocomplete="off" class="layui-input" value="${perm.id}"/>
+
                     <input type="text" id="name" name="name" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" />
+                           autocomplete="off" class="layui-input" value="${perm.name}"/>
                 </div>
             </div>
 
@@ -51,7 +54,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="url" name="url" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" />
+                           autocomplete="off" class="layui-input" value="${perm.url}"/>
                 </div>
             </div>
 
@@ -61,7 +64,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="resourceType" name="resourceType" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" />
+                           autocomplete="off" class="layui-input" value="${perm.resourceType}"/>
                 </div>
             </div>
 
@@ -71,7 +74,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="permission" name="permission" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" />
+                           autocomplete="off" class="layui-input" value="${perm.permission}"/>
                 </div>
             </div>
 
@@ -81,12 +84,12 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="sort" name="sort" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" />
+                           autocomplete="off" class="layui-input" value="${perm.sort}"/>
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <button  class="layui-btn" lay-submit="" lay-filter="add">增加</button>
+                <button  class="layui-btn" lay-submit="" lay-filter="add">修改</button>
             </div>
         </form>
     </div>
@@ -115,6 +118,7 @@
 
               var params = {};
               params.parId = data.field.parId;
+              params.id = data.field.id;
               params.name = data.field.name;
               params.permission = data.field.permission;
               params.resourceType = data.field.resourceType;
@@ -127,15 +131,26 @@
                   contentType: "application/json;charset=UTF-8",
                   success: function(res) {
 
-                      layer.alert("增加成功", {icon: 6});
-                          // 获得frame索引
-                      var index = parent.layer.getFrameIndex(window.name);
-                      //关闭当前frame
-                      parent.layer.close(index);
+                      if(res=="success") {
+                          layer.alert("操作成功", {icon: 6},function () {
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                          });
+                      }else {
+                          layer.alert("操作失败", {icon: 6},function () {
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                          });
+                      }
+
 
                   },
                   error: function(data, status, e){
-                      alert(data+"......."+status+"....."+e );
+                      alert(e);
 
                   }
               });

@@ -99,7 +99,8 @@ public class RoleService {
 
         Role role = new Role();
         if(roleVo.getId()!=null) {
-            role.setId(roleVo.getId());
+            /*role.setId(roleVo.getId())*/
+            role = roleRepository.findOne(roleVo.getId());
         }
         role.setDescription(roleVo.getDescription());
         role.setRole(roleVo.getRole());
@@ -110,11 +111,6 @@ public class RoleService {
             permissionList.add(permission);
         });
         role.setPermissions(permissionList);
-
-        //添加user
-        /*List<User> userList = new ArrayList<>();
-
-        role.setUserInfos();*/
         return role;
     }
 

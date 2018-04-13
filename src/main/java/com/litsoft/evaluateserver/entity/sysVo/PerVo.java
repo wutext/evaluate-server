@@ -2,23 +2,32 @@ package com.litsoft.evaluateserver.entity.sysVo;
 
 public class PerVo {
 
+    private Integer parId;
+    private Integer id;
     private String name;
-    private String parId;
-    private String permission;
+    private String permission;  //权限标识
     private String resourceType;
-    private String sort;
+    private Integer sort;
     private String url;
 
     public PerVo() {
     }
 
-    public PerVo(String name, String id, String permission, String resourceType, String sort, String url) {
+    public PerVo(String name, Integer id, String permission, String resourceType, Integer sort, String url) {
         this.name = name;
         this.parId = id;
         this.permission = permission;
         this.resourceType = resourceType;
         this.sort = sort;
         this.url = url;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -29,11 +38,11 @@ public class PerVo {
         this.name = name;
     }
 
-    public String getParId() {
+    public Integer getParId() {
         return parId;
     }
 
-    public void setParId(String parId) {
+    public void setParId(Integer parId) {
         this.parId = parId;
     }
 
@@ -53,11 +62,11 @@ public class PerVo {
         this.resourceType = resourceType;
     }
 
-    public String getSort() {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(String sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 

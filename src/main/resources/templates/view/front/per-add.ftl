@@ -127,11 +127,21 @@
                   contentType: "application/json;charset=UTF-8",
                   success: function(res) {
 
-                      layer.alert("增加成功", {icon: 6});
-                          // 获得frame索引
-                      var index = parent.layer.getFrameIndex(window.name);
-                      //关闭当前frame
-                      parent.layer.close(index);
+                      if(res=="success") {
+                          layer.alert("操作成功", {icon: 6},function () {
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                          });
+                      }else {
+                          layer.alert("操作失败", {icon: 6},function () {
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                          });
+                      }
 
                   },
                   error: function(data, status, e){

@@ -1,19 +1,42 @@
 package com.litsoft.evaluateserver.api;
 
+import com.litsoft.evaluateserver.entity.Permission;
+import com.litsoft.evaluateserver.entity.User;
+import com.litsoft.evaluateserver.service.PermissionService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    private PermissionService permissionService;
     @RequestMapping({"/","/index"})
-    public String index(){
+    public String index(Model model){
+
+        User user = permissionService.getShiroUser();
+        List<Permission> permissionList = permissionService.findMenuByUserId();
+        model.addAttribute("permissionList", permissionList);
+        model.addAttribute("user", user);
         return"/view/front/index";
     }
+
+   /* @RequestMapping("/urlChild")
+    public String findUrlChild(Model model) {
+        List<Permission> permissionList = permissionService.findMenuByUserId();
+        return model;
+    }*/
 
     @RequestMapping("/login")
     public String login(HttpServletRequest request, Map<String, Object> map) throws Exception{

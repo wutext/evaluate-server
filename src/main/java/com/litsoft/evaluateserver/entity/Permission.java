@@ -26,10 +26,11 @@ public class Permission implements Serializable {
     @Column(columnDefinition="enum('menu','button')")
     private String resourceType;//资源类型，[menu|button]
     private String url;//资源路径.
-    private String permission; //权限字符串,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
+    private String permission; //权限标识,menu例子：role:*，button例子：role:create,role:update,role:delete,role:view
     private String parentIds; //父编号列表
-    private Integer sort;
-    private String status;
+    private Integer sort; //排序
+    private String status; //状态
+    private String icon;
     @ManyToMany(fetch= FetchType.EAGER)
     @JoinTable(name="RolePermission",joinColumns={@JoinColumn(name="permissionId")},inverseJoinColumns={@JoinColumn(name="roleId")})
     private List<Role> roles;
@@ -39,7 +40,7 @@ public class Permission implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "par_id")
-    private List<Permission> permissionList = new ArrayList();
+    private List<Permission> permissionListChild = new ArrayList();
 
 
     public Integer getId() {
@@ -122,12 +123,20 @@ public class Permission implements Serializable {
         this.roles = roles;
     }
 
-    public List<Permission> getPermissionList() {
-        return permissionList;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setPermissionList(List<Permission> permissionList) {
-        this.permissionList = permissionList;
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public List<Permission> getPermissionListChild() {
+        return permissionListChild;
+    }
+
+    public void setPermissionListChild(List<Permission> permissionListChild) {
+        this.permissionListChild = permissionListChild;
     }
 
 
@@ -150,4 +159,12 @@ public class Permission implements Serializable {
             }
         }
     }
+
+
+    @Transient
+    public void setParId(Integer parId) {
+        this.par = new Permission();
+        this.par.setId(parId);
+    }
+
 }

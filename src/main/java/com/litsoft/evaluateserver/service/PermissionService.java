@@ -2,6 +2,7 @@ package com.litsoft.evaluateserver.service;
 
 import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.User;
+import com.litsoft.evaluateserver.entity.sysVo.PerVo;
 import com.litsoft.evaluateserver.repository.PermissionRepository;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -84,11 +86,44 @@ public class PermissionService {
 
     public List<Permission> findMenuByUserId() {
 
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
+        User user = getShiroUser();
         List<Permission> perList = new ArrayList();
         List<Permission> permissionList = permissionRepository.findMenuByUserId(user.getId());
         Permission.sortList(perList, permissionList, 1);
         return permissionList;
+    }
+
+    @Transactional
+    public Permission savePermission(PerVo perVo) {
+
+        Permission permission = getPermission(perVo);
+        Permission backPermission = permissionRepository.save(permission);
+        if(perVo.getId()==null && !ObjectUtils.isEmpty(backPermission)) {
+            String parent_Ids = permission.getPar().getId()+","+backPermission.getId();
+            permissionRepository.updatePermissionById(parent_Ids, backPermission.getId());
+        }
+        return permission;
+    }
+
+    private Permission getPermission(PerVo perVo) {
+
+        Permission permission = new Permission();
+        if(perVo.getId()!=null) {
+            permission = permissionRepository.findOne(perVo.getId());
+        }
+        permission.setName(perVo.getName());
+        permission.setParId(perVo.getParId());
+        permission.setResourceType(perVo.getResourceType());
+        permission.setUrl(perVo.getUrl());
+        permission.setPermission(perVo.getPermission());
+        permission.setSort(perVo.getSort());
+        permission.setStatus("1");
+        return permission;
+    }
+
+    public User getShiroUser() {
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPrincipal();
+        return user;
     }
 }

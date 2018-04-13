@@ -21,7 +21,9 @@
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <style>
 
+
         body{overflow-y: scroll;}
+
     </style>
     <![endif]-->
 </head>
@@ -52,15 +54,16 @@
         <span class="x-right" style="line-height:40px">共有数据： 条</span>
     </xblock>
 
-    <table class="layui-table" lay-size="sm" id="table_user" lay-filter="table_demo"></table>
+
+    <table class="layui-table"  id="table_user" lay-filter="table_demo"></table>
 
 </div>
 
 
 <script type="text/html" id="toolBar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">
+    <#--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">
         <i class="layui-icon">&#xe63c;</i>
-    </a>
+    </a>-->
     <a class="layui-btn layui-btn-xs" lay-event="edit" >
         <i class="layui-icon">&#xe642;</i>
     </a>

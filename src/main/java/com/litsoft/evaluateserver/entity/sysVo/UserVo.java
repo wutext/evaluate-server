@@ -13,6 +13,11 @@ public class UserVo {
     public UserVo() {
     }
 
+    public UserVo(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
     public UserVo(Integer id, String username, String state) {
         this.id = id;
         this.username = username;

@@ -101,7 +101,8 @@ public class SysUserController {
 
     @ResponseBody
     @RequestMapping("/deleteUsers")
-    public String deleteUsers(List<Long> ids) {
+    public String deleteUsers(@RequestBody String ids) {
+
         userService.deleteIds(ids);
         return "success";
     }

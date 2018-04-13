@@ -12,7 +12,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         ,url: '/sys/adminList?department='+$("#department").val()+"&username="+$("#username").val()
         ,cellMinWidth: 80
         ,cols: [[ //表头
-            {checkbox:true, fixed:'left', sort: true}
+            {field:'checkbox',checkbox:true, fixed:'left', sort: true}
             ,{field:'id', title:'ID', width:80, sort: true}
             ,{field:'username', title:'用户名',width:150, sort: true}
             ,{field:'phone', title:'电话/手机',width:80,sort: true}
@@ -192,7 +192,7 @@ function deleteAllDo(ids) {
         $.ajax({
             type: "post",
             url: "/sys/deleteUsers",
-            data: JSON.stringify({ids:ids}),
+            data: JSON.stringify(ids),
             contentType: "application/json;charset=UTF-8",
             success: function(res) {
                 layer.msg('删除成功', {
@@ -202,8 +202,8 @@ function deleteAllDo(ids) {
             },error: function(xml, status, e) {
                 alert(e+"error");
             }
+
         });
-        location.replace(location.href);
         return false;
     });
 }
