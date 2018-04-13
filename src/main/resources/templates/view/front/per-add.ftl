@@ -45,6 +45,7 @@
                 </div>
             </div>
 
+            <#if permission.id!=1>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>链接
@@ -54,7 +55,7 @@
                            autocomplete="off" class="layui-input" />
                 </div>
             </div>
-
+            </#if>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>权限类型
@@ -80,7 +81,7 @@
                     <span class="x-red">*</span>排序
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="sort" name="sort" required="" lay-verify="required"
+                    <input type="text" id="sort" name="sort" required="" lay-verify="number"
                            autocomplete="off" class="layui-input" />
                 </div>
             </div>
@@ -109,6 +110,7 @@
                     return '两次密码不一致';
                 }
             }
+            ,number: [/^[1-9]\d*$/, '只能填写数字']
           });
 
           form.on('submit(add)', function(data){

@@ -29,4 +29,6 @@ public interface PermissionRepository extends JpaRepository<Permission, Integer>
     @Query(value = "update permission p set p.parent_ids = ?1 where p.id=?2", nativeQuery = true)
     void updatePermissionById(String parentIds, Integer id);
 
+    @Query(value="select id from permission where par_id=?1",nativeQuery = true)
+    List<Integer> findChildId(Integer id);
 }

@@ -8,8 +8,10 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.rest.webmvc.ControllerUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.EntityManager;
@@ -125,5 +127,18 @@ public class PermissionService {
         Subject subject = SecurityUtils.getSubject();
         User user = (User) subject.getPrincipal();
         return user;
+    }
+
+    @Transactional
+    public boolean deletePermission(Integer id) {
+        List<Integer> childId = permissionRepository.findChildId(id);
+        boolean delTrue = delete(id);
+        if(delTrue) {
+           if(!CollectionUtils.isEmpty(childId)) {
+               childId.forEach(cId -> delete(cId));
+           }
+           return true;
+        }
+        return false;
     }
 }

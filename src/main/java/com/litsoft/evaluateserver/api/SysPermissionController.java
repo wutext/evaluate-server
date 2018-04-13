@@ -102,6 +102,6 @@ public class SysPermissionController {
     @ResponseBody
     @RequestMapping("/deleteSinglePerm")
     public String deletePerm(@RequestParam("id") Integer id) {
-        return permissionService.delete(id) ? "success": "filed";
+        return permissionService.deletePermission(id) ? "success": "filed";
     }
 }

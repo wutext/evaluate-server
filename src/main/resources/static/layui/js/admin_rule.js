@@ -153,7 +153,7 @@ function roleOperation(title,url,w,h){
 
 function delPerm(url) {
 
-    layer.confirm('是否要删除数据', function(index){
+    layer.confirm('是否要删除数据,其子也将被删除', function(index){
 
         layer.close(index);
         //向服务端发送删除指令

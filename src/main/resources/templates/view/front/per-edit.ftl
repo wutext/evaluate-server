@@ -48,6 +48,7 @@
                 </div>
             </div>
 
+            <#if permission.id!=1>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>链接
@@ -57,7 +58,7 @@
                            autocomplete="off" class="layui-input" value="${perm.url}"/>
                 </div>
             </div>
-
+            </#if>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>权限类型
