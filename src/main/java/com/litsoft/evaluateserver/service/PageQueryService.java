@@ -15,4 +15,6 @@ public interface PageQueryService {
     Page findRolePageSearch(QueryParam param);
 
     Page findPermissionNoCriteria(QueryParam param);
+
+    Page queryUserScoreByPage(QueryParam param);
 }

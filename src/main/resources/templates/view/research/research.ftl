@@ -75,17 +75,17 @@
         <div class="header">
         </div>
         <section class="contentwrap">
-            <div class="logo" id="Survey_logo">
-                <div class="logotitle">
-                    <!--<img src="/researchstyle/logo_48.png" alt="logo"/>-->
-                    <img src="/image/lit.png" alt="logo"/>
-                </div>
-            </div>
+            <#--<div class="logo" id="Survey_logo">-->
+                <#--<div class="logotitle">-->
+                    <#--<!--<img src="/researchstyle/logo_48.png" alt="logo"/>&ndash;&gt;-->
+                    <#--<img src="/image/lit.png" alt="logo"/>-->
+                <#--</div>-->
+            <#--</div>-->
             <div class="content">
                 <article class="container">
                     <header id="Survey_header" data-role="header" class="formheader">
                         <h1>
-                            外包服务人员月度考评表
+                            ERP员工月度考评表
                         </h1>
                     </header>
 
@@ -191,7 +191,8 @@
 
                                 <div id="progress_startone" class="block clearfix">
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu" id="progressCompletion"></span> 分
+                                    <p style="float:left;display:none">您的评分：<span class="fenshu" id="progressCompletion"></span> 分
+                                        <input type="hidden" value="30"/>
                                     </p>
                                     <input type="hidden" id="progressCompletionScoreString"
                                            name="progressCompletionScoreString"/>
@@ -219,7 +220,9 @@
 
                                 <div id="work_load" class="block clearfix">
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu" id="workload"></span> 分</p>
+                                    <p style="float:left;display:none">您的评分：<span class="fenshu" id="workload"></span> 分
+                                        <input type="hidden" value="10"/>
+                                    </p>
                                     <input type="hidden" id="workloadScoreString" name="workloadScoreString"/>
 
                                 </div>
@@ -242,7 +245,9 @@
 
                                 <div id="work_quality" class="block clearfix">
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu" id="workQuality"></span> 分</p>
+                                    <p style="float:left;display:none">您的评分：<span class="fenshu" id="workQuality"></span> 分
+                                        <input type="hidden" value="20"/>
+                                    </p>
                                     <input type="hidden" id="workQualityScoreString" name="workQualityScoreString"/>
                                 </div>
 
@@ -263,7 +268,9 @@
 
                                 <div id="work_efficiency" class="block clearfix">
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu" id="workEfficiency"></span> 分</p>
+                                    <p style="float:left;display:none">您的评分：<span class="fenshu" id="workEfficiency"></span> 分
+                                        <input type="hidden" value="10"/>
+                                    </p>
                                     <input type="hidden" id="workEfficiencyScoreString"
                                            name="workEfficiencyScoreString"/>
                                 </div>
@@ -286,9 +293,14 @@
 
                                 <div id="working_attitude" class="block clearfix">
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu" id="workingAttitude"></span> 分</p>
+                                    <p style="float:left;display:none">您的评分：
+                                        <span class="fenshu" id="workingAttitude"></span> 分
+                                        <input type="hidden" value="5"/>
+                                    </p>
                                     <input type="hidden" id="workingAttitudeScoreString"
                                            name="workingAttitudeScoreString"/>
+
+
                                 </div>
 
                             </article>
@@ -309,7 +321,9 @@
 
                                 <div id="attendance" class="block clearfix">
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu" id="attendance1"></span> 分</p>
+                                    <p style="float:left;display:none">您的评分：<span class="fenshu" id="attendance1"></span> 分
+                                        <input type="hidden" value="5"/>
+                                    </p>
                                     <input type="hidden" id="attendanceScoreString" name="attendanceScoreString"/>
                                 </div>
 
@@ -330,7 +344,8 @@
 
                                 <div id="progress_deviation" class="block clearfix">
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu" id="progressDeviation"></span> 分
+                                    <p style="float:left;display:none">您的评分：<span class="fenshu" id="progressDeviation"></span> 分
+                                        <input type="hidden" value="10"/>
                                     </p>
                                     <input type="hidden" id="progressDeviationScoreString"
                                            name="progressDeviationScoreString"/>
@@ -353,8 +368,11 @@
 
                                 <div id="cooperate_work" class="block clearfix">
                                     <div class="star_score"></div>
-                                    <p style="float:left;">您的评分：<span class="fenshu" id="workCooperate"></span> 分</p>
+                                    <p style="float:left;display:none">您的评分：<span class="fenshu" id="workCooperate"></span> 分
+                                        <input type="hidden" value="10"/>
+                                    </p>
                                     <input type="hidden" id="workCooperateScoreString" name="workCooperateScoreString"/>
+
                                 </div>
 
                             </article>
@@ -487,7 +505,8 @@
                     $(".star_score").click(function () {
                         var total = 0;
                         $(".fenshu").each(function () {
-                            total = total * 1 + $(this).html() * 1;
+                            var fenshu = $(this).html()*$(this).next().val()/100;
+                            total = total * 1 + fenshu;
                         });
                         $("#totalScore").val(total);
                     });

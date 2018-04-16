@@ -16,6 +16,7 @@
     <script type="text/javascript" src="/layui/js/index-a.js"></script>
 
 
+
 </head>
 <body>
 <!-- 顶部开始 -->
@@ -87,6 +88,12 @@
                     <i class="iconfont nav_right">&#xe697;</i>
                 </a>
                 <ul class="sub-menu">
+                    <li>
+                        <a _href="/visit/userScoreView">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>员工打分列表</cite>
+                        </a>
+                    </li >
                     <li>
                         <a _href="echarts1.html">
                             <i class="iconfont">&#xe6a7;</i>
