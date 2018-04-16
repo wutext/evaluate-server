@@ -141,4 +141,8 @@ public class PermissionService {
         }
         return false;
     }
+
+    public List<Permission> findAllMenu() {
+       return permissionRepository.findAllMenu();
+    }
 }

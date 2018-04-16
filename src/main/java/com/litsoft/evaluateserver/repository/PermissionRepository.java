@@ -31,4 +31,7 @@ public interface PermissionRepository extends JpaRepository<Permission, Integer>
 
     @Query(value="select id from permission where par_id=?1",nativeQuery = true)
     List<Integer> findChildId(Integer id);
+
+    @Query(value="select * from permission where status=1",nativeQuery = true)
+    List<Permission> findAllMenu();
 }

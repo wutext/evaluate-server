@@ -13,6 +13,8 @@
     <script type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
       <script type="text/javascript" src="/layui/js/admin_common.js"></script>
+      <script type="text/javascript" src="/layui/js/admin_role.js"></script>
+
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -78,9 +80,14 @@
 
                     </div>
                 </div>
+
+                <div class="layui-input-inline">
+                    <input type="button" id="permTree" <#--onclick="roleOperation('分配权限', '/tree/menuTreeView', 200,300)"--> value="选择权限" />
+                </div>
+
                 <div class="layui-form-item">
-                <button  class="layui-btn" lay-submit="" lay-filter="add">增加</button>
-              </div>
+                    <button  class="layui-btn" lay-submit="" lay-filter="add">增加</button>
+                </div>
             </form>
     </div>
     <script>
@@ -137,6 +144,14 @@
               return false;
           });
         });
+
+        $(function() {
+
+            $("#permTree").on("click", function() {
+                roleOperation('分配权限', '/tree/menuTreeView', 200,300);
+            });
+
+        })
     </script>
     <script>var _hmt = _hmt || []; (function() {
         var hm = document.createElement("script");

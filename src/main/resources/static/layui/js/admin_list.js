@@ -156,6 +156,7 @@ function searchUserPage() {
 
 function roleOperation(title,url,w,h){
 
+    alert(w+"...."+h);
     if (title == null || title == '') {
         title=false;
     };
