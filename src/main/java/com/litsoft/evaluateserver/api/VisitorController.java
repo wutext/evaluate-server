@@ -1,9 +1,8 @@
 package com.litsoft.evaluateserver.api;
 
-import com.litsoft.evaluateserver.entity.User;
+
 import com.litsoft.evaluateserver.entity.UserScore;
 import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
-import com.litsoft.evaluateserver.entity.sysVo.UserVo;
 import com.litsoft.evaluateserver.entity.vo.UserScoreVo;
 import com.litsoft.evaluateserver.service.PageQueryService;
 import com.litsoft.evaluateserver.service.UserScoreService;
@@ -13,18 +12,14 @@ import com.litsoft.evaluateserver.util.QueryParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -141,14 +136,16 @@ public class VisitorController {
         return result;
     }
 
+    //员工得分页面
     @RequestMapping("/userScoreView")
     public String getUserScoreView(Model model, String time, String username) {
-        model.addAttribute("username",username);
-        model.addAttribute("time",time);
+        model.addAttribute("username", username);
+        model.addAttribute("time", time);
         return "/view/front/userScore-list";
     }
 
 
+    //员工得分数据
     @ResponseBody
     @RequestMapping("/userScoreList")
     public LayUiData getUserScoreList(@RequestParam Map<String, Object> params) {
@@ -160,16 +157,17 @@ public class VisitorController {
     }
 
 
+    //员工得分详情
     @RequestMapping("/userScoreDetail")
-    public String getUserScoreDetail(String userName,String time,Model model) {
+    public String getUserScoreDetail(String userName, String time, Model model) {
         if (StringUtils.isEmpty(userName)) {
             return "用户名不能为空";
         }
         if (StringUtils.isEmpty(time)) {
             return "查询时间不能为空";
         }
-        List<UserScore> list = userScoreService.getUserScoreDetail(userName,time);
-        model.addAttribute("list",list);
+        List<UserScore> list = userScoreService.getUserScoreDetail(userName, time);
+        model.addAttribute("list", list);
         return "/view/front/userScore-detail";
     }
 

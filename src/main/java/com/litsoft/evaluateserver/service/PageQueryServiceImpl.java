@@ -120,48 +120,6 @@ public class PageQueryServiceImpl implements PageQueryService{
         return permissionRepository.findAll(pageable);
     }
 
-    @Override
-    public Page<ScoreView> queryUserScoreByPage(QueryParam param){
-       Pageable pageable =  new PageRequest(param.getPage()-1,param.getLimit());
-//        Specification<UserScore> spec = new Specification<UserScore>() {
-//
-//            @Override
-//            public Predicate toPredicate(Root<UserScore> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-//
-//                boolean timeEx = StringUtils.isNullOrEmpty(param.getTime());
-//                boolean nameEx = StringUtils.isNullOrEmpty(param.getUsername());
-//                if(!timeEx) {
-//                    Path<String> time = root.get("time");
-//                    Predicate p1 = cb.like(time, "%"+param.getTime()+"%");
-//                    Predicate p = cb.and(p1);
-//                    return p;
-//                }
-//
-//                if(!nameEx) {
-//                    Path<String> username = root.get("username");
-//                    Predicate p2 = cb.like(username, "%"+param.getUsername()+"%");
-//                    Predicate p = cb.and(p2);
-//                    return p;
-//                }
-//
-//                if(!timeEx && !nameEx) {
-//                    Path<String> time = root.get("time");
-//                    Path<String> username = root.get("username");
-//                    Predicate p1 = cb.like(time, "%"+param.getTime()+"%");
-//                    Predicate p2 = cb.like(username, "%"+param.getUsername()+"%");
-//                    Predicate p = cb.and(p1,p2);
-//                    return p;
-//                }
-//                //return null;
-//                query.multiselect(cb.avg(root.get("total").as(Integer.class))).
-//                    groupBy(root.get("createTime")).
-//                    orderBy(cb.desc(root.get("createTime").as(Date.class)));
-//
-//                return query.getRestriction();
-//            }
-//        };
-       // return userScoreRepository.findAll(spec, pageable);
-        return userScoreRepository.queryUserScoreByPage(pageable);
-    }
+
 
 }

@@ -16,5 +16,4 @@ public interface PageQueryService {
 
     Page findPermissionNoCriteria(QueryParam param);
 
-    Page queryUserScoreByPage(QueryParam param);
 }
