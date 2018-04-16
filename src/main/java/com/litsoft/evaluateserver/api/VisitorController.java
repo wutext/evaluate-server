@@ -1,18 +1,28 @@
 package com.litsoft.evaluateserver.api;
 
+
 import com.litsoft.evaluateserver.entity.UserScore;
+import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
 import com.litsoft.evaluateserver.entity.vo.UserScoreVo;
+import com.litsoft.evaluateserver.service.PageQueryService;
 import com.litsoft.evaluateserver.service.UserScoreService;
+import com.litsoft.evaluateserver.util.LayUiData;
+import com.litsoft.evaluateserver.util.PageInfo;
+import com.litsoft.evaluateserver.util.QueryParam;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Map;
+
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
@@ -54,16 +64,14 @@ public class VisitorController {
     @Value("${userScore.work-cooperate-proportion}")
     private String workCooperateProportion;
 
+    @Autowired
+    private PageQueryService pageQueryService;
+
     //员工考核页面
     @RequestMapping("/research")
     public String visit(HttpServletRequest request, Model model) {
-
-
-        request.getPathInfo();
         String name = request.getParameter("name");
         String role = request.getParameter("role");
-
-        //***********************************************************
         model.addAttribute("userName", name);
         model.addAttribute("type", role);
         return "/view/research/research";
@@ -128,6 +136,41 @@ public class VisitorController {
             result = Integer.parseInt(score) * Integer.parseInt(ratio) / 100;
         }
         return result;
+    }
+
+    //员工得分页面
+    @RequestMapping("/userScoreView")
+    public String getUserScoreView(Model model, String time, String username) {
+        model.addAttribute("username", username);
+        model.addAttribute("time", time);
+        return "/view/front/userScore-list";
+    }
+
+
+    //员工得分数据
+    @ResponseBody
+    @RequestMapping("/userScoreList")
+    public LayUiData getUserScoreList(@RequestParam Map<String, Object> params) {
+        QueryParam param = new QueryParam(params);
+        List<ScoreView> list = userScoreService.getUserScore(param);
+        PageInfo<UserScore> pageInfo = new PageInfo((int) list.size(), param.getPage(),
+            param.getLimit(), list);
+        return LayUiData.data(pageInfo.getTotalSize(), pageInfo.getPageList());
+    }
+
+
+    //员工得分详情
+    @RequestMapping("/userScoreDetail")
+    public String getUserScoreDetail(String userName, String time, Model model) {
+        if (StringUtils.isEmpty(userName)) {
+            return "用户名不能为空";
+        }
+        if (StringUtils.isEmpty(time)) {
+            return "查询时间不能为空";
+        }
+        List<UserScore> list = userScoreService.getUserScoreDetail(userName, time);
+        model.addAttribute("list", list);
+        return "/view/front/userScore-detail";
     }
 
 

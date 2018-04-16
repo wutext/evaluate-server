@@ -3,9 +3,12 @@ package com.litsoft.evaluateserver.service;
 import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
+import com.litsoft.evaluateserver.entity.UserScore;
+import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
 import com.litsoft.evaluateserver.repository.PermissionRepository;
 import com.litsoft.evaluateserver.repository.RoleRepository;
 import com.litsoft.evaluateserver.repository.UserRepository;
+import com.litsoft.evaluateserver.repository.UserScoreRepository;
 import com.litsoft.evaluateserver.util.QueryParam;
 import com.mysql.jdbc.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +20,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.Date;
 
 @Service
 public class PageQueryServiceImpl implements PageQueryService{
@@ -34,6 +39,11 @@ public class PageQueryServiceImpl implements PageQueryService{
 
     @Autowired
     private PermissionRepository permissionRepository;
+
+    @Autowired
+    private UserScoreRepository userScoreRepository;
+
+
 
     @Override
     public Page<User> findUserNoCriteria(QueryParam param) {
@@ -109,4 +119,7 @@ public class PageQueryServiceImpl implements PageQueryService{
         Pageable pageable = new PageRequest(param.getPage()-1,param.getLimit(), Sort.Direction.ASC, "id");
         return permissionRepository.findAll(pageable);
     }
+
+
+
 }

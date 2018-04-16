@@ -12,6 +12,7 @@ public class QueryParam {
     //user查询条件
     private String username = "";
     private String department = "";
+    private String time = "";
     //角色查询条件
     private String roleSearch  ="";
 
@@ -64,6 +65,14 @@ public class QueryParam {
         this.roleSearch = roleSearch;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public QueryParam(Map<String, Object> params) {
         this.page = Integer.valueOf(params.get("page").toString());
         this.limit = Integer.valueOf(params.get("limit").toString());
@@ -75,6 +84,9 @@ public class QueryParam {
         }
         if(!ObjectUtils.isEmpty(params.get("department"))) {
             this.department = params.get("department").toString();
+        }
+        if(!ObjectUtils.isEmpty(params.get("time"))) {
+            this.time = params.get("time").toString();
         }
     }
 }
