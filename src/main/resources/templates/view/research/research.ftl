@@ -138,8 +138,8 @@
                                          class="formfield">
                                         <div class="fieldlabel"></div>
                                         <div class="fieldbody"><input id="Survey.F23700001-4"
-                                                                      name="companyName"
-                                                                      class="fieldinput" required=""></input>
+                                                                      name="companyName" readonly="true"
+                                                                      class="fieldinput" required="" value="北京联和利泰科技股份有限公司"></input>
                                         </div>
                                         <div class="fieldmessage" data-uniquemessage="输入的内容已经存在，请更改"></div>
                                     </div>
