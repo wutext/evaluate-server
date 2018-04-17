@@ -6,10 +6,12 @@ import com.litsoft.evaluateserver.entity.sysVo.UserVo;
 import com.litsoft.evaluateserver.repository.RoleRepository;
 import com.litsoft.evaluateserver.repository.UserRepository;
 import com.litsoft.evaluateserver.util.MdUtil;
+import com.mysql.jdbc.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -79,26 +81,24 @@ public class UserService {
     @Transactional
     public User saveUser(UserVo userVo) throws Exception {
 
-        User user = MdUtil.md5Password(userVo.getUsername(), userVo.getPassword());
-        user.setEmail(userVo.getEmail());
-        user.setState(new Byte("1"));
-        user.setPhone(userVo.getEmail());
-        user.setRoleList(getRoleList(userVo.getRoleId()));
-        User uBack = userRepository.save(user);
-        return uBack;
-    }
-
-
-    private List<Role> getRoleList(String[] roleId) {
-
-        List<Role> roles = new ArrayList<>();
-        if(roleId.length >0) {
-            for(int i=0;i<roleId.length;i++) {
-                roles.add(new Role(Integer.valueOf(roleId[i])));
-            }
+        User user  = new User();
+        if(userVo.getId()==null) {
+            user = MdUtil.md5Password(userVo);
+        }else{
+            User preUser = userRepository.findOne(userVo.getId());
+            preUser.setUsername(userVo.getUsername());
+            preUser.setRoleList(MdUtil.getRoleList(userVo.getRoleId()));
+            preUser.setCompany(userVo.getCompany());
+            preUser.setProject(userVo.getProject());
+            preUser.setPhone(userVo.getPhone());
+            preUser.setEmail(userVo.getEmail());
+            preUser.setState(new Byte("1"));
+            user = preUser;
         }
-        return roles;
+        return userRepository.save(user);
     }
+
+
 
     public User findById(Integer id) {
         return userRepository.findOne(id);
@@ -108,7 +108,21 @@ public class UserService {
         userRepository.delete(id);
     }
 
-    public void deleteIds(List<Long> ids) {
-        ids.forEach(id -> userRepository.delete(id.intValue()));
+    public void deleteIds(String ids) {
+
+        List<Integer> idList = getIdList(ids);
+        idList.forEach(id -> userRepository.delete(id.intValue()));
+    }
+
+    private List<Integer> getIdList(String ids) {
+        String[] strId = ids.substring(1,ids.length()-1).split(",");
+        List<Integer> intId = new ArrayList<>();
+        for(String id:strId) {
+            if(!StringUtils.isNullOrEmpty(id)) {
+                intId.add(Integer.valueOf(id));
+            }
+
+        }
+        return intId;
     }
 }

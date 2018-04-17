@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/layui/css/xadmin.css"  media="all">
 
     <script language="JavaScript" type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js" charset="utf-8"></script>
+    <script language="JavaScript" type="text/javascript" src="/jquery/js/clipBoard.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/layui/js/admin_list.js"></script>
     <script type="text/javascript" src="/layui/js/admin_common.js"></script>
@@ -21,7 +22,9 @@
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <style>
 
+
         body{overflow-y: scroll;}
+
     </style>
     <![endif]-->
 </head>
@@ -52,15 +55,16 @@
         <span class="x-right" style="line-height:40px">共有数据： 条</span>
     </xblock>
 
-    <table class="layui-table" lay-size="sm" id="table_user" lay-filter="table_demo"></table>
+
+    <table class="layui-table"  id="table_user" lay-filter="table_demo"></table>
 
 </div>
 
 
 <script type="text/html" id="toolBar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">
+    <#--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">
         <i class="layui-icon">&#xe63c;</i>
-    </a>
+    </a>-->
     <a class="layui-btn layui-btn-xs" lay-event="edit" >
         <i class="layui-icon">&#xe642;</i>
     </a>
@@ -69,9 +73,10 @@
     </a>
 
     |
-    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone1">clone1</a>
-    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone2">clone2</a>
-    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone3">clone3</a>
+    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone1">客户</a>
+    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone2">经理</a>
+    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone3">人事</a>
+
 </script>
 
 

@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="/layui/css/xadmin.css" />
     <script type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
-      <script type="text/javascript" src="/layui/js/admin_common.js"></script>
+    <script type="text/javascript" src="/layui/js/admin_common.js"></script>
+
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -45,6 +46,7 @@
                 </div>
             </div>
 
+            <#if permission.id!=1>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>链接
@@ -54,7 +56,7 @@
                            autocomplete="off" class="layui-input" />
                 </div>
             </div>
-
+            </#if>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>权限类型
@@ -80,7 +82,7 @@
                     <span class="x-red">*</span>排序
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="sort" name="sort" required="" lay-verify="required"
+                    <input type="text" id="sort" name="sort" required="" lay-verify="number"
                            autocomplete="off" class="layui-input" />
                 </div>
             </div>
@@ -109,6 +111,7 @@
                     return '两次密码不一致';
                 }
             }
+            ,number: [/^[1-9]\d*$/, '只能填写数字']
           });
 
           form.on('submit(add)', function(data){
@@ -127,11 +130,21 @@
                   contentType: "application/json;charset=UTF-8",
                   success: function(res) {
 
-                      layer.alert("增加成功", {icon: 6});
-                          // 获得frame索引
-                      var index = parent.layer.getFrameIndex(window.name);
-                      //关闭当前frame
-                      parent.layer.close(index);
+                      if(res=="success") {
+                          layer.alert("操作成功", {icon: 6},function () {
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                          });
+                      }else {
+                          layer.alert("操作失败", {icon: 6},function () {
+                              // 获得frame索引
+                              var index = parent.layer.getFrameIndex(window.name);
+                              //关闭当前frame
+                              parent.layer.close(index);
+                          });
+                      }
 
                   },
                   error: function(data, status, e){

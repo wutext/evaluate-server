@@ -3,6 +3,8 @@ package com.litsoft.evaluateserver.api;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.entity.sysVo.UserVo;
+import com.litsoft.evaluateserver.exception.MessageException;
+import com.litsoft.evaluateserver.exception.NotFoundException;
 import com.litsoft.evaluateserver.service.PageQueryService;
 import com.litsoft.evaluateserver.service.RoleService;
 import com.litsoft.evaluateserver.service.UserService;
@@ -11,6 +13,7 @@ import com.litsoft.evaluateserver.util.PageInfo;
 import com.litsoft.evaluateserver.util.QueryParam;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +31,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/sys")
 public class SysUserController {
+
+    @Autowired
+    private MessageSource messageSource;
 
     @Autowired
     private PageQueryService pageQueryService;
@@ -101,7 +107,8 @@ public class SysUserController {
 
     @ResponseBody
     @RequestMapping("/deleteUsers")
-    public String deleteUsers(List<Long> ids) {
+    public String deleteUsers(@RequestBody String ids) {
+
         userService.deleteIds(ids);
         return "success";
     }

@@ -1,6 +1,8 @@
 package com.litsoft.evaluateserver.util;
 
+import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
+import com.litsoft.evaluateserver.entity.sysVo.UserVo;
 import com.mysql.jdbc.StringUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -8,6 +10,8 @@ import org.assertj.core.util.Preconditions;
 import org.thymeleaf.expression.Strings;
 
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class MdUtil {
@@ -41,17 +45,37 @@ public class MdUtil {
         return MD5;
     }
 
-    public static User md5Password(String username, String password){
-        Preconditions.checkArgument(!StringUtils.isNullOrEmpty(username),"username不能为空");
-        Preconditions.checkArgument(!StringUtils.isNullOrEmpty(password),"password不能为空");
+    public static User md5Password(UserVo userVo){
+        Preconditions.checkArgument(!StringUtils.isNullOrEmpty(userVo.getUsername()),"username不能为空");
+        Preconditions.checkArgument(!StringUtils.isNullOrEmpty(userVo.getPassword()),"password不能为空");
         SecureRandomNumberGenerator secureRandomNumberGenerator=new SecureRandomNumberGenerator();
         String salt= secureRandomNumberGenerator.nextBytes().toHex();
         //组合username,两次迭代，对密码进行加密
-        String password_cipherText= new Md5Hash(password,username+salt,2).toHex();
+        String password_cipherText= new Md5Hash(userVo.getPassword(),userVo.getUsername()+salt,2).toHex();
+        //组装user
         User user=new User();
         user.setPassword(password_cipherText);
         user.setSalt(salt);
-        user.setUsername(username);
+        user.setUsername(userVo.getUsername());
+        user.setCompany(userVo.getCompany());
+        user.setProject(userVo.getProject());
+        user.setId(userVo.getId());
+        user.setEmail(userVo.getEmail());
+        user.setState(new Byte("1"));
+        user.setPhone(userVo.getPhone());
+        user.setRoleList(getRoleList(userVo.getRoleId()));
         return user;
     }
+
+    public static List<Role> getRoleList(String[] roleId) {
+
+        List<Role> roles = new ArrayList<>();
+        if(roleId.length >0) {
+            for(int i=0;i<roleId.length;i++) {
+                roles.add(new Role(Integer.valueOf(roleId[i])));
+            }
+        }
+        return roles;
+    }
+
 }

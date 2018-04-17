@@ -89,13 +89,6 @@ public class SysRoleController {
         return back;
     }
 
-    @RequestMapping("/roleDetail")
-    public String roleDetail(Model model, @RequestParam("id") Integer id) {
-        RoleVo role = roleService.findById(id);
-        model.addAttribute("role", role);
-        return "/view/front/role-detail";
-    }
-
     @RequestMapping("/roleEdit")
     public String roleEdit(Model model, @RequestParam("id") Integer id) {
 
@@ -103,7 +96,7 @@ public class SysRoleController {
         RoleVo role = roleService.findById(id);
         model.addAttribute("permissions", permissions);
         model.addAttribute("role", role);
-        return "/view/front/role-add";
+        return "/view/front/role-edit";
     }
 
     @ResponseBody
@@ -111,6 +104,13 @@ public class SysRoleController {
     public String deleteRole(@RequestParam("ids") List<Long> ids) {
         roleService.deleteArrayIds(ids);
         return "";
+    }
+
+    @RequestMapping("/roleDetail")
+    public String roleDetail(Model model, @RequestParam("id") Integer id) {
+        RoleVo role = roleService.findById(id);
+        model.addAttribute("role", role);
+        return "/view/front/role-detail";
     }
 
     @ResponseBody

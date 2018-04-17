@@ -70,20 +70,8 @@ public class VisitorController {
     //员工考核页面
     @RequestMapping("/research")
     public String visit(HttpServletRequest request, Model model) {
-
-
-        request.getPathInfo();
         String name = request.getParameter("name");
         String role = request.getParameter("role");
-
-        //***********************************************************
-
-        String decodeURL = java.net.URLDecoder.decode("http%3A%2F%2Flocalhost%3A8086%2Fvisit%2Fresearch%3Fname%3Dadmin%26role%3D");
-        System.out.println("Decoded URL: "+decodeURL);
-
-
-
-        //***********************************************************
         model.addAttribute("userName", name);
         model.addAttribute("type", role);
         return "/view/research/research";

@@ -26,26 +26,57 @@
     <form class="layui-form">
         <div class="layui-form-item">
             <label for="username" class="layui-form-label">
-                <span class="x-red">*</span>登录名
+                <span class="x-red">*</span>登录名d
             </label>
             <div class="layui-input-inline">
+
+                <input type="hidden" id="id" name="id" required=""
+                       autocomplete="off"  readonly="readonly" value="${user.id!}"/>
+
                 <input type="text" id="username" name="username" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input"  <#if user??>value="${user.username!""}"</#if>/>
+                       autocomplete="off" class="layui-input"  value="${user.username!""}"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>将会成为您唯一的登入名
             </div>
         </div>
+
+        <div class="layui-form-item">
+            <label for="phone" class="layui-form-label">
+                <span class="x-red">*</span>所属公司
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="company" name="company" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input" value="${user.company!""}"/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label for="phone" class="layui-form-label">
+                <span class="x-red">*</span>所属项目
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="project" name="project" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input" value="${user.project!""}"/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+
         <div class="layui-form-item">
             <label for="phone" class="layui-form-label">
                 <span class="x-red">*</span>手机
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="phone" name="phone" required="" lay-verify="phone"
-                       autocomplete="off" class="layui-input" <#if user??>value="${user.phone!""}"</#if>/>
+                       autocomplete="off" class="layui-input" value="${user.phone!""}"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>将会成为您唯一的登入名
+                <span class="x-red">*</span>
             </div>
         </div>
         <div class="layui-form-item">
@@ -54,7 +85,7 @@
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="L_email" name="email" required="" lay-verify="email"
-                       autocomplete="off" class="layui-input" <#if user??> value="${user.email!""}"</#if> />
+                       autocomplete="off" class="layui-input" value="${user.email!""}" />
             </div>
             <div class="layui-form-mid layui-word-aux">
                 <span class="x-red">*</span>
@@ -75,7 +106,7 @@
             </div>
         </div>
 
-        <#--<#if operate != "edit" || operate == "detail">
+        <#if operate != "edit">
         <div class="layui-form-item">
             <label for="L_pass" class="layui-form-label">
                 <span class="x-red">*</span>密码
@@ -88,6 +119,7 @@
                 6到16个字符
             </div>
         </div>
+
         <div class="layui-form-item">
             <label for="L_repass" class="layui-form-label">
                 <span class="x-red">*</span>确认密码
@@ -97,7 +129,7 @@
                        autocomplete="off" class="layui-input" />
             </div>
         </div>
-        </#if>-->
+        </#if>
     <#if operate == "edit">
         <div class="layui-form-item">
             <label for="L_repass" class="layui-form-label">

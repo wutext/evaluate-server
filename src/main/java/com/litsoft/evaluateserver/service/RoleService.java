@@ -3,6 +3,7 @@ package com.litsoft.evaluateserver.service;
 import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
+import com.litsoft.evaluateserver.entity.sysVo.MenuTree;
 import com.litsoft.evaluateserver.entity.sysVo.RoleVo;
 import com.litsoft.evaluateserver.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +100,8 @@ public class RoleService {
 
         Role role = new Role();
         if(roleVo.getId()!=null) {
-            role.setId(roleVo.getId());
+            /*role.setId(roleVo.getId())*/
+            role = roleRepository.findOne(roleVo.getId());
         }
         role.setDescription(roleVo.getDescription());
         role.setRole(roleVo.getRole());
@@ -110,15 +112,28 @@ public class RoleService {
             permissionList.add(permission);
         });
         role.setPermissions(permissionList);
-
-        //添加user
-        /*List<User> userList = new ArrayList<>();
-
-        role.setUserInfos();*/
         return role;
     }
 
     public void deleteArrayIds(List<Long> roleIds) {
         roleIds.forEach(id -> roleRepository.delete(id.intValue()));
+    }
+
+    public List<MenuTree> getViewMenu(List<Permission> permissionList) {
+
+        List<MenuTree> menuTrees = new ArrayList<>();
+
+        permissionList.forEach(permission -> {
+            MenuTree menuTree = new MenuTree();
+            menuTree.setId(permission.getId());
+            menuTree.setName(permission.getName());
+            menuTree.setUrl(permission.getUrl());
+            menuTree.setpId(null);
+            if(!ObjectUtils.isEmpty(permission.getPar())) {
+                menuTree.setpId(permission.getPar().getId());
+            }
+            menuTrees.add(menuTree);
+        });
+        return menuTrees;
     }
 }
