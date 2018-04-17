@@ -57,6 +57,8 @@ public class MdUtil {
         user.setPassword(password_cipherText);
         user.setSalt(salt);
         user.setUsername(userVo.getUsername());
+        user.setCompany(userVo.getCompany());
+        user.setProject(userVo.getProject());
         user.setId(userVo.getId());
         user.setEmail(userVo.getEmail());
         user.setState(new Byte("1"));

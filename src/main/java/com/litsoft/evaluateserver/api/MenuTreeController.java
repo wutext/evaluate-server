@@ -8,6 +8,7 @@ import com.litsoft.evaluateserver.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,6 +45,13 @@ public class MenuTreeController {
         map.put("menu", menuTrees);
         map.put("selectIds", selectIds);
         return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/backMenuId", method = RequestMethod.GET)
+    public String backMenuId(String menuIds) {
+        System.out.println("dddddd");
+        return menuIds;
     }
 
     private List<Integer> findSelectedPermission() {

@@ -34,7 +34,6 @@
                 success: function(res) {
 
                     var data = res.menu;
-
                     tree = $.fn.zTree.init($("#treeDemo"), setting, data);
                     var nodes = tree.getNodesByParam("level", 0);
                     for(var i=0; i<nodes.length; i++) {
@@ -45,30 +44,31 @@
                     var ids = res.selectIds;
                     for(var i=0; i<ids.length; i++) {
                         var node = tree.getNodeByParam("id", ids[i]);
-                        if(node.id!=1 && node.id == ids[i]) {
+                        tree.checkNode(node, true, true);
+                        /*if(node.id!=1 && node.id == ids[i]) {
                             tree.checkNode(node, true, true);
-                        }
+                        }*/
                     }
                 }
             });
-
-            $("#menu").on("click", function() {
-
-                var obj = tree.getSelectedNodes();
-                alert(obj);
-            });
         });
 
+        function getIds() {
+
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo"), nodes = treeObj
+                    .getCheckedNodes(true), v = "";
+            for (var i = 0; i < nodes.length; i++) {
+                v += nodes[i].id + ",";
+                //alert(nodes[i].name); //获取选中节点的名称
+            }
+            return v;
+        }
     </script>
 </head>
 <body>
 
-<div class="content_wrap">
-    <div class="zTreeDemoBackground left">
+<div class="content_wrap" style="width:100%;height:100%">
         <ul id="treeDemo" class="ztree"></ul>
-        <input type="button" id="menu" value="确定" />
-    </div>
-
 </div>
 </body>
 </html>

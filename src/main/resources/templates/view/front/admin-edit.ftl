@@ -40,6 +40,33 @@
                 <span class="x-red">*</span>将会成为您唯一的登入名
             </div>
         </div>
+
+        <div class="layui-form-item">
+            <label for="phone" class="layui-form-label">
+                <span class="x-red">*</span>所属公司
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="company" name="company" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input" value="${user.company!""}"/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label for="phone" class="layui-form-label">
+                <span class="x-red">*</span>所属项目
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="project" name="project" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input" value="${user.project!""}"/>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <span class="x-red">*</span>
+            </div>
+        </div>
+
         <div class="layui-form-item">
             <label for="phone" class="layui-form-label">
                 <span class="x-red">*</span>手机
@@ -49,7 +76,7 @@
                        autocomplete="off" class="layui-input" value="${user.phone!""}"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
-                <span class="x-red">*</span>将会成为您唯一的登入名
+                <span class="x-red">*</span>
             </div>
         </div>
         <div class="layui-form-item">

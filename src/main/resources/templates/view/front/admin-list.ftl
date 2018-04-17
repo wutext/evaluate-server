@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/layui/css/xadmin.css"  media="all">
 
     <script language="JavaScript" type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js" charset="utf-8"></script>
+    <script language="JavaScript" type="text/javascript" src="/jquery/js/clipBoard.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/layui/js/admin_list.js"></script>
     <script type="text/javascript" src="/layui/js/admin_common.js"></script>
@@ -72,9 +73,10 @@
     </a>
 
     |
-    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone1">clone1</a>
-    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone2">clone2</a>
-    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone3">clone3</a>
+    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone1">客户</a>
+    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone2">经理</a>
+    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone3">人事</a>
+
 </script>
 
 

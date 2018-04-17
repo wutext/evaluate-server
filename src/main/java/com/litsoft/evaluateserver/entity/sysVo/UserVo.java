@@ -7,6 +7,8 @@ public class UserVo {
     private String password;
     private String state;
     private String phone;
+    private String company;
+    private String project;
     private String email;
     private String[] roleId;
 
@@ -94,5 +96,21 @@ public class UserVo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
     }
 }

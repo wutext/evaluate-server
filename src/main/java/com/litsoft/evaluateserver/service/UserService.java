@@ -88,6 +88,8 @@ public class UserService {
             User preUser = userRepository.findOne(userVo.getId());
             preUser.setUsername(userVo.getUsername());
             preUser.setRoleList(MdUtil.getRoleList(userVo.getRoleId()));
+            preUser.setCompany(userVo.getCompany());
+            preUser.setProject(userVo.getProject());
             preUser.setPhone(userVo.getPhone());
             preUser.setEmail(userVo.getEmail());
             preUser.setState(new Byte("1"));

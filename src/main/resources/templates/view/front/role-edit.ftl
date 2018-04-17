@@ -33,10 +33,10 @@
                     </label>
                     <div class="layui-input-inline">
                         <input type="hidden" id="id" name="id" required=""
-                               autocomplete="off" class="layui-input"  <#if role??>value="${role.id}" </#if>/>
+                               autocomplete="off" class="layui-input" value="${role.id}" />
 
                         <input type="text" id="name" name="name" required="" lay-verify="required"
-                                autocomplete="off" class="layui-input" <#if role?? >value="${role.role!""}" </#if>/>
+                                autocomplete="off" class="layui-input" value="${role.role}"/>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                     <div class="layui-input-inline">
 
                         <input type="text" id="description" name="description" required="" lay-verify="required"
-                               autocomplete="off" class="layui-input" <#if role?? >value="${role.description!""}" </#if>/>
+                               autocomplete="off" class="layui-input" value="${role.description!""}"/>
 
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                         模态框（Modal）标题
                     </h4>
                 </div>
-                <div class="modal-body" style="padding:1px">
+                <div id="modal-body" class="modal-body" style="padding:1px">
                     <iframe id="modelTree" name="modelTree" src="/tree/menuTreeView" width="100%" height="100%"></iframe>
                 </div>
                 <div class="modal-footer" style="padding:5px">
@@ -98,7 +98,7 @@
 
     <script>
     $(function() {
-
+        
         var perIds=new Array();
             layui.use(['form','layer'], function(){
                 $ = layui.jquery;

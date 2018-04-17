@@ -48,14 +48,14 @@
                 </div>
             </div>
 
-            <#if permission.id!=1>
+            <#if perm.id!=1>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>链接
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="url" name="url" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${perm.url}"/>
+                    <input type="text" id="url" name="url"
+                           autocomplete="off" class="layui-input" value="${perm.url!""}"/>
                 </div>
             </div>
             </#if>
@@ -65,7 +65,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="resourceType" name="resourceType" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${perm.resourceType}"/>
+                           autocomplete="off" class="layui-input" value="${perm.resourceType!""}"/>
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="permission" name="permission" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" value="${perm.permission}"/>
+                           autocomplete="off" class="layui-input" value="${perm.permission!""}"/>
                 </div>
             </div>
 

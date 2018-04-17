@@ -40,6 +40,8 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                 "id":  data.field.id
                 ,"username": data.field.username
                 ,"password": data.field.pass
+                ,"company" : data.field.company
+                ,"project" : data.field.project
                 ,"phone": data.field.phone
                 ,"email": data.field.email
                 ,"roleId": strIds
@@ -64,9 +66,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                 }
             },error: function(xml, status, e) {
 
-                alert(xml);
-                alert(status);
-                alert(e);
+                alert("error : " +e);
             }
 
         });
@@ -127,16 +127,37 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
 function getUrl(name, number, cloneUrl) {
 
     <!-- java.net.URLEncoder.encode(url)-->
-
     var url= cloneUrl+"/visit/research?name="+name+"&role="+number;
     var urlEncode = encodeURI(url);
-    layer.alert(urlEncode, {
-        area: ['300px', '200px']
+    layer.alert("", {
+        content: urlEncode
+        ,area: ['300px', '200px']
+        ,btn: ['关闭', '复制']
+        ,btn1: function(index, layero){
+            layer.close(index);
+        },btn2: function(index, layero){
+            //按钮【按钮二】的回调
+           copyMethod(urlEncode);
+            //return false 开启该代码可禁止点击该按钮关闭
+        }
         ,skin: 'layui-layer-lan'
         ,closeBtn: 0
         ,anim: 1
         ,title: "clone"
+
     });
+}
+
+function copyMethod(url) {
+    new clipBoard("", {
+        copy: function() {
+            return url;
+        },
+        afterCopy: function() {
+            layer.msg('复制成功', {offset: 't',time: 1000});
+        }
+    });
+
 }
 function searchUserPage() {
 
@@ -156,7 +177,6 @@ function searchUserPage() {
 
 function roleOperation(title,url,w,h){
 
-    alert(w+"...."+h);
     if (title == null || title == '') {
         title=false;
     };
