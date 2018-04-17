@@ -76,7 +76,7 @@
                 <#if userScore.type == 2>客户</#if>
                 <#if userScore.type == 3>平台</#if>
             </td>
-            <td>${userScore.createTime}</td>
+            <td>${userScore.createTime?string("yyyy-MM")}</td>
             <td>${userScore.signName}</td>
             <td>${userScore.total}</td>
         </tr>
