@@ -140,9 +140,10 @@ public class VisitorController {
 
     //员工得分页面
     @RequestMapping("/userScoreView")
-    public String getUserScoreView(Model model, String time, String username) {
+    public String getUserScoreView(Model model, String time, String username,String department) {
         model.addAttribute("username", username);
         model.addAttribute("time", time);
+        model.addAttribute("department", department);
         return "/view/front/userScore-list";
     }
 

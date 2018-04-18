@@ -26,53 +26,26 @@
         <form action="" method="post" class="layui-form layui-form-pane">
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>上级菜单名称
+                    <span class="x-red">*</span>上级部门名称
                 </label>
                 <div class="layui-input-inline">
-                    <input type="hidden" id="parId" name="parId" required=""
-                           autocomplete="off" class="layui-input" value="${permission.id}"/>
+                    <input type="hidden" id="departId" name="departId" required=""
+                           autocomplete="off" class="layui-input" value=""/>
 
-                    <input type="text" autocomplete="off" readonly="readonly" class="layui-input"value="${permission.name!""}" />
+                    <input type="text" name="departmentName" autocomplete="off" readonly="readonly" class="layui-input" value="" />
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>名称
+                    <span class="x-red">*</span>处名称
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="name" name="name" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" />
-                </div>
-            </div>
 
-            <#if permission.id!=1>
-            <div class="layui-form-item">
-                <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>链接
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="url" name="url" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" />
-                </div>
-            </div>
-            </#if>
-            <div class="layui-form-item">
-                <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>权限类型
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="resourceType" name="resourceType" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" />
-                </div>
-            </div>
+                    <input type="hidden" id="utilId" name="utilId" required=""
+                           autocomplete="off" class="layui-input" value=""/>
 
-            <div class="layui-form-item">
-                <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>权限标识
-                </label>
-                <div class="layui-input-inline">
-                    <input type="text" id="permission" name="permission" required="" lay-verify="required"
+                    <input type="text" id="name" name="utilName" required="" lay-verify="required"
                            autocomplete="off" class="layui-input" />
                 </div>
             </div>
@@ -104,21 +77,22 @@
 
 
           form.verify({
-           number: [/^[1-9]\d*$/, '只能填写数字']
+
+            number: [/^[1-9]\d*$/, '只能填写数字']
           });
 
           form.on('submit(add)', function(data){
 
               var params = {};
-              params.parId = data.field.parId;
-              params.name = data.field.name;
-              params.permission = data.field.permission;
-              params.resourceType = data.field.resourceType;
+              params.departId = data.field.departId;
+              params.departName = data.field.departName;
+              params.utilId = data.field.utilId;
+              params.utilName = data.field.utilName;
               params.sort = data.field.sort;
-              params.url = data.field.url;
+
               $.ajax({
                   type: "post",
-                  url: "/per/addPermDo",
+                  url: "/depart/addDepartDo",
                   data: JSON.stringify(params),
                   contentType: "application/json;charset=UTF-8",
                   success: function(res) {
@@ -138,11 +112,9 @@
                               parent.layer.close(index);
                           });
                       }
-
                   },
                   error: function(data, status, e){
-                      alert(data+"......."+status+"....."+e );
-
+                      alert(e);
                   }
               });
               return false;

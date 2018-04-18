@@ -93,12 +93,6 @@ public class SysPermissionController {
         return "/view/front/per-edit";
     }
 
-    @RequestMapping("/deletePerm")
-    public String deletePerms(@RequestParam("ids") String[] ids) {
-        System.out.println("delete");
-        return "";
-    }
-
     @ResponseBody
     @RequestMapping("/deleteSinglePerm")
     public String deletePerm(@RequestParam("id") Integer id) {

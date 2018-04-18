@@ -93,51 +93,6 @@
                 </#list>
             </table>
         </div>
-    <#--<div class="x-nav">
-      <span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素88</cite></a>
-      </span>
-      <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
-    </div>
-    <div class="x-body">
-      <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so layui-form-pane">
-          <div class="layui-input-inline">
-            <select name="cateid">
-              <option>规则分类</option>
-              <option>文章</option>
-              <option>会员</option>
-              <option>权限</option>
-            </select>
-          </div>
-          <div class="layui-input-inline">
-            <select name="contrller">
-              <option>请控制器</option>
-              <option>Index</option>
-              <option>Goods</option>
-              <option>Cate</option>
-            </select>
-          </div>
-          <div class="layui-input-inline">
-            <select name="action">
-              <option>请方法</option>
-              <option>add</option>
-              <option>login</option>
-              <option>checklogin</option>
-            </select>
-          </div>
-          <input class="layui-input" placeholder="权限名" name="cate_name" />
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon"></i>增加</button>
-        </form>
-      </div>
-      <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
-      </xblock>-->
 
 
   </body>

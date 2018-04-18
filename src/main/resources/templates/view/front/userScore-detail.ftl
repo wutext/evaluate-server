@@ -35,7 +35,7 @@
 <div class="x-body">
 
 
-    <table class="layui-table">
+    <table class="layui-table" style="text-align: center">
         <thead>
         <tr>
             <th>员工姓名</th>
@@ -50,7 +50,7 @@
             <th>出勤率得分</th>
             <th>进度偏差得分</th>
             <th>工作配合情况得分</th>
-            <th>评分角色类型;1:处经理2:客户方3:平台</th>
+            <th>评分角色类型;1:客户2:经理3:人事</th>
             <th>创建时间</th>
             <th>项目经理签字</th>
             <th>合计得分</th>
@@ -72,9 +72,9 @@
             <td>${userScore.progressDeviationScore}</td>
             <td>${userScore.workCooperateScore}</td>
             <td style="text-align: center">
-                <#if userScore.type == 1>处经理</#if>
-                <#if userScore.type == 2>客户</#if>
-                <#if userScore.type == 3>平台</#if>
+                <#if userScore.type == 1>客户</#if>
+                <#if userScore.type == 2>经理</#if>
+                <#if userScore.type == 3>人事</#if>
             </td>
             <td>${userScore.createTime?string("yyyy-MM")}</td>
             <td>${userScore.signName}</td>

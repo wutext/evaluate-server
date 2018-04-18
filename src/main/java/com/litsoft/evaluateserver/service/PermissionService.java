@@ -145,4 +145,8 @@ public class PermissionService {
     public List<Permission> findAllMenu() {
        return permissionRepository.findAllMenu();
     }
+
+    public List<Integer> findRolePermission(Integer roleId) {
+        return permissionRepository.findRolePermission(roleId);
+    }
 }

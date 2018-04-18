@@ -397,7 +397,7 @@
                             <article id="Survey.w23700001-13" data-displaytype="2" data-required="true"
                                      data-type="textarea" tabindex="-1" class="formwidget textarea col50">
                                 <div style="float:left">
-                                    <header><h4> 项目经理签字确认<span class="required">*</span></h4></header>
+                                    <header><h4> 评分人签字确认<span class="required">*</span></h4></header>
                                     <div id="Survey.w23700001-13_body" class="widgetbody">
                                         <div id="Survey.F23700001-15_body" data-required="true" data-type="textarea"
                                              class="formfield">

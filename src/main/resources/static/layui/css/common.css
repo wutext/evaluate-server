@@ -1,0 +1,36 @@
+xblock{
+  display: block;
+  margin-bottom: 10px;
+  padding: 5px;
+  line-height: 22px;
+  /* border-left: 5px solid #009688; */
+  border-radius: 0 2px 2px 0;
+  background-color: #f2f2f2;
+}
+
+.x-nav{
+  padding: 0 20px;
+  position: relative;
+  z-index: 99;
+  border-bottom: 1px solid #e5e5e5;
+  line-height: 39px;
+  height: 39px;
+  overflow: hidden;
+}
+
+.x-body{
+  padding: 20px;
+}
+.x-so{
+  text-align: center;
+  margin-bottom: 20px;
+}
+.x-so input.layui-input{
+  width: 190px;
+}
+.x-so .layui-form-label{
+  display: inline-block;
+}
+.x-so input.layui-input,.x-so input.layui-btn{
+  display: inline-block;
+}

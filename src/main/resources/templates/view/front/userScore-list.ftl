@@ -44,11 +44,13 @@
 </div>
 <div class="x-body">
     <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
+        <form class="layui-form layui-col-md12 x-so" style="text-align: left">
+            部门:<input type="text" id="department" name="department"  autocomplete="off"
+                       class="layui-input" value="${department!""}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             时间:<input type="text" name="time" id="time" class="layui-input"
-                      onclick="WdatePicker()" value="${time!""}"/>
+                      onclick="WdatePicker()" value="${time!""}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             用户名:<input type="text" id="username" name="username"  autocomplete="off"
-                       class="layui-input" value="${username!""}"/>
+                       class="layui-input" value="${username!""}"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="layui-btn search" onclick="searchUserScorePage()" lay-submit="" lay-filter="sreach"><i
                     class="layui-icon">&#xe615;</i></button>
         </form>
