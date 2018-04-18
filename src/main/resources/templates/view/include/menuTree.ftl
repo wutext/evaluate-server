@@ -3,7 +3,8 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset="UTF-8">
     <title>menuTree</title>
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <link rel="stylesheet" href="/zTree/css/demo.css" type="text/css">
     <link rel="stylesheet" href="/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <script type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js" charset="utf-8"></script>
