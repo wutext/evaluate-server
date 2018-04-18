@@ -12,10 +12,9 @@
     <link rel="stylesheet" href="/layui/css/xadmin.css" />
     <link rel="stylesheet" href="/treeTwo/themes/vsStyle/treeTable.min.css" />
     <script type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="/layui/js/admin_common.js"></script>
     <script type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/treeTwo/jquery.treeTable.min.js"></script>
-    <script type="text/javascript" src="/layui/js/admin_common.js"></script>
-    <script type="text/javascript" src="/layui/js/admin_rule.js"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -37,7 +36,7 @@
 <div class="x-nav">
           <span class="layui-breadcrumb">
             <a href="">首页</a>
-            <a href="">管理员管理</a>
+            <a href="">部门管理</a>
             <a>
               <cite>导航元素</cite>
             </a>
@@ -47,49 +46,66 @@
 </div>
 <div class="x-body">
 
+    <xblock>
+
+        <button class="layui-btn" onclick="addOperation('添加部门', '/department/addDepartView?id=$type=depart')"><i class="layui-icon"></i>添加部门</button>
+
+    </xblock>
+
     <table id="treeTable" class="layui-table" lay-size="sm" style="width:100%">
         <thead>
         <tr>
             <th>名称</th>
-            <th>链接</th>
-            <th>排序</th>
-            <th>权限类型</th>
-            <th>权限标识</th>
             <th>操作</th>
         </tr>
         </thead>
 
     <#list departments as depart>
-    <#--<#if perm.id!=1>-->
-        <tr id="${perm.id}" pId="${perm.par.id!""}">
-            <td>${perm.name!""}</td>
-            <td>${perm.url!""}</td>
-            <td>${perm.sort!""}</td>
-            <td>${perm.resourceType!""}</td>
-            <td>${perm.permission!""}</td>
 
-
+        <tr id="${depart.id}" pId="">
+            <td>${depart.name!""}</td>
             <td>
-                <#if perm.id!=1>
+
+                <!-- 修改 -->
+                <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('部门修改', '/department/departEdit?id=${depart.id}&type=depart')" lay-event="edit">
+                    <i class="layui-icon">&#xe642;</i>
+                </a>
+
+                <!-- 删除 -->
+                <a class="layui-btn layui-btn-danger" lay-event="del" onclick="delPerm('/department/deleteSingleDepart?id=${depart.id}')" >
+                    <i class="layui-icon">&#xe640;</i>
+                </a>
+
+                <!-- 添加 -->
+                <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="addOperation('添加下级处', '/department/addDepartView?id=${depart.id}&type=util')" lay-event="add">
+                    <i class="layui-icon">&#xe61f</i>
+                </a>
+            </td>
+        </tr>
+        <!-- 当前部门所有处 -->
+        <#if depart.departUtil?? && (depart.departUtil?size > 0)>
+            <#list depart.departUtil as departUtil>
+            <tr id="${departUtil.id}" pId="${depart.id}">
+                <td>${departUtil.name!""}</td>
+                <td>
                     <!-- 修改 -->
-                    <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('权限修改', '/per/permEdit?id=${perm.id}')" lay-event="edit">
+                    <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('部门修改', '/department/departEdit?id=${departUtil.id}&type=util')" lay-event="edit">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
 
                     <!-- 删除 -->
-                    <a class="layui-btn layui-btn-danger" lay-event="del" onclick="delPerm('/per/deleteSinglePerm?id=${perm.id}')" >
+                    <a class="layui-btn layui-btn-danger" lay-event="del" onclick="delPerm('/department/deleteSingleDepart?id=${departUtil.id}')" >
                         <i class="layui-icon">&#xe640;</i>
                     </a>
-                </#if>
-                <!-- 添加 -->
-                <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="addOperation('添加下级菜单', '/per/addPermView?id=${perm.id}')" lay-event="add">
-                    <i class="layui-icon">&#xe61f</i>
-                </a>
-            </td>
+                    <!-- 添加 -->
+                    <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="addOperation('添加下级处', '/department/addDepartView?id=${departUtil.id}&type=util')" lay-event="add">
+                        <i class="layui-icon">&#xe61f</i>
+                    </a>
+                </td>
+            </tr>
+            </#list>
+        </#if>
 
-
-        </tr>
-    <#--</#if>-->
     </#list>
     </table>
 </div>
