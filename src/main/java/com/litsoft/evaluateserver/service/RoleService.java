@@ -96,12 +96,15 @@ public class RoleService {
         return perIds;
     }
 
+    @Transactional
     public Role getRoleFromRoleVo(RoleVo roleVo) {
 
         Role role = new Role();
         if(roleVo.getId()!=null) {
             /*role.setId(roleVo.getId())*/
             role = roleRepository.findOne(roleVo.getId());
+            roleRepository.deleteRolePermission(role.getId());
+
         }
         role.setDescription(roleVo.getDescription());
         role.setRole(roleVo.getRole());

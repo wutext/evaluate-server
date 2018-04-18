@@ -85,6 +85,10 @@
                     <input type="text" id="sort" name="sort" required="" lay-verify="number"
                            autocomplete="off" class="layui-input" />
                 </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*只能填写数字</span>
+                </div>
+
             </div>
 
             <div class="layui-form-item">

@@ -26,6 +26,18 @@
   
   <body>
     <div class="x-body">
+
+        <div class="layui-form-item">
+            <label for="desc" class="layui-form-label">
+                权限范围
+            </label>
+            <div class="layui-input-inline">
+
+                <button style="padding:4px 12px;margin-left:10px;margin-top:5px" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    请选择
+                </button>
+            </div>
+        </div>
         <form action="" method="post" class="layui-form layui-form-pane">
                 <div class="layui-form-item">
                     <label for="name" class="layui-form-label">
@@ -52,17 +64,7 @@
                     </div>
                 </div>
 
-                <div class="layui-form-item">
-                    <label for="desc" class="layui-form-label">
-                        权限范围
-                    </label>
-                    <div class="layui-input-inline">
 
-                        <button style="padding:4px 12px;margin-left:10px;margin-top:5px" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                            请选择
-                        </button>
-                    </div>
-                </div>
                 <div class="layui-form-item">
                     <button  class="layui-btn" lay-submit="" lay-filter="add">增加</button>
                 </div>
@@ -82,7 +84,7 @@
                     </h4>
                 </div>
                 <div class="modal-body" style="padding:1px">
-                    <iframe id="modelTree" name="modelTree" src="/tree/menuTreeView" width="100%" height="100%"></iframe>
+                    <iframe id="modelTree" name="modelTree" src="/tree/menuTreeView?&attr=${attr}&id=<#if role??>${role.id}" </#if>" width="100%" height="100%" ></iframe>
                 </div>
                 <div class="modal-footer" style="padding:5px">
                     <button type="button" class="btn btn-default" data-dismiss="modal">

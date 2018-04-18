@@ -30,7 +30,7 @@
 
             $.ajax({
                 type: "post",
-                url: "/tree/menuTreeList",
+                url: "/tree/menuTreeList?roleId=${roleId}",
                 success: function(res) {
 
                     var data = res.menu;
@@ -41,14 +41,25 @@
                     }
 
                     // 默认选择节点
+                    //判断是添加页面还是编辑页面
+                    var attr = $("#attr").val();
                     var ids = res.selectIds;
-                    for(var i=0; i<ids.length; i++) {
-                        var node = tree.getNodeByParam("id", ids[i]);
-                        tree.checkNode(node, true, true);
-                        /*if(node.id!=1 && node.id == ids[i]) {
-                            tree.checkNode(node, true, true);
-                        }*/
+                    if(attr=='add') {
+
+                        tree.checkAllNodes(true);
+                    }else if(attr == 'edit') {
+
+                        for(var i=0; i<ids.length; i++) {
+                            var node = tree.getNodeByParam("id", ids[i]);
+
+                            if(node.id!=1 && node.id == ids[i]) {
+
+                                tree.checkNode(node, true, true);
+                            }
+                        }
                     }
+
+
                 }
             });
         });
@@ -68,6 +79,7 @@
 <body>
 
 <div class="content_wrap" style="width:100%;height:100%">
+        <input id="attr" name="attr" type="hidden" value="${attr}" />
         <ul id="treeDemo" class="ztree"></ul>
 </div>
 </body>

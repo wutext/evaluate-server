@@ -3,6 +3,7 @@ package com.litsoft.evaluateserver.api;
 import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
+import com.litsoft.evaluateserver.entity.basic.BasicAttribute;
 import com.litsoft.evaluateserver.entity.sysVo.RoleVo;
 import com.litsoft.evaluateserver.entity.sysVo.UserVo;
 import com.litsoft.evaluateserver.service.PageQueryService;
@@ -76,8 +77,9 @@ public class SysRoleController {
     public String addRole(Model model) {
 
         List<Permission> permissions = permissionService.findAll();
+
         model.addAttribute("permissions", permissions);
-       
+        model.addAttribute("attr", BasicAttribute.BASIC_ADD);
         return "/view/front/role-add";
     }
 
@@ -96,7 +98,8 @@ public class SysRoleController {
         RoleVo role = roleService.findById(id);
         model.addAttribute("permissions", permissions);
         model.addAttribute("role", role);
-        return "/view/front/role-edit";
+        model.addAttribute("attr", BasicAttribute.BASIC_EDIT);
+        return "/view/front/role-add";
     }
 
     @ResponseBody
