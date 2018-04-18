@@ -42,13 +42,24 @@ public class UserScore implements Serializable {
     @Column(name = "work_cooperate_score")
     private Integer workCooperateScore;  //工作配合情况得分
     @Column(name = "type")
-    private Integer type;  //评分角色类型;1:处经理2:客户方3:平台
+    private Integer type;  //评分角色类型;1:客户2:经理3:人事
     @Column(name = "create_time")
     private Date createTime;  //创建时间
     @Column(name = "sign_name")
-    private String signName; //项目经理签字
+    private String signName; //评分人签字
     @Column(name = "total")
     private Integer total;  //合计得分
+
+    private Double price;
+
+    public UserScore(){}
+
+    public UserScore(String userName,Date createTime,Double price) {
+        this.userName=userName;
+        this.createTime=createTime;
+        this.price=price;
+    }
+
 
     public Integer getId() {
         return id;
@@ -194,5 +205,13 @@ public class UserScore implements Serializable {
 
     public void setSignName(String signName) {
         this.signName = signName;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

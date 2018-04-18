@@ -8,14 +8,22 @@ layui.use(['jquery','table', 'laypage', 'layer','util'], function(){
 
     table.render({
         elem: '#table_userScore'
-        ,url: '/visit/userScoreList?time='+$("#time").val()+"&username="+$("#username").val()
+        ,url: '/visit/userScoreList?time='+$("#time").val()+"&username="+$("#username").val()+"&department="+$("#department").val()
         ,cellMinWidth: 80
         ,cols: [[ //表头
-            {checkbox:true, fixed:'left', sort: true}
-            ,{field:'userName', title:'用户名',width:250,align:'center', sort: true}
-            ,{field:'total', title:'得分',width:250,align:'center',sort: true}
-            ,{field:'createTime', title:'时间',width:250,align:'center',sort: true}
-            ,{fixed: 'right',title: '操作', width:250, align:'center',toolbar: '#toolBar' }
+             {field:'userName', title:'用户名',width:75,align:'center', sort: true}
+            ,{field:'deptName', title:'部门',width:90,align:'center', sort: true}
+            ,{field:'progressCompletionScore', title:'项目进度得分',width:125,align:'center',sort: true}
+            ,{field:'workloadScore', title:'工作量得分',width:115,align:'center',sort: true}
+            ,{field:'workQualityScore', title:'工作质量得分',width:125,align:'center',sort: true}
+            ,{field:'workEfficiencyScore', title:'工作效率得分',width:125,align:'center',sort: true}
+            ,{field:'workingAttitudeScore', title:'工作态度得分',width:125,align:'center',sort: true}
+            ,{field:'attendanceScore', title:'出勤率得分',width:115,align:'center',sort: true}
+            ,{field:'progressDeviationScore', title:'进度偏差得分',width:125,align:'center',sort: true}
+            ,{field:'workCooperateScore', title:'工作配合情况得分',width:135,align:'center',sort: true}
+            ,{field:'total', title:'总分',width:70,align:'center',sort: true}
+            ,{field:'createTime', title:'时间',width:80,align:'center',sort: true}
+            ,{fixed: 'right',title: '操作', width:110, align:'center',toolbar: '#toolBar' }
         ]]
         ,page: true //开启分页
         ,limit:5   //默认十条数据一页
@@ -37,7 +45,7 @@ layui.use(['jquery','table', 'laypage', 'layer','util'], function(){
 
         if(layEvent === 'detail'){ //查看
 
-            detailOperation("得分详情查看", "/visit/userScoreDetail?userName=" + data.userName+"&time="+data.createTime);
+            detailOperation("得分详情查看", "/visit/userScoreDetail?userName=" + data.userName+"&time="+data.createTime+"&department="+data.department);
         }
 
     });
@@ -52,11 +60,13 @@ function searchUserScorePage() {
 
     var time = $("#time").val();
     var username = $("#username").val();
+    var department = $("#department").val();
 
     table.reload('testReload', {
         where: { //设定异步数据接口的额外参数，任意设
             time: time
             ,username: username
+            ,department: department
         }
         ,page: {
             curr: 1 //重新从第 1 页开始
@@ -73,10 +83,10 @@ function detailOperation(title,url,w,h){
         url="404.html";
     };
     if (w == null || w == '') {
-        w=($(window).width()*0.9);
+        w=($(window).width()*0.9+80);
     };
     if (h == null || h == '') {
-        h=($(window).height() - 50);
+        h=($(window).height() - 30);
     };
 
     layui.use(['laydate', 'layer'], function() {
