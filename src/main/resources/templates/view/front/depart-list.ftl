@@ -15,6 +15,7 @@
     <script type="text/javascript" src="/layui/js/admin_common.js"></script>
     <script type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/treeTwo/jquery.treeTable.min.js"></script>
+    <script type="text/javascript" src="/layui/js/admin_depart.js"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -48,7 +49,7 @@
 
     <xblock>
 
-        <button class="layui-btn" onclick="addOperation('添加部门', '/department/addDepartView?id=$type=depart')"><i class="layui-icon"></i>添加部门</button>
+        <button class="layui-btn" onclick="addOperation('添加部门', '/department/addDepartView?id=&type=addNext')"><i class="layui-icon"></i>添加部门</button>
 
     </xblock>
 
@@ -67,7 +68,7 @@
             <td>
 
                 <!-- 修改 -->
-                <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('部门修改', '/department/departEdit?id=${depart.id}&type=depart')" lay-event="edit">
+                <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('部门修改', '/department/addDepartView?id=${depart.id}&type=editDepart')" lay-event="edit">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
 
@@ -77,7 +78,8 @@
                 </a>
 
                 <!-- 添加 -->
-                <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="addOperation('添加下级处', '/department/addDepartView?id=${depart.id}&type=util')" lay-event="add">
+
+                <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="addOperation('添加下级处', '/department/addDepartView?id=${depart.id}&&type=addNext')" lay-event="add">
                     <i class="layui-icon">&#xe61f</i>
                 </a>
             </td>
@@ -89,18 +91,18 @@
                 <td>${departUtil.name!""}</td>
                 <td>
                     <!-- 修改 -->
-                    <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('部门修改', '/department/departEdit?id=${departUtil.id}&type=util')" lay-event="edit">
+                    <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('处修改', '/department/addDepartView?id=${departUtil.id}&type=editUtil')" lay-event="edit">
                         <i class="layui-icon">&#xe642;</i>
                     </a>
 
                     <!-- 删除 -->
-                    <a class="layui-btn layui-btn-danger" lay-event="del" onclick="delPerm('/department/deleteSingleDepart?id=${departUtil.id}')" >
+                    <a class="layui-btn layui-btn-danger" lay-event="del" onclick="delPerm('/department/deleteSingleUtil?id=${departUtil.id}')" >
                         <i class="layui-icon">&#xe640;</i>
                     </a>
                     <!-- 添加 -->
-                    <a class="layui-btn layui-btn-primary layui-btn-xs" onclick="addOperation('添加下级处', '/department/addDepartView?id=${departUtil.id}&type=util')" lay-event="add">
+                    <#--<a class="layui-btn layui-btn-primary layui-btn-xs" onclick="addOperation('添加下级处', '/department/addDepartView?id=${departUtil.id}&type=addNext')" lay-event="add">
                         <i class="layui-icon">&#xe61f</i>
-                    </a>
+                    </a>-->
                 </td>
             </tr>
             </#list>

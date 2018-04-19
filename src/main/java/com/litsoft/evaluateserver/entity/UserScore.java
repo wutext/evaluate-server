@@ -49,15 +49,18 @@ public class UserScore implements Serializable {
     private String signName; //评分人签字
     @Column(name = "total")
     private Integer total;  //合计得分
+    @Column(name = "batch")
+    private String batch;   //批次
 
     private Double price;
 
-    public UserScore(){}
+    public UserScore() {
+    }
 
-    public UserScore(String userName,Date createTime,Double price) {
-        this.userName=userName;
-        this.createTime=createTime;
-        this.price=price;
+    public UserScore(String userName, Date createTime, Double price) {
+        this.userName = userName;
+        this.createTime = createTime;
+        this.price = price;
     }
 
 
@@ -213,5 +216,13 @@ public class UserScore implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public String getBatch() {
+        return batch;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
     }
 }

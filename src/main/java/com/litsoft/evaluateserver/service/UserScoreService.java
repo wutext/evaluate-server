@@ -36,21 +36,29 @@ public class UserScoreService {
         return flag;
     }
 
+    public UserScore findByUserIdAndTypeAndSignName(Integer userId, Integer type, String signName) {
+        return userScoreRepository.findByUserIdAndTypeAndSignName(userId, type, signName);
+    }
+
     //获取用户得分数据
     public List<ScoreView> getUserScore(QueryParam param) {
         String sql = "select user_name,AVG(progress_completion_score)," +
             "AVG(workload_score),AVG(work_quality_score),AVG(work_efficiency_score)," +
             "AVG(working_attitude_score),AVG(attendance_score),AVG(progress_deviation_score)," +
-            "AVG(work_cooperate_score),avg(total),DATE_FORMAT(create_time,'%Y-%m') t,dept_name from user_score where 1=1 ";
+            "AVG(work_cooperate_score),avg(total),DATE_FORMAT(create_time,'%Y-%m') t,dept_name,batch from user_score where 1=1 ";
         String condition = "GROUP BY user_name,create_time ORDER BY t desc";
         String username = param.getUsername();
         String time = param.getTime();
         String dept = param.getDepartment();
+        String batch = param.getBatch();
         if (StringUtils.isNotEmpty(username)) {
             sql = sql + " and user_name like '%" + username + "%'";
         }
         if (StringUtils.isNotEmpty(dept)) {
             sql = sql + " and dept_name like '%" + dept + "%'";
+        }
+        if (StringUtils.isNotEmpty(batch)) {
+            sql = sql + " and batch like '%" + batch + "%'";
         }
         if (StringUtils.isNotEmpty(time)) {
             sql = sql + "and DATE_FORMAT(create_time,'%Y-%m') like '%" + time.substring(0, 7) + "%'";
@@ -77,6 +85,7 @@ public class UserScoreService {
             view.setTotal(formateAvgScore(((BigDecimal) objectArray[9])));
             view.setCreateTime((String) objectArray[10]);
             view.setDeptName((String) objectArray[11]);
+            view.setBatch((String) objectArray[12]);
             viewList.add(view);
         }
         return viewList;
@@ -88,11 +97,11 @@ public class UserScoreService {
     }
 
     //获取用户得分数据详情
-    public List<UserScore> getUserScoreDetail(String userName, String time) {
+    public List<UserScore> getUserScoreDetail(String userName, String time, String batch) {
         if (StringUtils.isNotEmpty(time)) {
             time = time.substring(0, 7);
         }
-        List<UserScore> list = userScoreRepository.findByUserNameAndCreateTime(userName, time);
+        List<UserScore> list = userScoreRepository.findByUserNameAndCreateTimeAndBatch(userName, time, batch);
         return list;
     }
 

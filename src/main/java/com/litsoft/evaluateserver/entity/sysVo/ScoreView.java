@@ -17,6 +17,7 @@ public class ScoreView {
     private BigDecimal workCooperateScore;  //工作配合情况得分
     private String createTime;
     private String deptName;
+    private String batch;
 
     public ScoreView(){}
 
@@ -129,5 +130,13 @@ public class ScoreView {
 
     public void setDeptName(String deptName) {
         this.deptName = deptName;
+    }
+
+    public String getBatch() {
+        return batch;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
     }
 }

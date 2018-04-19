@@ -41,12 +41,39 @@
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
+
+
+
+
     <div class="layui-row">
+
+
+
+
         <form class="layui-form layui-col-md12 x-so">
 
-            <input type="text" id="department" name="department"  placeholder="部门" autocomplete="off" class="layui-input" value="${department!""}"/>
+            <div class="layui-form-item">
+                <label class="layui-form-label">部门</label>
+                <div class="layui-input-inline">
+                    <select id="department" name="department" lay-filter="department">
+                        <option select="" value="">请选择处</option>
+                    <#list departments as depart>
+                        <option value="${depart.id}">${depart.name}</option>
+                    </#list>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select id="departUtil" name="departUtil">
+                        <option select="" value="">请选择处</option>
+
+                    </select>
+                </div>
+            </div>
+            <#--<input type="text" id="department" name="department"  placeholder="部门" autocomplete="off" class="layui-input" value="${department!""}"/>-->
             <input type="text" id="username" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input" value="${username!""}"/>
             <button class="layui-btn search" onclick="searchUserPage()"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+
+
         </form>
     </div>
     <xblock>
@@ -59,6 +86,8 @@
     <table class="layui-table"  id="table_user" lay-filter="table_demo"></table>
 
 </div>
+
+
 
 
 <script type="text/html" id="toolBar">
@@ -79,12 +108,25 @@
 
 </script>
 
+<#--
+<script type="text/javascript">
 
+    $(function() {
+        $("#department").change(function() {
+
+            var option = $(this).val();
+
+            var arr = [];
+            arr =  ${departmentList};
+            alert(arr);
+        });
+    })
+</script>-->
 
 <script>
-    layui.use(['laydate', 'layer'], function(){
+    layui.use(['laydate', 'form', 'layer'], function(){
         var laydate = layui.laydate
-                ,$ = layui.jquery, layer = layui.layer;
+                ,$ = layui.jquery, layer = layui.layer, form = layui.form;
 
         //执行一个laydate实例
         laydate.render({
@@ -94,6 +136,23 @@
         //执行一个laydate实例
         laydate.render({
             elem: '#end' //指定元素
+        });
+
+        form.on('select(department)', function(data){
+
+            var id = data.value;
+            $.ajax({
+                type: "post",
+                url: "/department/findUtil?id="+id,
+                success: function(res) {
+
+                    alert(res);
+                },error: function(xml, status, e) {
+                    alert(e+"error");
+                }
+
+            });
+            return false;
         });
     });
 
@@ -121,6 +180,8 @@
         });
     }
 </script>
+
+
 
 
 <script>var _hmt = _hmt || []; (function() {

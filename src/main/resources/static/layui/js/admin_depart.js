@@ -164,6 +164,8 @@ function delPerm(url) {
                         time: 10000, //20s后自动关闭
                     });
                 }
+            },error: function(e) {
+                alert(e);
             }
         });
         return false;

@@ -1,8 +1,13 @@
 package com.litsoft.evaluateserver.service;
 
+import com.litsoft.evaluateserver.entity.DepartUtil;
 import com.litsoft.evaluateserver.entity.Department;
+import com.litsoft.evaluateserver.entity.basic.BasicAttribute;
+import com.litsoft.evaluateserver.entity.vo.DepartmentVo;
 import com.litsoft.evaluateserver.exception.NotFoundException;
 import com.litsoft.evaluateserver.repository.DepartmentRepository;
+import com.litsoft.evaluateserver.repository.DepartmentUtilRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +20,9 @@ public class DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
+    @Autowired
+    private DepartmentUtilRepository departUtilRepository;
+
     public List<Department> findAll() {
 
         return departmentRepository.findAll();
@@ -26,8 +34,20 @@ public class DepartmentService {
     }
 
     @Transactional
-    public Department savePermission(Department departmentVo) {
-        return departmentRepository.save(departmentVo);
+    public Department savePermission(DepartmentVo departmentVo) {
+        Department department = getDepartment(departmentVo);
+        return departmentRepository.save(department);
+    }
+
+    private Department getDepartment(DepartmentVo dv) {
+
+        Department department = new Department();
+
+        department.setId(dv.getDepartId());
+        department.setName(dv.getDepartName());
+        department.setSort(dv.getSort());
+        return department;
+
     }
 
     @Transactional
