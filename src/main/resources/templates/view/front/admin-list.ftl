@@ -41,22 +41,14 @@
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
-
-
-
-
     <div class="layui-row">
-
-
-
-
         <form class="layui-form layui-col-md12 x-so">
 
             <div class="layui-form-item">
                 <label class="layui-form-label">部门</label>
                 <div class="layui-input-inline">
                     <select id="department" name="department" lay-filter="department">
-                        <option select="" value="">请选择处</option>
+                        <option select="" value="">请选择部门</option>
                     <#list departments as depart>
                         <option value="${depart.id}">${depart.name}</option>
                     </#list>
@@ -64,12 +56,11 @@
                 </div>
                 <div class="layui-input-inline">
                     <select id="departUtil" name="departUtil">
-                        <option select="" value="">请选择处</option>
 
                     </select>
                 </div>
             </div>
-            <#--<input type="text" id="department" name="department"  placeholder="部门" autocomplete="off" class="layui-input" value="${department!""}"/>-->
+
             <input type="text" id="username" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input" value="${username!""}"/>
             <button class="layui-btn search" onclick="searchUserPage()"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
 
@@ -87,9 +78,6 @@
 
 </div>
 
-
-
-
 <script type="text/html" id="toolBar">
     <#--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">
         <i class="layui-icon">&#xe63c;</i>
@@ -100,7 +88,6 @@
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
         <i class="layui-icon">&#xe640;</i>
     </a>
-
     |
     <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone1">客户</a>
     <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone2">经理</a>
@@ -108,25 +95,11 @@
 
 </script>
 
-<#--
-<script type="text/javascript">
-
-    $(function() {
-        $("#department").change(function() {
-
-            var option = $(this).val();
-
-            var arr = [];
-            arr =  ${departmentList};
-            alert(arr);
-        });
-    })
-</script>-->
-
 <script>
     layui.use(['laydate', 'form', 'layer'], function(){
         var laydate = layui.laydate
                 ,$ = layui.jquery, layer = layui.layer, form = layui.form;
+
 
         //执行一个laydate实例
         laydate.render({
@@ -146,44 +119,24 @@
                 url: "/department/findUtil?id="+id,
                 success: function(res) {
 
-                    alert(res);
+                    $("#departUtil").html("<option select=\"\" value=\"\">请选择处</option>");
+                    if(res.length>0) {
+                        for(var i=0;i<res.length;i++) {
+                            $("#departUtil").append("<option value='"+res[i].id+"'>"+res[i].name+"</option>");
+                        }
+                    }else{
+                        layer.msg("部门下没有相关处");
+                    }
+                    form.render('select');
                 },error: function(xml, status, e) {
                     alert(e+"error");
                 }
-
             });
             return false;
         });
     });
 
-    /*用户-停用*/
-    function member_stop(obj,id){
-        layer.confirm('确认要停用吗？',function(index){
-
-            if($(obj).attr('title')=='启用'){
-
-                //发异步把用户状态进行更改
-                $(obj).attr('title','停用')
-                $(obj).find('i').html('&#xe62f;');
-
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
-                layer.msg('已停用!',{icon: 5,time:1000});
-
-            }else{
-                $(obj).attr('title','启用')
-                $(obj).find('i').html('&#xe601;');
-
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
-                layer.msg('已启用!',{icon: 5,time:1000});
-            }
-
-        });
-    }
 </script>
-
-
-
-
 <script>var _hmt = _hmt || []; (function() {
     var hm = document.createElement("script");
     hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";

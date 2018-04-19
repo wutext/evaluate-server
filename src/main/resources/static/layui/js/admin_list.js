@@ -9,7 +9,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
 
     table.render({
         elem: '#table_user'
-        ,url: '/sys/adminList?department='+$("#department").val()+"&username="+$("#username").val()
+        ,url: '/sys/adminList?department='+$("#department").val()+"&username="+$("#username").val()+"&departUtil="+$("#departUtil").val()
         ,cellMinWidth: 80
         ,cols: [[ //表头
             {field:'checkbox',checkbox:true, fixed:'left', sort: true}
@@ -163,11 +163,14 @@ function searchUserPage() {
 
     var department = $("#department").val();
     var username = $("#username").val();
+    var departUtil = $("#departUtil").val();
 
+    alert(department+".."+username+"...."+departUtil);
     table.reload('testReload', {
         where: { //设定异步数据接口的额外参数，任意设
             department: department
             ,username: username
+            ,departUtil: departUtil
         }
         ,page: {
             curr: 1 //重新从第 1 页开始
