@@ -26,16 +26,17 @@
         <form action="" method="post" class="layui-form layui-form-pane">
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
-                    <span class="x-red">*</span>上级部门名称
+                    <span class="x-red">*</span><#if departUtil??>上级</#if>部门名称
                 </label>
                 <div class="layui-input-inline">
                     <input type="hidden" id="departId" name="departId" required=""
-                           autocomplete="off" class="layui-input" value=""/>
+                           autocomplete="off" class="layui-input" value="${department.id!""}"/>
 
-                    <input type="text" name="departmentName" autocomplete="off" readonly="readonly" class="layui-input" value="" />
+                    <input type="text" name="departmentName" autocomplete="off" <#if departUtil??>readonly="readonly"</#if> class="layui-input" value="${department.name!""}" />
                 </div>
             </div>
 
+        <#if type=='editUtil' || (type=='addNext' && department.id??)>
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>处名称
@@ -43,20 +44,31 @@
                 <div class="layui-input-inline">
 
                     <input type="hidden" id="utilId" name="utilId" required=""
-                           autocomplete="off" class="layui-input" value=""/>
+                           autocomplete="off" class="layui-input" <#if departUtil??>value="${departUtil.id!""}"</#if>/>
 
                     <input type="text" id="name" name="utilName" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input" />
+                           autocomplete="off" class="layui-input" <#if departUtil??>value="${departUtil.name!""}"</#if>/>
                 </div>
             </div>
+
+        </#if>
 
             <div class="layui-form-item">
                 <label for="name" class="layui-form-label">
                     <span class="x-red">*</span>排序
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="sort" name="sort" required="" lay-verify="number"
-                           autocomplete="off" class="layui-input" />
+
+                    <#if type=='editDepart'>
+                        <input type="text" id="sort" name="sort" required="" lay-verify="number"
+                           autocomplete="off" class="layui-input" value="${department.sort!""}"/>
+                    <#elseif type=='editUtil'>
+                        <input type="text" id="sort" name="sort" required="" lay-verify="number"
+                               autocomplete="off" class="layui-input" value="${departUtil.sort!""}"/>
+                    <#else>
+                        <input type="text" id="sort" name="sort" required="" lay-verify="number"
+                               autocomplete="off" class="layui-input" value=""/>
+                    </#if>
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <span class="x-red">*只能填写数字</span>
@@ -84,15 +96,16 @@
           form.on('submit(add)', function(data){
 
               var params = {};
+              params.type = '${type}';
               params.departId = data.field.departId;
-              params.departName = data.field.departName;
+              params.departName = data.field.departmentName;
               params.utilId = data.field.utilId;
               params.utilName = data.field.utilName;
               params.sort = data.field.sort;
 
               $.ajax({
                   type: "post",
-                  url: "/depart/addDepartDo",
+                  url: "/department/addDepartDo",
                   data: JSON.stringify(params),
                   contentType: "application/json;charset=UTF-8",
                   success: function(res) {

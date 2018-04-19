@@ -60,4 +60,9 @@ public class DepartUtil {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
+
+    public void setDepartmentId(Integer departId) {
+        this.department = new Department();
+        this.department.setId(departId);
+    }
 }
