@@ -228,4 +228,3 @@ function deleteAllDo(ids) {
         return false;
     });
 }
-

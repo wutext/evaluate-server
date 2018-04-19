@@ -1,5 +1,8 @@
 package com.litsoft.evaluateserver.api;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.litsoft.evaluateserver.entity.DepartUtil;
 import com.litsoft.evaluateserver.entity.Department;
 import com.litsoft.evaluateserver.entity.basic.BasicAttribute;
@@ -9,6 +12,7 @@ import com.litsoft.evaluateserver.service.DepartmentUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/department")
@@ -101,4 +108,23 @@ public class DepartmentController {
         return departUtilService.deleteUtil(id)? "success": "filed";
     }
 
+    @ResponseBody
+    @RequestMapping("/findUtil")
+    public JSONArray findDepartment(@RequestParam("id") Integer id) {
+
+        List<DepartUtil> departUtils = new ArrayList<>();
+        Map<String, List> map = new HashMap<>();
+        Department department = departmentService.findById(id);
+
+        JSONArray json = new JSONArray();
+        if(!CollectionUtils.isEmpty(department.getDepartUtil())) {
+            department.getDepartUtil().forEach(departUtil -> {
+                JSONObject jo = new JSONObject();
+                jo.put("id", departUtil.getId());
+                jo.put("name", departUtil.getName());
+                json.add(jo);
+            });
+        }
+        return json;
+    }
 }

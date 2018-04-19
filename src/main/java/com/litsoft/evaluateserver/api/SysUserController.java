@@ -1,10 +1,12 @@
 package com.litsoft.evaluateserver.api;
 
+import com.litsoft.evaluateserver.entity.Department;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.entity.sysVo.UserVo;
 import com.litsoft.evaluateserver.exception.MessageException;
 import com.litsoft.evaluateserver.exception.NotFoundException;
+import com.litsoft.evaluateserver.service.DepartmentService;
 import com.litsoft.evaluateserver.service.PageQueryService;
 import com.litsoft.evaluateserver.service.RoleService;
 import com.litsoft.evaluateserver.service.UserService;
@@ -44,6 +46,9 @@ public class SysUserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private DepartmentService departmentService;
+
     @RequestMapping("/desktop")
     public String desktop() {
         return "/view/front/desktop";
@@ -51,9 +56,11 @@ public class SysUserController {
 
     @RequestMapping("/adminView")
     public String adminView(Model model, String department, String username) {
-        System.out.println("980");
+
+        List<Department> departmentList = departmentService.findAll();
         model.addAttribute("department", department);
         model.addAttribute("username", username);
+        model.addAttribute("departments", departmentList);
         return "/view/front/admin-list";
     }
 
@@ -120,25 +127,4 @@ public class SysUserController {
         userService.deleteSingleUser(user.getId());
         return "success";
     }
-
-   /* @RequestMapping("/adminRole")
-    public String adminRole() {
-        return "/view/front/admin-role";
-    }
-
-    @RequestMapping("/adminCate")
-    public String adminCate() {
-        return "/view/front/admin-cate";
-    }
-
-    @RequestMapping("/adminRule")
-    public String adminRule() {
-        return "/view/front/admin-rule";
-    }
-
-    @RequestMapping("/register")
-    public String register() {
-        return "/register";
-    }*/
-
 }
