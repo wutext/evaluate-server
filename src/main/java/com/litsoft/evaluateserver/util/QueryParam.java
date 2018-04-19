@@ -13,6 +13,7 @@ public class QueryParam {
     private String username = "";
     private String department = "";
     private String time = "";
+    private String batch = "";
     //角色查询条件
     private String roleSearch  ="";
 
@@ -73,6 +74,14 @@ public class QueryParam {
         this.time = time;
     }
 
+    public String getBatch() {
+        return batch;
+    }
+
+    public void setBatch(String batch) {
+        this.batch = batch;
+    }
+
     public QueryParam(Map<String, Object> params) {
         this.page = Integer.valueOf(params.get("page").toString());
         this.limit = Integer.valueOf(params.get("limit").toString());
@@ -87,6 +96,10 @@ public class QueryParam {
         }
         if(!ObjectUtils.isEmpty(params.get("time"))) {
             this.time = params.get("time").toString();
+        }
+
+        if(!ObjectUtils.isEmpty(params.get("batch"))) {
+            this.batch = params.get("batch").toString();
         }
     }
 }

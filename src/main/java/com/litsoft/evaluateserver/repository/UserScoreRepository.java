@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface UserScoreRepository extends JpaRepository<UserScore, Integer> {
 
-    @Query(value = "select * from user_score where user_name = :userName and DATE_FORMAT(create_time,'%Y-%m') = :createTime", nativeQuery = true)
-    List<UserScore> findByUserNameAndCreateTime(@Param("userName") String userName, @Param("createTime") String createTime);
+    @Query(value = "select * from user_score where user_name = :userName and DATE_FORMAT(create_time,'%Y-%m') = :createTime and batch = :batch", nativeQuery = true)
+    List<UserScore> findByUserNameAndCreateTimeAndBatch(@Param("userName") String userName, @Param("createTime") String createTime, @Param("batch") String batch);
+
+    UserScore findByUserIdAndTypeAndSignName(Integer userId, Integer type, String signName);
 }
