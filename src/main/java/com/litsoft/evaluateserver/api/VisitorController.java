@@ -1,11 +1,13 @@
 package com.litsoft.evaluateserver.api;
 
 
+import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.entity.UserScore;
 import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
 import com.litsoft.evaluateserver.entity.vo.UserScoreVo;
 import com.litsoft.evaluateserver.service.PageQueryService;
 import com.litsoft.evaluateserver.service.UserScoreService;
+import com.litsoft.evaluateserver.service.UserService;
 import com.litsoft.evaluateserver.util.LayUiData;
 import com.litsoft.evaluateserver.util.PageInfo;
 import com.litsoft.evaluateserver.util.QueryParam;
@@ -17,20 +19,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("/visit")
 public class VisitorController {
     @Autowired
     private UserScoreService userScoreService;
+
+    @Autowired
+    private UserService userService;
 
     //项目进度占比
     @Value("${userScore.progress-completion-proportion}")
@@ -70,10 +74,34 @@ public class VisitorController {
     //员工考核页面
     @RequestMapping("/research")
     public String visit(HttpServletRequest request, Model model) {
-        String name = request.getParameter("name");
         String role = request.getParameter("role");
+        String userId = request.getParameter("userId");
+        String batch = request.getParameter("batch");
+        String signName = request.getParameter("signName");
+        String name = "";
+        String company = "";
+        String project = "";
+        if (StringUtils.isNotEmpty(userId) && StringUtils.isNotEmpty(role) && StringUtils.isNotEmpty(signName)) {
+            UserScore userScore = userScoreService.findByUserIdAndTypeAndSignName(Integer.valueOf(userId), Integer.valueOf(role), signName);
+            if (userScore != null) {
+                return "/view/research/repeat";
+            }
+        }
+        if (StringUtils.isNotEmpty(userId)) {
+            User user = userService.findById(Integer.valueOf(userId));
+            if (user != null) {
+                name = user.getUsername();
+                company = user.getCompany();
+                project = user.getProject();
+            }
+        }
         model.addAttribute("userName", name);
         model.addAttribute("type", role);
+        model.addAttribute("userId", userId);
+        model.addAttribute("batch", batch);
+        model.addAttribute("signName", signName);
+        model.addAttribute("company", company);
+        model.addAttribute("project", project);
         return "/view/research/research";
     }
 
@@ -140,10 +168,11 @@ public class VisitorController {
 
     //员工得分页面
     @RequestMapping("/userScoreView")
-    public String getUserScoreView(Model model, String time, String username,String department) {
+    public String getUserScoreView(Model model, String time, String username, String department, String batch) {
         model.addAttribute("username", username);
         model.addAttribute("time", time);
         model.addAttribute("department", department);
+        model.addAttribute("batch", batch);
         return "/view/front/userScore-list";
     }
 
@@ -162,14 +191,14 @@ public class VisitorController {
 
     //员工得分详情
     @RequestMapping("/userScoreDetail")
-    public String getUserScoreDetail(String userName, String time, Model model) {
+    public String getUserScoreDetail(String userName, String time, String batch, Model model) {
         if (StringUtils.isEmpty(userName)) {
             return "用户名不能为空";
         }
         if (StringUtils.isEmpty(time)) {
             return "查询时间不能为空";
         }
-        List<UserScore> list = userScoreService.getUserScoreDetail(userName, time);
+        List<UserScore> list = userScoreService.getUserScoreDetail(userName, time, batch);
         model.addAttribute("list", list);
         return "/view/front/userScore-detail";
     }

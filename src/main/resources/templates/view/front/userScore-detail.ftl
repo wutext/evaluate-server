@@ -40,6 +40,7 @@
         <tr>
             <th>员工姓名</th>
             <th>部门</th>
+            <th>批次</th>
             <th>公司名称</th>
             <th>项目名称</th>
             <th>项目进度得分</th>
@@ -61,6 +62,7 @@
         <tr>
             <td>${userScore.userName}</td>
             <td>${userScore.deptName}</td>
+            <td>${userScore.batch}</td>
             <td>${userScore.companyName}</td>
             <td>${userScore.projectName}</td>
             <td>${userScore.progressCompletionScore}</td>
