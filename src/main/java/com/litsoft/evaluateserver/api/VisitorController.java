@@ -81,6 +81,9 @@ public class VisitorController {
         String name = "";
         String company = "";
         String project = "";
+        if (StringUtils.isEmpty(role) || StringUtils.isEmpty(userId) || StringUtils.isEmpty(batch)) {
+            return "/view/research/parameterError";
+        }
         if (StringUtils.isNotEmpty(userId) && StringUtils.isNotEmpty(role) && StringUtils.isNotEmpty(signName)) {
             UserScore userScore = userScoreService.findByUserIdAndTypeAndSignName(Integer.valueOf(userId), Integer.valueOf(role), signName);
             if (userScore != null) {

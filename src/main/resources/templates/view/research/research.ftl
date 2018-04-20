@@ -415,7 +415,7 @@
                                             <div class="fieldbody" style="">
                                                 <input required="" style="width:200px;" id="manager_sign"
                                                        name="signName" class="fieldinput"
-                                                       type="text" value="${signName}"/>
+                                                       type="text" value="${signName!""}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -511,6 +511,10 @@
                     scoreFun($("#attendance"));
                     scoreFun($("#progress_deviation"));
                     scoreFun($("#cooperate_work"));
+
+                    var myDate = new Date();
+                    var s = myDate.getFullYear()+"-"+myDate.getMonth()+"-"+myDate.getDate();;
+                    $("#data").val(s);
                     var totalScore = 0;
                     $(".star_score").click(function () {
                         var total = 0;
