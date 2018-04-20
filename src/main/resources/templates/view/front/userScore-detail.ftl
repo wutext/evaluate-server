@@ -20,22 +20,22 @@
     <![endif]-->
 </head>
 
-<body>
-<div class="x-nav">
-      <span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
-      </span>
-    <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"
-       href="javascript:location.replace(location.href);" title="刷新">
-        <i class="layui-icon" style="line-height:30px">ဂ</i></a>
+<body style="overflow: auto">
+<div style="height: 40px;">
+      <#--<span class="layui-breadcrumb">-->
+        <#--<a href="">首页</a>-->
+        <#--<a href="">演示</a>-->
+        <#--<a>-->
+          <#--<cite>导航元素</cite></a>-->
+      <#--</span>-->
+    <#--<a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right"-->
+       <#--href="javascript:location.replace(location.href);" title="刷新">-->
+        <#--<i class="layui-icon" style="line-height:30px">ဂ</i></a>-->
 </div>
 <div class="x-body">
 
 
-    <table class="layui-table" style="text-align: center">
+    <table class="layui-table"  style="text-align: center;overflow-x: scroll;width: 2000px">
         <thead>
         <tr>
             <th>员工姓名</th>
@@ -53,7 +53,7 @@
             <th>工作配合情况得分</th>
             <th>评分角色类型;1:客户2:经理3:人事</th>
             <th>创建时间</th>
-            <th>项目经理签字</th>
+            <th>评分人签字</th>
             <th>合计得分</th>
         </tr>
         </thead>
