@@ -1,5 +1,6 @@
 package com.litsoft.evaluateserver.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -34,6 +36,10 @@ public class User implements Serializable{
     @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
     @JoinTable(name = "UserRole", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
     private List<Role> roleList;// 一个用户具有多个角色
+
+    @ManyToOne(cascade = { CascadeType.REFRESH, CascadeType.MERGE }, optional = true)
+    @JoinColumn(name="util_id")
+    private DepartUtil departUtil;
 
 
     public User() {
@@ -147,4 +153,11 @@ public class User implements Serializable{
         return this.username+this.salt;
     }
 
+    public DepartUtil getDepartUtil() {
+        return departUtil;
+    }
+
+    public void setDepartUtil(DepartUtil departUtil) {
+        this.departUtil = departUtil;
+    }
 }
