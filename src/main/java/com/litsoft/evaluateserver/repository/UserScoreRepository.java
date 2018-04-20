@@ -15,4 +15,7 @@ public interface UserScoreRepository extends JpaRepository<UserScore, Integer> {
     List<UserScore> findByUserNameAndCreateTimeAndBatch(@Param("userName") String userName, @Param("createTime") String createTime, @Param("batch") String batch);
 
     UserScore findByUserIdAndTypeAndSignName(Integer userId, Integer type, String signName);
+
+    @Query(value = "select u.type from user_score u where u.user_id =?1 and u.batch =?2", nativeQuery = true)
+    List<Integer> findScoreStatusByUserId(Integer id, String batchNumber);
 }

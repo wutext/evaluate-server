@@ -44,13 +44,33 @@
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
 
+            <input id="batchId" name="batchId" type="hidden" value="${batchId!""}">
+            <input id="departmentId" name="departmentId" type="hidden" value="${department!""}">
+            <input id="departUtilId" name="departUtilId" type="hidden" value="${departUtil!""}">
+
             <div class="layui-form-item">
-                <label class="layui-form-label">部门</label>
+
+                <label class="layui-form-label" style="width:50px">选择批次</label>
+                <div class="layui-input-inline">
+                    <select id="batch" name="batch" lay-filter="batch">
+                        <#list batchList as batch>
+                            <option
+                                <#if batchId?? && batch.id==batchId>select="" </#if>
+                                    value="${batch.id}">${batch.batchNumber}
+                            </option>
+                        </#list>
+                    </select>
+                </div>
+
+                <label class="layui-form-label" style="width:25px">部门</label>
                 <div class="layui-input-inline">
                     <select id="department" name="department" lay-filter="department">
                         <option select="" value="">请选择部门</option>
                     <#list departments as depart>
-                        <option value="${depart.id}">${depart.name}</option>
+                        <option
+                                <#if department?? && depart.id==department>select="" </#if>
+                                value="${depart.id}">${depart.name}
+                        </option>
                     </#list>
                     </select>
                 </div>
@@ -59,20 +79,20 @@
 
                     </select>
                 </div>
+                <div class="layui-input-inline">
+                    <input type="text" id="username" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input" value="${username!""}"/>
+                </div>
+
+                <div class="layui-input-inline" style="width:0px">
+                    <button class="layui-btn search" onclick="searchUserPage()"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                </div>
             </div>
-
-            <input type="text" id="username" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input" value="${username!""}"/>
-            <button class="layui-btn search" onclick="searchUserPage()"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-
-
         </form>
     </div>
     <xblock>
         <button class="layui-btn delAll layui-btn-danger" id="deleteAll">批量删除</button>
         <button class="layui-btn" onclick="addOperation('角色添加', '/sys/addUserView')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据： 条</span>
     </xblock>
-
 
     <table class="layui-table"  id="table_user" lay-filter="table_demo"></table>
 
@@ -82,6 +102,7 @@
     <#--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">
         <i class="layui-icon">&#xe63c;</i>
     </a>-->
+
     <a class="layui-btn layui-btn-xs" lay-event="edit" >
         <i class="layui-icon">&#xe642;</i>
     </a>
@@ -89,9 +110,98 @@
         <i class="layui-icon">&#xe640;</i>
     </a>
     |
-    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone1">客户</a>
-    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone2">经理</a>
-    <a class="layui-btn layui-bg-cyan layui-btn-xs clone"  lay-event="clone3">人事</a>
+
+    <#-- true代表可执行，false代表不可执行; 此处根据user_score中type的状态来判断是否存在此
+        某个身份人对该用户打过分，yes：按钮不可用并置灰；no:按钮正常
+    -->
+    {{#
+        var clone1 = true;
+        var clone2 = true;
+        var clone3 = true;
+    }}
+    <a
+
+       {{#  layui.each(d.raters, function(index, item){ }}
+
+            {{#  if(item === 1){ }}
+
+                {{# clone1=false }}
+            {{#  } }}
+
+       {{#  }); }}
+
+       {{#  if(clone1){ }}
+
+        lay-event="clone1"
+       {{#  } }}
+
+       class="layui-btn
+
+         {{#  if(clone1){ }}
+            layui-bg-cyan
+            {{#  } else { }}
+            layui-bg-gray
+         {{#  } }}
+          layui-btn-xs clone"
+    >
+        客户
+    </a>
+
+
+    <a
+
+       {{#  layui.each(d.raters, function(index, item){ }}
+
+       {{#  if(item === 2){ }}
+
+       {{# clone2=false }}
+       {{#  } }}
+
+       {{#  }); }}
+
+       {{#  if(clone2){ }}
+
+       lay-event="clone2"
+       {{#  } }}
+
+       class="layui-btn
+
+         {{#  if(clone2){ }}
+            layui-bg-cyan
+            {{#  } else { }}
+            layui-bg-gray
+         {{#  } }}
+          layui-btn-xs clone"
+       >
+        经理
+    </a>
+    <a
+       {{#  layui.each(d.raters, function(index, item){ }}
+
+       {{#  if(item === 3){ }}
+
+       {{# clone3=false }}
+       {{#  } }}
+
+       {{#  }); }}
+
+       {{#  if(clone3){ }}
+
+       lay-event="clone3"
+       {{#  } }}
+
+       class="layui-btn
+
+         {{#  if(clone3){ }}
+            layui-bg-cyan
+            {{#  } else { }}
+            layui-bg-gray
+         {{#  } }}
+          layui-btn-xs clone"
+
+       >
+        人事
+    </a>
 
 </script>
 
@@ -133,6 +243,12 @@
                 }
             });
             return false;
+        });
+
+        form.on('select(batch)', function(data){
+
+            var id = data.value;
+            $("#batchId").val(id);
         });
     });
 

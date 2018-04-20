@@ -8,12 +8,14 @@ public class QueryParam {
 
     private Integer page;
     private Integer limit;
-
+    private String batchNumber = "";
     //user查询条件
     private String username = "";
     private String department = "";
+    private String departUtil = "";
     private String time = "";
     private String batch = "";
+    private String batchId;
     //角色查询条件
     private String roleSearch  ="";
 
@@ -24,6 +26,14 @@ public class QueryParam {
     public QueryParam(Integer page, Integer limit) {
         this.page = page;
         this.limit = limit;
+    }
+
+    public String getBatchNumber() {
+        return batchNumber;
+    }
+
+    public void setBatchNumber(String batchNumber) {
+        this.batchNumber = batchNumber;
     }
 
     public Integer getPage() {
@@ -82,9 +92,28 @@ public class QueryParam {
         this.batch = batch;
     }
 
+
+    public String getDepartUtil() {
+        return departUtil;
+    }
+
+    public void setDepartUtil(String departUtil) {
+        this.departUtil = departUtil;
+    }
+
+    public String getBatchId() {
+        return batchId;
+    }
+
+    public void setBatchId(String batchId) {
+        this.batchId = batchId;
+    }
+
     public QueryParam(Map<String, Object> params) {
+
         this.page = Integer.valueOf(params.get("page").toString());
         this.limit = Integer.valueOf(params.get("limit").toString());
+
         if(!ObjectUtils.isEmpty(params.get("roleSearch"))) {
             this.roleSearch = params.get("roleSearch").toString();
         }
@@ -100,6 +129,16 @@ public class QueryParam {
 
         if(!ObjectUtils.isEmpty(params.get("batch"))) {
             this.batch = params.get("batch").toString();
+        }
+
+        if(!ObjectUtils.isEmpty(params.get("departUtil"))) {
+            this.departUtil = params.get("departUtil").toString();
+        }
+        if(!ObjectUtils.isEmpty(params.get("batchNumber"))) {
+            this.batchNumber = params.get("batchNumber").toString();
+        }
+        if(!ObjectUtils.isEmpty(params.get("batchId"))) {
+            this.batchId = params.get("batchId").toString();
         }
     }
 }

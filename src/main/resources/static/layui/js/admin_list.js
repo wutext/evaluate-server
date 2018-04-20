@@ -9,7 +9,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
 
     table.render({
         elem: '#table_user'
-        ,url: '/sys/adminList?department='+$("#department").val()+"&username="+$("#username").val()+"&departUtil="+$("#departUtil").val()
+        ,url: '/sys/adminList?department='+$("#departmentId").val()+"&username="+$("#username").val()+"&departUtil="+$("#departUtilId").val()+"&batchId="+$("#batchId").val()
         ,cellMinWidth: 80
         ,cols: [[ //表头
             {field:'checkbox',checkbox:true, fixed:'left', sort: true}
@@ -18,12 +18,19 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
             ,{field:'phone', title:'电话/手机',width:80,sort: true}
             ,{field:'email', title:'邮箱',width:80,sort: true}
             ,{field:'state', title:'状态',width:80}
-            ,{fixed: 'right',title: '操作', width:500, align:'center', toolbar: '#toolBar'}
+            ,{fixed: 'right',title: '操作', width:500, align:'center', templet: '#toolBar'/* toolbar: '#toolBar'*/}
         ]]
         ,page: true //开启分页
         ,limit:6   //默认十条数据一页
         ,limits:[6,10,20,30,50]  //数据分页条
         ,id: 'testReload'
+        ,done: function(res, curr, count){
+            var data = res.data;
+            console.log(data);
+            /*for(var i=0;i<data.length;i++) {
+                alert(data[i].username);
+            }*/
+        }
     });
 
     //新增user
@@ -118,9 +125,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         }else if(layEvent === 'clone3'){ //编辑
             getUrl(data.username, 3, cloneUrl);
         }
-
     });
-
 });
 
 
@@ -161,16 +166,17 @@ function copyMethod(url) {
 }
 function searchUserPage() {
 
-    var department = $("#department").val();
+    var department = $("#departmentId").val();
     var username = $("#username").val();
-    var departUtil = $("#departUtil").val();
+    var departUtil = $("#departUtilId").val();
+    var batchId = $("#batchId").val();
 
-    alert(department+".."+username+"...."+departUtil);
     table.reload('testReload', {
         where: { //设定异步数据接口的额外参数，任意设
             department: department
             ,username: username
             ,departUtil: departUtil
+            ,batchId : batchId
         }
         ,page: {
             curr: 1 //重新从第 1 页开始

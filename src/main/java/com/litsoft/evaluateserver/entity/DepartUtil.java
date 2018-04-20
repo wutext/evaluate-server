@@ -25,7 +25,7 @@ public class DepartUtil {
     @JoinColumn(name="department_id")
     private Department department;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "departUtil")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "departUtil")
     private List<User> userList = new ArrayList<>();
 
     public DepartUtil() {

@@ -1,5 +1,7 @@
 package com.litsoft.evaluateserver.entity.sysVo;
 
+import java.util.List;
+
 public class UserVo {
 
     private Integer id;
@@ -11,6 +13,7 @@ public class UserVo {
     private String project;
     private String email;
     private String[] roleId;
+    private List<Integer> raters;
 
     public UserVo() {
     }
@@ -112,5 +115,13 @@ public class UserVo {
 
     public void setProject(String project) {
         this.project = project;
+    }
+
+    public List<Integer> getRaters() {
+        return raters;
+    }
+
+    public void setRaters(List<Integer> raters) {
+        this.raters = raters;
     }
 }

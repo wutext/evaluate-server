@@ -1,10 +1,12 @@
 package com.litsoft.evaluateserver.service;
 
+import com.litsoft.evaluateserver.entity.Batch;
 import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.entity.UserScore;
 import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
+import com.litsoft.evaluateserver.repository.BatchRepository;
 import com.litsoft.evaluateserver.repository.PermissionRepository;
 import com.litsoft.evaluateserver.repository.RoleRepository;
 import com.litsoft.evaluateserver.repository.UserRepository;
@@ -26,6 +28,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -42,6 +45,9 @@ public class PageQueryServiceImpl implements PageQueryService{
 
     @Autowired
     private UserScoreRepository userScoreRepository;
+
+    @Autowired
+    private BatchRepository batchRepository;
 
 
 
@@ -120,6 +126,24 @@ public class PageQueryServiceImpl implements PageQueryService{
         return permissionRepository.findAll(pageable);
     }
 
+    @Override
+    public Page<Batch> findBatchPageSearch(QueryParam param) {
+        Pageable pageable =  new PageRequest(param.getPage()-1,param.getLimit(), Sort.Direction.DESC, "batchNumber");
+        Specification<Batch> spec = new Specification<Batch>() {
+
+            @Override
+            public Predicate toPredicate(Root<Batch> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                if(!StringUtils.isNullOrEmpty(param.getBatchNumber())) {
+                    Path<String>  batchNumber= root.get("batchNumber");
+                    Predicate p1 = cb.like(batchNumber, "%"+param.getBatchNumber()+"%");
+                    Predicate p = cb.and(p1);
+                    return p;
+                }
+                return null;
+            }
+        };
+        return batchRepository.findAll(spec, pageable);
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.litsoft.evaluateserver.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
@@ -28,13 +30,17 @@ public class User implements Serializable{
     private byte state;//用户状态,0:创建未认证（比如没有激活，没有输入验证码等等）--等待验证的用户 , 1:正常状态,2：用户被锁定.
     private String phone;
     private String email;
-    private String company;
-    private String project;
+    private String company; //所在公司
+    private String project; //所在项目
+    private String position; //职位
 
     @ManyToMany(fetch= FetchType.EAGER)//立即从数据库中进行加载数据;
     @JoinTable(name = "UserRole", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns ={@JoinColumn(name = "roleId") })
     private List<Role> roleList;// 一个用户具有多个角色
 
+    @ManyToOne(cascade = { CascadeType.REFRESH, CascadeType.MERGE }, optional = true)
+    @JoinColumn(name="util_id")
+    private DepartUtil departUtil;
 
     public User() {
     }
@@ -137,6 +143,22 @@ public class User implements Serializable{
 
     public void setProject(String project) {
         this.project = project;
+    }
+
+    public DepartUtil getDepartUtil() {
+        return departUtil;
+    }
+
+    public void setDepartUtil(DepartUtil departUtil) {
+        this.departUtil = departUtil;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     /**

@@ -116,4 +116,9 @@ public class UserScoreService {
         List<UserScore> list = manager.createQuery(q).getResultList();
         return list;
     }
+
+    public List<Integer> getUserScoreStatusByUserId(Integer id,String batchNumber) {
+       List<Integer> scoreType = userScoreRepository.findScoreStatusByUserId(id, batchNumber);
+       return scoreType;
+    }
 }
