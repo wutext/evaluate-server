@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>重复评分</title>
     <style type="text/css">
         #success {
             text-align:center; margin-top:50px;

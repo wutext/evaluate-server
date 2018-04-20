@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>请求信息错误</title>
     <style type="text/css">
         #success {
             text-align:center; margin-top:50px;
