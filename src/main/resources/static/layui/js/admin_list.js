@@ -5,11 +5,12 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
     var form = layui.form
                 ,layer = layui.layer
                 ,table = layui.table
+                ,form = layui.form
                 ,$ = layui.$;
 
     table.render({
         elem: '#table_user'
-        ,url: '/sys/adminList?department='+$("#departmentId").val()+"&username="+$("#username").val()+"&departUtil="+$("#departUtilId").val()+"&batchId="+$("#batchId").val()
+        ,url: '/sys/adminList?departmentId='+$("#departmentId").val()+"&username="+$("#username").val()+"&departUtilId="+$("#departUtilId").val()+"&batchId="+$("#batchId").val()
         ,cellMinWidth: 80
         ,cols: [[ //表头
             {field:'checkbox',checkbox:true, fixed:'left', sort: true}
@@ -24,13 +25,14 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         ,limit:6   //默认十条数据一页
         ,limits:[6,10,20,30,50]  //数据分页条
         ,id: 'testReload'
-        ,done: function(res, curr, count){
-            var data = res.data;
-            console.log(data);
-            /*for(var i=0;i<data.length;i++) {
-                alert(data[i].username);
-            }*/
+        ,done: function (res,e,d) {
+
+            $("#batch").val($("#batchId").val());
+            $("#department").val($("#departmentId").val());
+            setDepartUtilSelect($("#departmentId").val(), $("#departUtilId").val());
+            form.render();
         }
+
     });
 
     //新增user
@@ -166,16 +168,16 @@ function copyMethod(url) {
 }
 function searchUserPage() {
 
-    var department = $("#departmentId").val();
+    var departmentId = $("#departmentId").val();
     var username = $("#username").val();
-    var departUtil = $("#departUtilId").val();
+    var departUtilId = $("#departUtilId").val();
     var batchId = $("#batchId").val();
 
     table.reload('testReload', {
         where: { //设定异步数据接口的额外参数，任意设
-            department: department
+            departmentId: departmentId
             ,username: username
-            ,departUtil: departUtil
+            ,departUtilId: departUtilId
             ,batchId : batchId
         }
         ,page: {

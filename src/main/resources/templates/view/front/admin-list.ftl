@@ -44,9 +44,9 @@
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
 
-            <input id="batchId" name="batchId" type="hidden" value="${batchId!""}">
-            <input id="departmentId" name="departmentId" type="hidden" value="${department!""}">
-            <input id="departUtilId" name="departUtilId" type="hidden" value="${departUtil!""}">
+            <input id="batchId" name="batchId" type="text" value="${batchId!""}">
+            <input id="departmentId" name="departmentId" type="text" value="${departmentId!""}">
+            <input id="departUtilId" name="departUtilId" type="text" value="${departUtilId!""}">
 
             <div class="layui-form-item">
 
@@ -55,7 +55,7 @@
                     <select id="batch" name="batch" lay-filter="batch">
                         <#list batchList as batch>
                             <option
-                                <#if batchId?? && batch.id==batchId>select="" </#if>
+                                <#if batch.id==1>select="" </#if>
                                     value="${batch.id}">${batch.batchNumber}
                             </option>
                         </#list>
@@ -63,19 +63,19 @@
                 </div>
 
                 <label class="layui-form-label" style="width:25px">部门</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-inline layui-form">
                     <select id="department" name="department" lay-filter="department">
                         <option select="" value="">请选择部门</option>
                     <#list departments as depart>
                         <option
-                                <#if department?? && depart.id==department>select="" </#if>
+                                <#if departmentId?? && depart.id==departmentId>select="" </#if>
                                 value="${depart.id}">${depart.name}
                         </option>
                     </#list>
                     </select>
                 </div>
                 <div class="layui-input-inline">
-                    <select id="departUtil" name="departUtil">
+                    <select id="departUtil" name="departUtil" lay-filter="departUtil">
 
                     </select>
                 </div>
@@ -224,24 +224,9 @@
         form.on('select(department)', function(data){
 
             var id = data.value;
-            $.ajax({
-                type: "post",
-                url: "/department/findUtil?id="+id,
-                success: function(res) {
+            setDepartUtilSelect(id);
+            $("#departmentId").val(id, null);
 
-                    $("#departUtil").html("<option select=\"\" value=\"\">请选择处</option>");
-                    if(res.length>0) {
-                        for(var i=0;i<res.length;i++) {
-                            $("#departUtil").append("<option value='"+res[i].id+"'>"+res[i].name+"</option>");
-                        }
-                    }else{
-                        layer.msg("部门下没有相关处");
-                    }
-                    form.render('select');
-                },error: function(xml, status, e) {
-                    alert(e+"error");
-                }
-            });
             return false;
         });
 
@@ -250,8 +235,48 @@
             var id = data.value;
             $("#batchId").val(id);
         });
+
+        form.on('select(departUtil)', function(data){
+
+            var id = data.value;
+            $("#departUtilId").val(id);
+        });
+
     });
 
+
+    function setDepartUtilSelect(id, val) {
+
+        $.ajax({
+            type: "post",
+            url: "/department/findUtil?id="+id,
+            success: function(res) {
+
+                $("#departUtil").html("<option select=\"\" value=\"\">请选择处</option>");
+                if(res.length>0) {
+                    for(var i=0;i<res.length;i++) {
+                        $("#departUtil").append("<option value='"+res[i].id+"'>"+res[i].name+"</option>");
+                    }
+                }else{
+                    $("#departUtilId").val("");
+
+                }
+
+                if(val!=null || val!="") {
+                    $("#departUtil").val(val);
+                }
+
+                layui.use('form', function() {
+
+                    var form = layui.form;
+                    form.render('select');
+                });
+
+            },error: function(xml, status, e) {
+                alert(e+"error");
+            }
+        });
+    }
 </script>
 <script>var _hmt = _hmt || []; (function() {
     var hm = document.createElement("script");

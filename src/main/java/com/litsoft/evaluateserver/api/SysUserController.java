@@ -65,12 +65,13 @@ public class SysUserController {
     }
 
     @RequestMapping("/adminView")
-    public String adminView(Model model, Integer department, String username, Integer departUtil, Integer batchId) {
+    public String adminView(Model model, Integer departmentId, String username, Integer departUtilId, Integer batchId) {
 
         List<Department> departmentList = departmentService.findAll();
         List<Batch> batchList = batchService.findBatchList();
-        model.addAttribute("department", department);
-        model.addAttribute("departUtil", departUtil);
+        batchId = batchId==null? batchList.get(0).getId() : batchId;
+        model.addAttribute("departmentId", departmentId);
+        model.addAttribute("departUtilId", departUtilId);
         model.addAttribute("username", username);
         model.addAttribute("departments", departmentList);
         model.addAttribute("batchList", batchList);

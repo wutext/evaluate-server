@@ -68,8 +68,8 @@ public class PageQueryServiceImpl implements PageQueryService{
                 boolean depEx = StringUtils.isNullOrEmpty(param.getDepartment());
                 boolean nameEx = StringUtils.isNullOrEmpty(param.getUsername());
                 if(!depEx) {
-                    Path<String> department = root.get("department");
-                    Predicate p1 = cb.like(department, "%"+param.getDepartment()+"%");
+                    Path<String> departUtil = root.get("departUtil").get("id");
+                    Predicate p1 = cb.equal(departUtil, param.getDepartUtil());
                     Predicate p = cb.and(p1);
                     return p;
                 }
@@ -82,9 +82,9 @@ public class PageQueryServiceImpl implements PageQueryService{
                 }
 
                 if(!depEx && !nameEx) {
-                    Path<String> department = root.get("department");
+                    Path<String> departUtil = root.get("departUtil").get("id");
                     Path<String> username = root.get("username");
-                    Predicate p1 = cb.like(department, "%"+param.getDepartment()+"%");
+                    Predicate p1 = cb.equal(departUtil, param.getDepartUtil());
                     Predicate p2 = cb.like(username, "%"+param.getUsername()+"%");
                     Predicate p = cb.and(p1,p2);
                     return p;
