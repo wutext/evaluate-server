@@ -84,8 +84,12 @@ public class SysUserController {
     @RequestMapping("/adminList")
     public LayUiData adminList(@RequestParam Map<String, Object> params){
         QueryParam param = new QueryParam(params);
-        Page<User> pageUser = pageQueryService.findUserPageSearch(param);
+        if(!StringUtils.isEmpty(param.getDepartment()) && StringUtils.isEmpty(param.getDepartUtil())) {
+            param.setUtilIds(departmentService.getUtilIds(param.getDepartment(), param.getDepartUtil()));
+        }
 
+        Page<User> pageUser = pageQueryService.findUserBySoemSelect(param);
+        /*Page<User> pageUser = pageQueryService.findUserPageSearch(param);*/
         String batchNumber = getBatchName(param.getBatchId());
 
         List<UserVo> users = new ArrayList<>();

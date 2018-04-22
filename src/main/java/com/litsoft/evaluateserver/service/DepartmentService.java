@@ -10,8 +10,10 @@ import com.litsoft.evaluateserver.repository.DepartmentUtilRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,5 +62,17 @@ public class DepartmentService {
             new NotFoundException("error: 删除失败");
             return false;
         }
+    }
+
+    public List<Integer> getUtilIds(String departmentId, String departUtil) {
+        List<Integer> utilIds = new ArrayList<Integer>();
+        Department department = departmentRepository.findOne(Integer.valueOf(departmentId));
+        if(!CollectionUtils.isEmpty(department.getDepartUtil())) {
+            department.getDepartUtil().forEach(utilId -> {
+                utilIds.add(utilId.getId());
+            });
+        }
+
+        return utilIds;
     }
 }

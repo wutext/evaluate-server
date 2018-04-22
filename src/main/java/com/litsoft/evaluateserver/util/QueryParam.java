@@ -2,6 +2,8 @@ package com.litsoft.evaluateserver.util;
 
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class QueryParam {
@@ -18,6 +20,8 @@ public class QueryParam {
     private String batchId;
     //角色查询条件
     private String roleSearch  ="";
+
+    private List<Integer> utilIds = new ArrayList();
 
 
     public QueryParam() {
@@ -109,6 +113,14 @@ public class QueryParam {
         this.batchId = batchId;
     }
 
+    public List<Integer> getUtilIds() {
+        return utilIds;
+    }
+
+    public void setUtilIds(List<Integer> utilIds) {
+        this.utilIds = utilIds;
+    }
+
     public QueryParam(Map<String, Object> params) {
 
         this.page = Integer.valueOf(params.get("page").toString());
@@ -120,8 +132,8 @@ public class QueryParam {
         if(!ObjectUtils.isEmpty(params.get("username"))) {
             this.username = params.get("username").toString();
         }
-        if(!ObjectUtils.isEmpty(params.get("department"))) {
-            this.department = params.get("department").toString();
+        if(!ObjectUtils.isEmpty(params.get("departmentId"))) {
+            this.department = params.get("departmentId").toString();
         }
         if(!ObjectUtils.isEmpty(params.get("time"))) {
             this.time = params.get("time").toString();
@@ -131,8 +143,9 @@ public class QueryParam {
             this.batch = params.get("batch").toString();
         }
 
-        if(!ObjectUtils.isEmpty(params.get("departUtil"))) {
-            this.departUtil = params.get("departUtil").toString();
+        if(!ObjectUtils.isEmpty(params.get("departUtilId"))) {
+            this.departUtil = params.get("departUtilId").toString();
+            this.utilIds.add(Integer.valueOf(departUtil));
         }
         if(!ObjectUtils.isEmpty(params.get("batchNumber"))) {
             this.batchNumber = params.get("batchNumber").toString();

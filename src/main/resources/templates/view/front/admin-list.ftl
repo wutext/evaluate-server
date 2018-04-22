@@ -44,9 +44,9 @@
     <div class="layui-row">
         <form class="layui-form layui-col-md12 x-so">
 
-            <input id="batchId" name="batchId" type="text" value="${batchId!""}">
-            <input id="departmentId" name="departmentId" type="text" value="${departmentId!""}">
-            <input id="departUtilId" name="departUtilId" type="text" value="${departUtilId!""}">
+            <input id="batchId" name="batchId" type="hidden" value="${batchId!""}">
+            <input id="departmentId" name="departmentId" type="hidden" value="${departmentId!""}">
+            <input id="departUtilId" name="departUtilId" type="hidden" value="${departUtilId!""}">
 
             <div class="layui-form-item">
 

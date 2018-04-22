@@ -175,9 +175,9 @@ function searchUserPage() {
 
     table.reload('testReload', {
         where: { //设定异步数据接口的额外参数，任意设
-            departmentId: departmentId
+            department: departmentId
             ,username: username
-            ,departUtilId: departUtilId
+            ,departUtil: departUtilId
             ,batchId : batchId
         }
         ,page: {
