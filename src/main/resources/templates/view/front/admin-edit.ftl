@@ -54,6 +54,41 @@
             </div>
         </div>
 
+        <input id="departmentId" name="departmentId" type="hidden" value="${departmentId!""}">
+        <input id="departUtilId" name="departUtilId" type="hidden" value="${departUtilId!""}">
+        <div class="layui-form-item">
+            <label for="department" class="layui-form-label">
+                <span class="x-red">*</span>所属部门
+            </label>
+
+            <div class="layui-input-inline">
+                <select id="department" name="department" lay-filter="department">
+                    <option select="" value="">请选择部门</option>
+                <#list departmentList as depart>
+                    <option
+                        <#if departmentId?? && depart.id==departmentId>select="" </#if>
+                        value="${depart.id}">${depart.name}
+                    </option>
+                </#list>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select id="departUtil" name="departUtil" lay-filter="departUtil" required="" lay-verify="required">
+
+                        <#list departmentList as depart>
+                            <#if departmentId?? && depart.id==departmentId && (depart.departUtil?? && (depart.departUtil?size>0))>
+                                <#list depart.departUtil as util>
+                                <option
+                                    <#if departUtilId?? && util.id==departUtilId>select="" </#if>
+                                            value="${util.id}">${util.name}
+                                    </option>
+                                </#list>
+                            </#if>
+                        </#list>
+                </select>
+            </div>
+        </div>
+
         <div class="layui-form-item">
             <label for="phone" class="layui-form-label">
                 <span class="x-red">*</span>所属项目
@@ -163,8 +198,9 @@
             }
         });
 
-
-
+        $("#department").val($("#departmentId").val());
+        $("#departUtil").val($("#departUtilId").val());
+        form.render();
     });
 </script>
 <#--<script>var _hmt = _hmt || []; (function() {

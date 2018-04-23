@@ -3,6 +3,7 @@ package com.litsoft.evaluateserver.util;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.entity.sysVo.UserVo;
+import com.litsoft.evaluateserver.service.DepartmentService;
 import com.mysql.jdbc.StringUtils;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;

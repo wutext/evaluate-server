@@ -22,6 +22,8 @@ public class UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private DepartmentService departmentService;
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -84,6 +86,7 @@ public class UserService {
         User user  = new User();
         if(userVo.getId()==null) {
             user = MdUtil.md5Password(userVo);
+            user.setDepartUtil(departmentService.findDepartUtilById(userVo.getUtilId()));
         }else{
             User preUser = userRepository.findOne(userVo.getId());
             preUser.setUsername(userVo.getUsername());
@@ -93,6 +96,7 @@ public class UserService {
             preUser.setPhone(userVo.getPhone());
             preUser.setEmail(userVo.getEmail());
             preUser.setState(new Byte("1"));
+            preUser.setDepartUtil(departmentService.findDepartUtilById(userVo.getUtilId()));
             user = preUser;
         }
         return userRepository.save(user);

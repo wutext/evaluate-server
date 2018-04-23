@@ -14,6 +14,7 @@ public class UserVo {
     private String email;
     private String[] roleId;
     private List<Integer> raters;
+    private Integer utilId;
 
     public UserVo() {
     }
@@ -87,6 +88,14 @@ public class UserVo {
 
     public String[] getRoleId() {
         return roleId;
+    }
+
+    public Integer getUtilId() {
+        return utilId;
+    }
+
+    public void setUtilId(Integer utilId) {
+        this.utilId = utilId;
     }
 
     public void setRoleId(String[] roleId) {

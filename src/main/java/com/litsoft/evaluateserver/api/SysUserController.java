@@ -1,6 +1,7 @@
 package com.litsoft.evaluateserver.api;
 
 import com.litsoft.evaluateserver.entity.Batch;
+import com.litsoft.evaluateserver.entity.DepartUtil;
 import com.litsoft.evaluateserver.entity.Department;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
@@ -122,7 +123,9 @@ public class SysUserController {
     @RequestMapping("/addUserView")
     public String addUser(Model model) {
         List<Role> roles = roleService.findAll();
+        List<Department> departmentList = departmentService.findAll();
         model.addAttribute("roles", roles);
+        model.addAttribute("departmentList", departmentList);
         return "/view/front/admin-add";
     }
 
@@ -143,10 +146,20 @@ public class SysUserController {
                            @RequestParam("operate") String operate) {
 
         List<Role> roles = roleService.findAll();
+        List<Department> departmentList = departmentService.findAll();
         User user = userService.findById(id);
+        DepartUtil util = new DepartUtil();
+        if(!ObjectUtils.isEmpty(user.getDepartUtil())) {
+            util = departmentService.findDepartUtilById(user.getDepartUtil().getId());
+            model.addAttribute("departmentId", util.getDepartment().getId());
+            model.addAttribute("departUtilId", util.getId());
+        }
+
         model.addAttribute("roles", roles);
         model.addAttribute("user", user);
         model.addAttribute("operate", operate);
+        model.addAttribute("departmentList", departmentList);
+
         return "/view/front/admin-edit";
     }
 

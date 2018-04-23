@@ -55,7 +55,7 @@
                     <select id="batch" name="batch" lay-filter="batch">
                         <#list batchList as batch>
                             <option
-                                <#if batch.id==1>select="" </#if>
+                                <#if batch.id==batchId>select="" </#if>
                                     value="${batch.id}">${batch.batchNumber}
                             </option>
                         </#list>
@@ -77,7 +77,7 @@
                 <div class="layui-input-inline">
                     <select id="departUtil" name="departUtil" lay-filter="departUtil">
 
-                    </select>
+                </select>
                 </div>
                 <div class="layui-input-inline">
                     <input type="text" id="username" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input" value="${username!""}"/>
@@ -221,62 +221,12 @@
             elem: '#end' //指定元素
         });
 
-        form.on('select(department)', function(data){
 
-            var id = data.value;
-            setDepartUtilSelect(id);
-            $("#departmentId").val(id, null);
-
-            return false;
-        });
-
-        form.on('select(batch)', function(data){
-
-            var id = data.value;
-            $("#batchId").val(id);
-        });
-
-        form.on('select(departUtil)', function(data){
-
-            var id = data.value;
-            $("#departUtilId").val(id);
-        });
 
     });
 
 
-    function setDepartUtilSelect(id, val) {
 
-        $.ajax({
-            type: "post",
-            url: "/department/findUtil?id="+id,
-            success: function(res) {
-
-                $("#departUtil").html("<option select=\"\" value=\"\">请选择处</option>");
-                if(res.length>0) {
-                    for(var i=0;i<res.length;i++) {
-                        $("#departUtil").append("<option value='"+res[i].id+"'>"+res[i].name+"</option>");
-                    }
-                }else{
-                    $("#departUtilId").val("");
-
-                }
-
-                if(val!=null || val!="") {
-                    $("#departUtil").val(val);
-                }
-
-                layui.use('form', function() {
-
-                    var form = layui.form;
-                    form.render('select');
-                });
-
-            },error: function(xml, status, e) {
-                alert(e+"error");
-            }
-        });
-    }
 </script>
 <script>var _hmt = _hmt || []; (function() {
     var hm = document.createElement("script");

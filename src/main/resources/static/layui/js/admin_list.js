@@ -54,6 +54,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                 ,"phone": data.field.phone
                 ,"email": data.field.email
                 ,"roleId": strIds
+                ,"utilId": data.field.departUtil
             })
             ,contentType: "application/json;charset=UTF-8"
             ,success: function(res) {
@@ -82,6 +83,28 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         return false;
     });
 
+    <!-- start deal the department show -->
+    form.on('select(department)', function(data){
+
+        var id = data.value;
+        setDepartUtilSelect(id);
+        $("#departmentId").val(id, null);
+/*
+        return false;*/
+    });
+
+    form.on('select(batch)', function(data){
+
+        var id = data.value;
+        $("#batchId").val(id);
+    });
+
+    form.on('select(departUtil)', function(data){
+
+        var id = data.value;
+        $("#departUtilId").val(id);
+    });
+    <!-- end -->
     //编辑和单个删除
     table.on('tool(table_demo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
@@ -92,7 +115,8 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
         var pathName = window.document.location.pathname;
         var pos = curWwwPath.indexOf(pathName);
-        var cloneUrl= curWwwPath.substring(0, pos)
+        var cloneUrl= curWwwPath.substring(0, pos);
+        var batchNumber = $("#batchId").val();
 
         if(layEvent === 'detail'){ //查看
 
@@ -121,20 +145,20 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         } else if(layEvent === 'edit' || layEvent === 'detail'){ //编辑
             roleOperation("编辑", "/sys/userEdit?id=" + data.id+"&operate=edit");
         }else if(layEvent === 'clone1'){ //编辑
-            getUrl(data.username, 1, cloneUrl);
+            getUrl(data.id, 1, cloneUrl, batchNumber);
         }else if(layEvent === 'clone2'){ //编辑
-            getUrl(data.username, 2, cloneUrl);
+            getUrl(data.id, 2, cloneUrl, batchNumber);
         }else if(layEvent === 'clone3'){ //编辑
-            getUrl(data.username, 3, cloneUrl);
+            getUrl(data.id, 3, cloneUrl, batchNumber);
         }
     });
 });
 
 
-function getUrl(name, number, cloneUrl) {
+function getUrl(userId, number, cloneUrl, batchNumber) {
 
     <!-- java.net.URLEncoder.encode(url)-->
-    var url= cloneUrl+"/visit/research?name="+name+"&role="+number;
+    var url= cloneUrl+"/visit/research?userId="+userId+"&role="+number+"&batch="+batchNumber;
     var urlEncode = encodeURI(url);
     layer.alert("", {
         content: urlEncode
@@ -237,5 +261,37 @@ function deleteAllDo(ids) {
 
         });
         return false;
+    });
+}
+
+function setDepartUtilSelect(id, val) {
+
+    $.ajax({
+        type: "post",
+        url: "/department/findUtil?id="+id,
+        success: function(res) {
+
+            $("#departUtil").html("<option select=\"\" value=\"\">请选择处</option>");
+            if(res.length>0) {
+                for(var i=0;i<res.length;i++) {
+                    $("#departUtil").append("<option value='"+res[i].id+"'>"+res[i].name+"</option>");
+                }
+            }else{
+                $("#departUtilId").val("");
+            }
+
+            if(val!=null || val!="") {
+                $("#departUtil").val(val);
+            }
+
+            layui.use('form', function() {
+
+                var form = layui.form;
+                form.render('select');
+            });
+
+        },error: function(xml, status, e) {
+            alert(e+"error");
+        }
     });
 }

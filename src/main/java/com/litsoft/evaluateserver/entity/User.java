@@ -161,6 +161,7 @@ public class User implements Serializable{
         this.position = position;
     }
 
+
     /**
      * 密码盐.
      * @return

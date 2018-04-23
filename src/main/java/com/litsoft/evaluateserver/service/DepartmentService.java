@@ -75,4 +75,8 @@ public class DepartmentService {
 
         return utilIds;
     }
+
+    public DepartUtil findDepartUtilById(Integer id) {
+        return departUtilRepository.findOne(id);
+    }
 }

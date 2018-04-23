@@ -53,6 +53,26 @@
             </div>
 
             <div class="layui-form-item">
+                <label for="department" class="layui-form-label">
+                    <span class="x-red">*</span>所属部门
+                </label>
+                <div class="layui-input-inline">
+                    <select id="department" name="department" lay-filter="department">
+                        <option select="" value="">请选择部门</option>
+                    <#list departmentList as depart>
+                        <option value="${depart.id}">${depart.name}</option>
+                    </#list>
+                    </select>
+                </div>
+                <div class="layui-input-inline">
+                    <select id="departUtil" name="departUtil" lay-filter="departUtil" required="" lay-verify="required">
+
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
                 <label for="project" class="layui-form-label">
                     <span class="x-red">*</span>所属项目
                 </label>
