@@ -123,7 +123,7 @@
                                         <div class="fieldlabel"></div>
                                         <div class="fieldbody"><input required="" id="Survey.F23700001-3"
                                                                       name="deptName" class="fieldinput"
-                                                                      type="text"/></div>
+                                                                      type="text" value="${deptName!""}"/></div>
                                         <div class="fieldmessage" data-uniquemessage="输入的内容已经存在，请更改"></div>
                                     </div>
                                 </div>
@@ -513,7 +513,8 @@
                     scoreFun($("#cooperate_work"));
 
                     var myDate = new Date();
-                    var s = myDate.getFullYear()+"-"+myDate.getMonth()+"-"+myDate.getDate();;
+                    var s = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+                    ;
                     $("#data").val(s);
                     var totalScore = 0;
                     $(".star_score").click(function () {

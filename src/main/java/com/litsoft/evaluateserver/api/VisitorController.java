@@ -1,10 +1,12 @@
 package com.litsoft.evaluateserver.api;
 
 
+import com.litsoft.evaluateserver.entity.DepartUtil;
 import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.entity.UserScore;
 import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
 import com.litsoft.evaluateserver.entity.vo.UserScoreVo;
+import com.litsoft.evaluateserver.repository.DepartmentUtilRepository;
 import com.litsoft.evaluateserver.service.PageQueryService;
 import com.litsoft.evaluateserver.service.UserScoreService;
 import com.litsoft.evaluateserver.service.UserService;
@@ -35,6 +37,9 @@ public class VisitorController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private DepartmentUtilRepository departmentUtilRepository;
 
     //项目进度占比
     @Value("${userScore.progress-completion-proportion}")
@@ -96,6 +101,15 @@ public class VisitorController {
                 name = user.getUsername();
                 company = user.getCompany();
                 project = user.getProject();
+                Integer deptId = user.getDepartUtil().getId();
+                if (null != deptId) {
+                    DepartUtil departUtil = departmentUtilRepository.findOne(deptId);
+                    if (null != departUtil) {
+                        String deptName = departUtil.getName();
+                        model.addAttribute("deptName", deptName);
+                    }
+                }
+
             }
         }
         model.addAttribute("userName", name);
