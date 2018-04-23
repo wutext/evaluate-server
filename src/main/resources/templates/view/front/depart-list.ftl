@@ -65,7 +65,7 @@
 
         <tr id="${depart.id}" pId="">
             <td>${depart.name!""}</td>
-            <td>
+            <td >
 
                 <!-- 修改 -->
                 <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('部门修改', '/department/addDepartView?id=${depart.id}&type=editDepart')" lay-event="edit">
@@ -89,7 +89,7 @@
             <#list depart.departUtil as departUtil>
             <tr id="${departUtil.id}" pId="${depart.id}">
                 <td>${departUtil.name!""}</td>
-                <td>
+                <td >
                     <!-- 修改 -->
                     <a class="layui-btn layui-btn-xs layui-btn-xs" onclick="addOperation('处修改', '/department/addDepartView?id=${departUtil.id}&type=editUtil')" lay-event="edit">
                         <i class="layui-icon">&#xe642;</i>

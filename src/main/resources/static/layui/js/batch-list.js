@@ -14,9 +14,8 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         ,cellMinWidth: 80
         ,cols: [[ //表头
             {checkbox:true, fixed:'left', sort: true}
-            ,{field:'id', type: "hidden", title:'ID', width:80, sort: true}
-            ,{field: 'batchNumber', title: '批次号', width:120}
-            ,{fixed: 'right',title: '操作', width:300, align:'center', toolbar: '#toolBar'}
+            ,{field: 'batchNumber', title: '批次号', align:'center', width:500, }
+            ,{fixed: 'right',title: '操作', width:553, align:'center', toolbar: '#toolBar'}
 
         ]]
         ,page: true //开启分页

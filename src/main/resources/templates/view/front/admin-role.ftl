@@ -54,8 +54,12 @@
 
     <script type="text/html" id="toolBar">
         <#--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail"  >查看</a>-->
-        <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit" >
+            <i class="layui-icon">&#xe642;</i>
+        </a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+            <i class="layui-icon">&#xe640;</i>
+        </a>
     </script>
     <script>
       layui.use(['laydate', 'table'], function(){

@@ -14,10 +14,9 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         ,cellMinWidth: 80
         ,cols: [[ //表头
             {checkbox:true, fixed:'left', sort: true}
-            ,{field:'id', title:'ID', width:80, sort: true}
-            ,{field: 'role', title: '角色名称', width:120}
-            ,{field: 'description', title: '角色描述', width:150, sort: true}
-            ,{fixed: 'right',title: '操作', width:300, align:'center', toolbar: '#toolBar'}
+            ,{field: 'role', title: '角色名称', align:'center', width:300}
+            ,{field: 'description', title: '角色描述',align:'center', width:300, sort: true}
+            ,{fixed: 'right',title: '操作', width:435, align:'center', toolbar: '#toolBar'}
 
         ]]
         ,page: true //开启分页

@@ -53,7 +53,7 @@
                         for(var i=0; i<ids.length; i++) {
                             var node = tree.getNodeByParam("id", ids[i]);
 
-                            if(node.id!=1 && node.id == ids[i]) {
+                            if(!node.isParent && node.id == ids[i]) {
 
                                 tree.checkNode(node, true, true);
                             }

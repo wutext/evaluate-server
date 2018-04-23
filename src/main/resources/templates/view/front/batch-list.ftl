@@ -47,14 +47,18 @@
         <button class="layui-btn" onclick="batchOperation('批次添加', '/batch/addBatchView', 500, 200)"><i class="layui-icon"></i>添加</button>
       </xblock>
 
-      <table class="layui-table" id="batch_data" lay-filter="table_demo" ></table>
+      <table class="layui-hide" id="batch_data" lay-filter="table_demo" ></table>
 
     </div>
 
     <script type="text/html" id="toolBar">
         <#--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail"  >查看</a>-->
-        <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
-        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        <a class="layui-btn layui-btn-xs" lay-event="edit" >
+            <i class="layui-icon">&#xe642;</i>
+        </a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
+            <i class="layui-icon">&#xe640;</i>
+        </a>
     </script>
     <script>
       layui.use(['laydate', 'table'], function(){

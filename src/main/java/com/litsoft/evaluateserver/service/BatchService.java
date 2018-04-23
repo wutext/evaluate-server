@@ -24,7 +24,7 @@ public class BatchService {
 
     public List<Batch> findBatchList() {
 
-        return batchRepository.findAll();
+        return batchRepository.findAllBathch();
     }
 
     public Batch findOne(Integer id) {

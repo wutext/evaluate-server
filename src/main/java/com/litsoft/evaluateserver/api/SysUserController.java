@@ -90,12 +90,16 @@ public class SysUserController {
         }
 
         Page<User> pageUser = pageQueryService.findUserBySoemSelect(param);
-        /*Page<User> pageUser = pageQueryService.findUserPageSearch(param);*/
         String batchNumber = getBatchName(param.getBatchId());
 
         List<UserVo> users = new ArrayList<>();
         pageUser.getContent().forEach(user -> {
-            UserVo userVo = new UserVo(user.getId(), user.getUsername(), String.valueOf(user.getState()), user.getPhone(), user.getEmail());
+            String departUtilName = "";
+            if(!ObjectUtils.isEmpty(user.getDepartUtil())) {
+                departUtilName = user.getDepartUtil().getName();
+            }
+
+            UserVo userVo = new UserVo(user.getId(), user.getUsername(), user.getCompany(), user.getProject(), departUtilName);
             userVo.setRaters(getUserScoreStatus(user.getId(), batchNumber));
             users.add(userVo);
         });

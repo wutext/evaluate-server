@@ -14,12 +14,11 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
         ,cellMinWidth: 80
         ,cols: [[ //表头
             {field:'checkbox',checkbox:true, fixed:'left', sort: true}
-            ,{field:'id', title:'ID', width:80, sort: true}
-            ,{field:'username', title:'用户名',width:150, sort: true}
-            ,{field:'phone', title:'电话/手机',width:80,sort: true}
-            ,{field:'email', title:'邮箱',width:80,sort: true}
-            ,{field:'state', title:'状态',width:80}
-            ,{fixed: 'right',title: '操作', width:500, align:'center', templet: '#toolBar'/* toolbar: '#toolBar'*/}
+            ,{field:'departmentUtil', title:'部门',align:'center',width:150}
+            ,{field:'username', title:'用户名',align:'center',width:100, sort: true}
+            ,{field:'company', title:'所在公司',align:'center',width:183,sort: true}
+            ,{field:'project', title:'项目名称', align:'center',width:200,sort: true}
+            ,{fixed: 'right',title: '操作', width:400, align:'center', templet: '#toolBar'/* toolbar: '#toolBar'*/}
         ]]
         ,page: true //开启分页
         ,limit:6   //默认十条数据一页

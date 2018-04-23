@@ -15,6 +15,7 @@ public class UserVo {
     private String[] roleId;
     private List<Integer> raters;
     private Integer utilId;
+    private String departmentUtil;
 
     public UserVo() {
     }
@@ -38,12 +39,12 @@ public class UserVo {
         this.roleId = roleId;
     }
 
-    public UserVo(Integer id, String username, String state, String phone, String email) {
+    public UserVo(Integer id, String username, String company, String project, String departmentUtil) {
         this.id = id;
         this.username = username;
-        this.state = state;
-        this.phone = phone;
-        this.email = email;
+        this.company = company;
+        this.project = project;
+        this.departmentUtil = departmentUtil;
     }
 
     public Integer getId() {
@@ -132,5 +133,13 @@ public class UserVo {
 
     public void setRaters(List<Integer> raters) {
         this.raters = raters;
+    }
+
+    public String getDepartmentUtil() {
+        return departmentUtil;
+    }
+
+    public void setDepartmentUtil(String departmentUtil) {
+        this.departmentUtil = departmentUtil;
     }
 }

@@ -19,4 +19,7 @@ public interface BatchRepository extends JpaRepository<Batch, Integer>, JpaSpeci
     @Modifying
     @Query(value = "delete from batch where id in (:ids)", nativeQuery = true)
     void deleteByIds(List<Integer> ids);
+
+    @Query(value = "select  * from batch order by batch_number desc", nativeQuery = true)
+    List<Batch> findAllBathch();
 }
