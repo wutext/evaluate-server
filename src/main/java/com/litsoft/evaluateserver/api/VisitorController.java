@@ -1,11 +1,13 @@
 package com.litsoft.evaluateserver.api;
 
 
+import com.litsoft.evaluateserver.entity.Batch;
 import com.litsoft.evaluateserver.entity.DepartUtil;
 import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.entity.UserScore;
 import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
 import com.litsoft.evaluateserver.entity.vo.UserScoreVo;
+import com.litsoft.evaluateserver.repository.BatchRepository;
 import com.litsoft.evaluateserver.repository.DepartmentUtilRepository;
 import com.litsoft.evaluateserver.service.PageQueryService;
 import com.litsoft.evaluateserver.service.UserScoreService;
@@ -40,6 +42,9 @@ public class VisitorController {
 
     @Autowired
     private DepartmentUtilRepository departmentUtilRepository;
+
+    @Autowired
+    protected BatchRepository batchRepository;
 
     //项目进度占比
     @Value("${userScore.progress-completion-proportion}")
@@ -112,10 +117,18 @@ public class VisitorController {
 
             }
         }
+
+        String batchNumber = "";
+        if (StringUtils.isNotEmpty(batch)) {
+            Batch bat = batchRepository.findOne(Integer.valueOf(batch));
+            if (null != bat) {
+                batchNumber = bat.getBatchNumber();
+                model.addAttribute("batch", batchNumber);
+            }
+        }
         model.addAttribute("userName", name);
         model.addAttribute("type", role);
         model.addAttribute("userId", userId);
-        model.addAttribute("batch", batch);
         model.addAttribute("signName", signName);
         model.addAttribute("company", company);
         model.addAttribute("project", project);
