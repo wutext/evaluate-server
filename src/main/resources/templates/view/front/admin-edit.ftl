@@ -33,7 +33,7 @@
                 <input type="hidden" id="id" name="id" required=""
                        autocomplete="off"  readonly="readonly" value="${user.id!}"/>
 
-                <input type="text" id="username" name="username" required="" lay-verify="required"
+                <input type="text" id="username" name="username" required="" lay-verify="username"
                        autocomplete="off" class="layui-input"  value="${user.username!""}"/>
             </div>
             <div class="layui-form-mid layui-word-aux">
@@ -185,8 +185,8 @@
 
         //自定义验证规则
         form.verify({
-            nikename: function(value){
-                if(value.length*1 < 5){
+            username: function(value){
+                if(value.length*1 < 2){
                     return '昵称至少得5个字符啊';
                 }
             }

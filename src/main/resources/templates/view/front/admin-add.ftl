@@ -31,10 +31,10 @@
                   <span class="x-red">*</span>登录名
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="username" name="username" required="" lay-verify="required"
+                  <input type="text" id="username" name="username" required=""  lay-verify="username"
                   autocomplete="off" class="layui-input"  />
               </div>
-              <div class="layui-form-mid layui-word-aux">
+              <div class="layui-form-mid layui-word-aux unique-name">
                   <span class="x-red">*</span>将会成为您唯一的登入名
               </div>
           </div>
@@ -158,9 +158,9 @@
 
             //自定义验证规则
             form.verify({
-                nikename: function(value){
-                    if(value.length*1 < 5){
-                        return '昵称至少得5个字符啊';
+                username: function(value){
+                    if(value.length*1 < 2){
+                        return '用户名至少得2个字符啊';
                     }
                 }
                 ,pass: [/(.+){6,12}$/, '密码必须6到12位']

@@ -1,5 +1,6 @@
 package com.litsoft.evaluateserver.api;
 
+import com.alibaba.fastjson.JSON;
 import com.litsoft.evaluateserver.entity.Batch;
 import com.litsoft.evaluateserver.entity.DepartUtil;
 import com.litsoft.evaluateserver.entity.Department;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -181,5 +183,13 @@ public class SysUserController {
 
         userService.deleteSingleUser(user.getId());
         return "success";
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/verifyUser")
+    public boolean uniqueUser(@RequestBody String name) {
+        String username = (String) JSON.parse(name);
+        return !ObjectUtils.isEmpty(userService.findByUsername(username))? true:false;
     }
 }

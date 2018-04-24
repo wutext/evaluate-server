@@ -8,6 +8,28 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                 ,form = layui.form
                 ,$ = layui.$;
 
+    $("#username").blur(function() {
+        var name = "";
+            name=$(this).val();
+       if(name!="") {
+           $.ajax({
+               type: "post",
+               url: "/sys/verifyUser",
+               data: JSON.stringify(name),
+               contentType: "application/json;charset=UTF-8",
+               success: function(res) {
+                   if(res) {
+                        layer.alert("用户名已存在");
+                   }
+               },error: function(xml, status, e) {
+                   alert(e+"error");
+               }
+
+           });
+           return false;
+       }
+    });
+
     table.render({
         elem: '#table_user'
         ,url: '/sys/adminList?departmentId='+$("#departmentId").val()+"&username="+$("#username").val()+"&departUtilId="+$("#departUtilId").val()+"&batchId="+$("#batchId").val()
@@ -158,16 +180,18 @@ function getUrl(userId, number, cloneUrl, batchNumber) {
 
     <!-- java.net.URLEncoder.encode(url)-->
     var url= cloneUrl+"/visit/research?userId="+userId+"&role="+number+"&batch="+batchNumber;
-    var urlEncode = encodeURI(url);
+
     layer.alert("", {
-        content: urlEncode
+        content: url+'<br/><input id="signName" style="width:180px;height:30px" type="text" class="layui-input" placeholder="评分人姓名">'
         ,area: ['300px', '200px']
         ,btn: ['关闭', '复制']
         ,btn1: function(index, layero){
             layer.close(index);
         },btn2: function(index, layero){
             //按钮【按钮二】的回调
-           copyMethod(urlEncode);
+            var resultUrl = url+'&signName='+$("#signName").val();
+            var urlEncode = encodeURI(resultUrl);
+            copyMethod(urlEncode);
             //return false 开启该代码可禁止点击该按钮关闭
         }
         ,skin: 'layui-layer-lan'
