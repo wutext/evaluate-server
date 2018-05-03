@@ -82,11 +82,13 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
 
                 if(res=="success") {
                     layer.alert("操作成功", {icon: 6},function () {
+
                         // 获得frame索引
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
                         parent.layer.close(index);
                     });
+
                 }else {
                     layer.alert("操作失败", {icon: 6},function () {
                         // 获得frame索引
@@ -158,10 +160,10 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                             layer.msg('删除成功', {
                                 time: 10000, //20s后自动关闭
                             });
+                            location.replace(location.href);
                         }
                     }
                 });
-                return false;
             });
         } else if(layEvent === 'edit' || layEvent === 'detail'){ //编辑
             roleOperation("编辑", "/sys/userEdit?id=" + data.id+"&operate=edit");
@@ -259,7 +261,10 @@ function roleOperation(title,url,w,h){
             shadeClose: true,
             shade:0.4,
             title: title,
-            content: url
+            content: url,
+            end: function () {
+                location.reload();
+            }
         });
     });
 
@@ -277,13 +282,12 @@ function deleteAllDo(ids) {
                 layer.msg('删除成功', {
                     time: 1000, //20s后自动关闭
                 });
-
+                location.replace(location.href);
             },error: function(xml, status, e) {
                 alert(e+"error");
             }
 
         });
-        return false;
     });
 }
 

@@ -80,7 +80,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        模态框（Modal）标题
+                        权限选择
                     </h4>
                 </div>
                 <div class="modal-body" style="padding:1px">

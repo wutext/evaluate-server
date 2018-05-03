@@ -58,4 +58,8 @@ public class BatchService {
             throw new NotFoundException("删除失败");
         }
     }
+
+    public Batch findByBatchNumber(String batchNumber) {
+        return batchRepository.findByBatchNumber(batchNumber);
+    }
 }

@@ -14,22 +14,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
 
     @Autowired
     private PermissionService permissionService;
-    @RequestMapping({"/","/index"})
-    public String index(Model model){
 
+    @RequestMapping({"/", "/index"})
+    public String index(Model model) {
         User user = permissionService.getShiroUser();
         List<Permission> permissionList = permissionService.findMenuByUserId();
+        List<Integer> ids = permissionList.stream().
+            filter(s -> s.getId() != 1 && s.getPar().getId() != 1).
+            map(s -> s.getId()).
+            collect(Collectors.toList());
+        permissionList.stream().forEach(s -> {
+            List<Permission> permissionListChild = s.getPermissionListChild();
+            Iterator<Permission> iterator = permissionListChild.iterator();
+            while (iterator.hasNext()) {
+                if (!ids.contains(iterator.next().getId())) {
+                    iterator.remove();
+                }
+            }
+        });
         model.addAttribute("permissionList", permissionList);
         model.addAttribute("user", user);
-        return"/view/front/index";
+        return "/view/front/index";
     }
 
    /* @RequestMapping("/urlChild")
@@ -39,7 +54,7 @@ public class HomeController {
     }*/
 
     @RequestMapping("/login")
-    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception{
+    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception {
         System.out.println("HomeController.login()");
         // 登录失败从request中获取shiro处理的异常信息。
         // shiroLoginFailure:就是shiro异常类的全类名.
@@ -57,7 +72,7 @@ public class HomeController {
                 System.out.println("kaptchaValidateFailed -- > 验证码错误");
                 msg = "kaptchaValidateFailed -- > 验证码错误";
             } else {
-                msg = "else >> "+exception;
+                msg = "else >> " + exception;
                 System.out.println("else -- >" + exception);
             }
         }
@@ -67,7 +82,7 @@ public class HomeController {
     }
 
     @RequestMapping("/403")
-    public String unauthorizedRole(){
+    public String unauthorizedRole() {
         System.out.println("------没有权限-------");
         return "403";
     }

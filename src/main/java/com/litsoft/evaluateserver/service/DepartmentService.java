@@ -79,4 +79,8 @@ public class DepartmentService {
     public DepartUtil findDepartUtilById(Integer id) {
         return departUtilRepository.findOne(id);
     }
+
+    public Department findByName(String name) {
+        return departmentRepository.findByName(name);
+    }
 }

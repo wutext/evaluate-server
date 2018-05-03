@@ -3,15 +3,15 @@ package com.litsoft.evaluateserver.api;
 
 import com.litsoft.evaluateserver.entity.Batch;
 import com.litsoft.evaluateserver.entity.DepartUtil;
-import com.litsoft.evaluateserver.entity.User;
+import com.litsoft.evaluateserver.entity.Staff;
 import com.litsoft.evaluateserver.entity.UserScore;
 import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
 import com.litsoft.evaluateserver.entity.vo.UserScoreVo;
 import com.litsoft.evaluateserver.repository.BatchRepository;
 import com.litsoft.evaluateserver.repository.DepartmentUtilRepository;
 import com.litsoft.evaluateserver.service.PageQueryService;
+import com.litsoft.evaluateserver.service.StaffService;
 import com.litsoft.evaluateserver.service.UserScoreService;
-import com.litsoft.evaluateserver.service.UserService;
 import com.litsoft.evaluateserver.util.LayUiData;
 import com.litsoft.evaluateserver.util.PageInfo;
 import com.litsoft.evaluateserver.util.QueryParam;
@@ -37,8 +37,9 @@ public class VisitorController {
     @Autowired
     private UserScoreService userScoreService;
 
+
     @Autowired
-    private UserService userService;
+    private StaffService staffService;
 
     @Autowired
     private DepartmentUtilRepository departmentUtilRepository;
@@ -101,9 +102,9 @@ public class VisitorController {
             }
         }
         if (StringUtils.isNotEmpty(userId)) {
-            User user = userService.findById(Integer.valueOf(userId));
+            Staff user = staffService.findById(Integer.valueOf(userId));
             if (user != null) {
-                name = user.getUsername();
+                name = user.getStaffName();
                 company = user.getCompany();
                 project = user.getProject();
                 Integer deptId = user.getDepartUtil().getId();

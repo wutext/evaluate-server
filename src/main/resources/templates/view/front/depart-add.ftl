@@ -32,7 +32,7 @@
                     <input type="hidden" id="departId" name="departId" required=""
                            autocomplete="off" class="layui-input" value="${department.id!""}"/>
 
-                    <input type="text" name="departmentName" autocomplete="off" <#if departUtil??>readonly="readonly"</#if> class="layui-input" value="${department.name!""}" />
+                    <input type="text" id="departmentName" name="departmentName" autocomplete="off" <#if departUtil??>readonly="readonly"</#if> class="layui-input" value="${department.name!""}" />
                 </div>
             </div>
 
@@ -92,6 +92,51 @@
 
             number: [/^[1-9]\d*$/, '只能填写数字']
           });
+
+
+            $("#departmentName").blur(function() {
+                var depName = "";
+                depName=$(this).val();
+                if(depName!="") {
+                    $.ajax({
+                        type: "post",
+                        url: "/department/verifyDepartmentName",
+                        data: JSON.stringify(depName),
+                        contentType: "application/json;charset=UTF-8",
+                        success: function(res) {
+                            if(res) {
+                                layer.alert("部门名已存在");
+                            }
+                        },error: function(xml, status, e) {
+                            alert(e+"error");
+                        }
+
+                    });
+                    return false;
+                }
+            });
+
+            $("#name").blur(function() {
+                var utilName = "";
+                utilName=$(this).val();
+                if(utilName!="") {
+                    $.ajax({
+                        type: "post",
+                        url: "/department/verifyDeptUtilName",
+                        data: JSON.stringify(utilName),
+                        contentType: "application/json;charset=UTF-8",
+                        success: function(res) {
+                            if(res) {
+                                layer.alert("初名称已存在");
+                            }
+                        },error: function(xml, status, e) {
+                            alert(e+"error");
+                        }
+
+                    });
+                    return false;
+                }
+            });
 
           form.on('submit(add)', function(data){
 

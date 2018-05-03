@@ -30,4 +30,6 @@ public interface RoleRepository extends JpaRepository<Role, Integer>, JpaSpecifi
     @Modifying
     @Query(value = "delete from role_permission where role_id =?", nativeQuery = true)
     void deleteRolePermission(Integer id);
+
+    public Role findByRole(String name);
 }

@@ -39,8 +39,8 @@
         <li class="layui-nav-item">
             <a href="javascript:;">${user.username}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
-                <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+                <#--<dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>-->
+                <#--<dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>-->
                 <dd><a href="/logout">退出</a></dd>
             </dl>
         </li>
@@ -60,7 +60,7 @@
                 <#if perm.id!=1 && perm.par.id=1>
                     <li>
                         <a href="javascript:;">
-                            <i class="iconfont">&#xe68e;</i>
+                            <#--<i class="iconfont">&#xe68e;</i>-->
                             <cite>${perm.name}</cite>
                             <i class="iconfont nav_right">&#xe697;</i>
                         </a>
@@ -68,7 +68,7 @@
                             <ul class="sub-menu">
                                 <li>
                                     <a _href="${perChild.url!""}">
-                                        <i class="iconfont">&#xe6a7;</i>
+                                        <#--<i class="iconfont">&#xe6a7;</i>-->
                                         <cite>${perChild.name}</cite>
                                     </a>
                                 </li >

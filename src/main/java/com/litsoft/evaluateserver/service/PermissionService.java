@@ -149,4 +149,8 @@ public class PermissionService {
     public List<Integer> findRolePermission(Integer roleId) {
         return permissionRepository.findRolePermission(roleId);
     }
+
+    public Permission findByName(String name) {
+        return permissionRepository.findByName(name);
+    }
 }

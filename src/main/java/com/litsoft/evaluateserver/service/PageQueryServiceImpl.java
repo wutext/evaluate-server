@@ -3,12 +3,14 @@ package com.litsoft.evaluateserver.service;
 import com.litsoft.evaluateserver.entity.Batch;
 import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.Role;
+import com.litsoft.evaluateserver.entity.Staff;
 import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.entity.UserScore;
 import com.litsoft.evaluateserver.entity.sysVo.ScoreView;
 import com.litsoft.evaluateserver.repository.BatchRepository;
 import com.litsoft.evaluateserver.repository.PermissionRepository;
 import com.litsoft.evaluateserver.repository.RoleRepository;
+import com.litsoft.evaluateserver.repository.StaffRepository;
 import com.litsoft.evaluateserver.repository.UserRepository;
 import com.litsoft.evaluateserver.repository.UserScoreRepository;
 import com.litsoft.evaluateserver.util.QueryParam;
@@ -54,6 +56,9 @@ public class PageQueryServiceImpl implements PageQueryService{
 
     @Autowired
     private BatchRepository batchRepository;
+
+    @Autowired
+    private StaffRepository staffRepository;
 
 
 
@@ -182,6 +187,39 @@ public class PageQueryServiceImpl implements PageQueryService{
         };
         return userRepository.findAll(spec, pageable);
     }
+
+    @Override
+    public Page<Staff> findUserBySelect(QueryParam param) {
+
+        Pageable pageable =  new PageRequest(param.getPage()-1,param.getLimit(), Sort.Direction.ASC, "id");
+        Specification<Staff> spec = new Specification<Staff>() {
+            @Override
+            public Predicate toPredicate(Root<Staff> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+
+                List<Predicate> predicateList = new ArrayList<Predicate>();
+
+                boolean depEx = StringUtils.isNullOrEmpty(param.getDepartUtil());
+                boolean nameEx = StringUtils.isNullOrEmpty(param.getStaffName());
+                boolean departUtil = StringUtils.isNullOrEmpty(param.getDepartUtil());
+                //根据普通属性选择查询
+                Path<String> username = root.get("staffName");
+                //专门用来in查询的
+                Expression<Integer> exp = root.get("departUtil").get("id");
+
+                if(!nameEx) {
+                    predicateList.add(cb.like(username, "%"+param.getStaffName()+"%"));
+                }
+                if(!CollectionUtils.isEmpty(param.getUtilIds())) {
+                    predicateList.add(cb.and(exp.in(param.getUtilIds())));
+                }
+                Predicate[] p = new Predicate[predicateList.size()];
+
+                return cb.and(predicateList.toArray(p));
+            }
+        };
+        return staffRepository.findAll(spec, pageable);
+    }
+
 
 
 }

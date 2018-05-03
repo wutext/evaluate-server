@@ -16,6 +16,9 @@ public class UserVo {
     private List<Integer> raters;
     private Integer utilId;
     private String departmentUtil;
+    private String staffName;
+    private String staffNo;
+    private String position;
 
     public UserVo() {
     }
@@ -45,6 +48,15 @@ public class UserVo {
         this.company = company;
         this.project = project;
         this.departmentUtil = departmentUtil;
+    }
+
+    public UserVo(Integer id, String staffName, String company, String project, String departmentUtil,String staffNo) {
+        this.id = id;
+        this.staffName = staffName;
+        this.company = company;
+        this.project = project;
+        this.departmentUtil = departmentUtil;
+        this.staffNo = staffNo;
     }
 
     public Integer getId() {
@@ -141,5 +153,29 @@ public class UserVo {
 
     public void setDepartmentUtil(String departmentUtil) {
         this.departmentUtil = departmentUtil;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
+    public String getStaffNo() {
+        return staffNo;
+    }
+
+    public void setStaffNo(String staffNo) {
+        this.staffNo = staffNo;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

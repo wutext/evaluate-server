@@ -107,6 +107,28 @@
            number: [/^[1-9]\d*$/, '只能填写数字']
           });
 
+            $("#name").blur(function() {
+                var name = "";
+                name=$(this).val();
+                if(name!="") {
+                    $.ajax({
+                        type: "post",
+                        url: "/per/verifyPermissionName",
+                        data: JSON.stringify(name),
+                        contentType: "application/json;charset=UTF-8",
+                        success: function(res) {
+                            if(res) {
+                                layer.alert("权限名已存在");
+                            }
+                        },error: function(xml, status, e) {
+                            alert(e+"error");
+                        }
+
+                    });
+                    return false;
+                }
+            });
+
           form.on('submit(add)', function(data){
 
               var params = {};

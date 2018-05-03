@@ -22,7 +22,7 @@ public interface PermissionRepository extends JpaRepository<Permission, Integer>
         " select r.id from user u " +
         " left join user_role ur on u.id = ur.user_id " +
         " left join role r on r.id = ur.role_id" +
-        " where u.id=?1 and status=1 and resource_type='menu' order by sort)", nativeQuery = true)
+        " where u.id=?1 and status=1 and resource_type='menu' order by sort ) ORDER BY p.sort  ", nativeQuery = true)
     List<Permission> findMenuByUserId(Integer uId);
 
     @Modifying
@@ -37,4 +37,6 @@ public interface PermissionRepository extends JpaRepository<Permission, Integer>
 
     @Query(value="select distinct rp.permission_id from role r inner join role_permission rp on r.id=rp.role_id where r.id=?1",nativeQuery = true)
     List<Integer> findRolePermission(Integer roleId);
+
+    public Permission findByName(String name);
 }

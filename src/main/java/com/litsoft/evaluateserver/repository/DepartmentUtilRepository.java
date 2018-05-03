@@ -12,4 +12,6 @@ public interface DepartmentUtilRepository extends JpaRepository<DepartUtil,Integ
     @Modifying
     @Query(value = "delete from depart_util where id=?1", nativeQuery = true)
     void deleteById(Integer id);
+
+    public DepartUtil findByName(String name);
 }

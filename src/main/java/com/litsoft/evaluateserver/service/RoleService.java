@@ -139,4 +139,8 @@ public class RoleService {
         });
         return menuTrees;
     }
+
+    public Role findByRole(String name) {
+        return roleRepository.findByRole(name);
+    }
 }

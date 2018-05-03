@@ -1,5 +1,6 @@
 package com.litsoft.evaluateserver.api;
 
+import com.alibaba.fastjson.JSON;
 import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -120,5 +122,12 @@ public class SysRoleController {
     @RequestMapping(value = "/deleteSingleRole", method = RequestMethod.POST)
     public void deleteSingleRole(@RequestBody RoleVo roleVo) {
         roleService.delete(roleVo.getId());
+    }
+
+    @ResponseBody
+    @RequestMapping("/verifyRoleName")
+    public boolean verifyRoleName(@RequestBody String name) {
+        String roleName = (String) JSON.parse(name);
+        return !ObjectUtils.isEmpty(roleService.findByRole(roleName))? true:false;
     }
 }

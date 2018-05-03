@@ -1,5 +1,6 @@
 package com.litsoft.evaluateserver.api;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.litsoft.evaluateserver.entity.DepartUtil;
@@ -127,5 +128,19 @@ public class DepartmentController {
             });
         }
         return json;
+    }
+
+    @ResponseBody
+    @RequestMapping("/verifyDepartmentName")
+    public boolean verifyDepartmentName(@RequestBody String name) {
+        String deptame = (String) JSON.parse(name);
+        return !ObjectUtils.isEmpty(departmentService.findByName(deptame))? true:false;
+    }
+
+    @ResponseBody
+    @RequestMapping("/verifyDeptUtilName")
+    public boolean verifyDeptUtilName(@RequestBody String name) {
+        String deptame = (String) JSON.parse(name);
+        return !ObjectUtils.isEmpty(departUtilService.findByName(deptame))? true:false;
     }
 }

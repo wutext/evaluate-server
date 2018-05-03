@@ -140,7 +140,10 @@ function roleOperation(title,url,w,h){
             shadeClose: true,
             shade:0.4,
             title: title,
-            content: url
+            content: url,
+            end: function () {
+                location.reload();
+            }
         });
     });
 
@@ -163,6 +166,7 @@ function delPerm(url) {
                     layer.msg('删除成功', {
                         time: 10000, //20s后自动关闭
                     });
+                    location.replace(location.href);
                 }
             }
         });
@@ -182,12 +186,11 @@ function deleteAllDo(ids) {
                 layer.msg('删除成功', {
                     time: 1000, //20s后自动关闭
                 });
-
+                location.replace(location.href);
             },error: function(xml, status, e) {
                 alert(e+"error");
             }
         });
-        location.replace(location.href);
     });
 }
 

@@ -1,5 +1,6 @@
 package com.litsoft.evaluateserver.api;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.litsoft.evaluateserver.entity.Batch;
@@ -99,5 +100,12 @@ public class BatchController {
     @RequestMapping("deleteSingleBatch")
     public String deleteSingleBatch(@RequestBody Batch batch) {
         return batchService.deleteBatch(batch.getId())? "success" : "fail";
+    }
+
+    @ResponseBody
+    @RequestMapping("/verifyBatchNumber")
+    public boolean verifyBatchNumber(@RequestBody String no) {
+        String number = (String) JSON.parse(no);
+        return !ObjectUtils.isEmpty(batchService.findByBatchNumber(number))? true:false;
     }
 }

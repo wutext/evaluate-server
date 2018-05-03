@@ -12,7 +12,7 @@
 
     <script language="JavaScript" type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js" charset="utf-8"></script>
     <script language="JavaScript" type="text/javascript" src="/layui/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/layui/js/admin_list.js"></script>
+    <script type="text/javascript" src="/layui/js/staff_list.js"></script>
 
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
@@ -28,16 +28,29 @@
         <form class="layui-form">
           <div class="layui-form-item">
               <label for="username" class="layui-form-label">
-                  <span class="x-red">*</span>登录名
+                  <span class="x-red">*</span>姓名
               </label>
               <div class="layui-input-inline">
-                  <input type="text" id="username" name="username" required=""  lay-verify="username"
+                  <input type="text" id="staffName" name="staffName" required=""
                   autocomplete="off" class="layui-input"  />
               </div>
-              <div class="layui-form-mid layui-word-aux unique-name">
-                  <span class="x-red">*</span>将会成为您唯一的登入名
-              </div>
+              <#--<div class="layui-form-mid layui-word-aux unique-name">-->
+                  <#--<span class="x-red">*</span>将会成为您唯一的登入名-->
+              <#--</div>-->
           </div>
+
+            <div class="layui-form-item">
+                <label for="username" class="layui-form-label">
+                    <span class="x-red">*</span>工号
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="staffNo" name="staffNo" required=""  lay-verify="staffNo"
+                           autocomplete="off" class="layui-input"  />
+                </div>
+                <div class="layui-form-mid layui-word-aux unique-name">
+                    <span class="x-red">*</span>将会成为您唯一的工号
+                </div>
+            </div>
 
             <div class="layui-form-item">
                 <label for="company" class="layui-form-label">
@@ -45,6 +58,18 @@
                 </label>
                 <div class="layui-input-inline">
                     <input type="text" id="company" name="company" required="" lay-verify="required"
+                           autocomplete="off" class="layui-input" />
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <span class="x-red">*</span>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="company" class="layui-form-label">
+                    <span class="x-red">*</span>职位
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="position" name="position" required="" lay-verify="required"
                            autocomplete="off" class="layui-input" />
                 </div>
                 <div class="layui-form-mid layui-word-aux">
@@ -110,37 +135,6 @@
               </div>
           </div>
           <div class="layui-form-item">
-              <label class="layui-form-label"><span class="x-red">*</span>角色</label>
-              <div class="layui-input-block">
-                <#list roles as role>
-                    <input type="checkbox" lay-filter="description"
-                           name="description" lay-skin="primary" title="${role.description}" value="${role.id}" />
-                </#list>
-              </div>
-          </div>
-
-          <div class="layui-form-item">
-              <label for="L_pass" class="layui-form-label">
-                  <span class="x-red">*</span>密码
-              </label>
-              <div class="layui-input-inline">
-                  <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
-                  autocomplete="off" class="layui-input" />
-              </div>
-              <div class="layui-form-mid layui-word-aux">
-                  6到16个字符
-              </div>
-          </div>
-          <div class="layui-form-item">
-              <label for="L_repass" class="layui-form-label">
-                  <span class="x-red">*</span>确认密码
-              </label>
-              <div class="layui-input-inline">
-                  <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
-                  autocomplete="off" class="layui-input" />
-              </div>
-          </div>
-          <div class="layui-form-item">
               <label for="L_repass" class="layui-form-label">
               </label>
               <button  class="layui-btn" lay-filter="add" lay-submit="">
@@ -159,8 +153,8 @@
             //自定义验证规则
             form.verify({
                 username: function(value){
-                    if(value.length*1 < 3){
-                        return '用户名至少得3个字符啊';
+                    if(value.length*1 < 2){
+                        return '用户名至少得2个字符啊';
                     }
                 }
                 ,pass: [/(.+){6,12}$/, '密码必须6到12位']

@@ -45,7 +45,7 @@
       <xblock>
         <button id="deleteAll" class="layui-btn layui-btn-danger" ><i class="layui-icon"></i>批量删除</button>
         <button class="layui-btn" onclick="roleOperation('角色添加', '/role/addRoleView')"><i class="layui-icon"></i>添加</button>
-        <span class="x-right" style="line-height:40px">共有数据：88 条</span>
+        <span class="x-right" style="line-height:40px">共有数据：<span id="num"></span> 条</span>
       </xblock>
 
       <table class="layui-table" id="role_data" lay-filter="table_demo" ></table>

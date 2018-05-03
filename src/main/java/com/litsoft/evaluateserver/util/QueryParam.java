@@ -18,6 +18,7 @@ public class QueryParam {
     private String time = "";
     private String batch = "";
     private String batchId;
+    private String staffName;
     //角色查询条件
     private String roleSearch  ="";
 
@@ -121,6 +122,14 @@ public class QueryParam {
         this.utilIds = utilIds;
     }
 
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+
     public QueryParam(Map<String, Object> params) {
 
         this.page = Integer.valueOf(params.get("page").toString());
@@ -152,6 +161,9 @@ public class QueryParam {
         }
         if(!ObjectUtils.isEmpty(params.get("batchId"))) {
             this.batchId = params.get("batchId").toString();
+        }
+        if(!ObjectUtils.isEmpty(params.get("staffName"))) {
+            this.staffName = params.get("staffName").toString();
         }
     }
 }

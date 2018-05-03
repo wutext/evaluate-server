@@ -5,20 +5,19 @@ import com.litsoft.evaluateserver.entity.Batch;
 import com.litsoft.evaluateserver.entity.DepartUtil;
 import com.litsoft.evaluateserver.entity.Department;
 import com.litsoft.evaluateserver.entity.Role;
+import com.litsoft.evaluateserver.entity.Staff;
 import com.litsoft.evaluateserver.entity.User;
 import com.litsoft.evaluateserver.entity.sysVo.UserVo;
-import com.litsoft.evaluateserver.exception.MessageException;
-import com.litsoft.evaluateserver.exception.NotFoundException;
 import com.litsoft.evaluateserver.service.BatchService;
 import com.litsoft.evaluateserver.service.DepartmentService;
 import com.litsoft.evaluateserver.service.PageQueryService;
 import com.litsoft.evaluateserver.service.RoleService;
+import com.litsoft.evaluateserver.service.StaffService;
 import com.litsoft.evaluateserver.service.UserScoreService;
 import com.litsoft.evaluateserver.service.UserService;
 import com.litsoft.evaluateserver.util.LayUiData;
 import com.litsoft.evaluateserver.util.PageInfo;
 import com.litsoft.evaluateserver.util.QueryParam;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
@@ -28,19 +27,16 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/sys")
-public class SysUserController {
-
+@RequestMapping("/staff")
+public class StaffController {
     @Autowired
     private MessageSource messageSource;
 
@@ -51,7 +47,7 @@ public class SysUserController {
     private RoleService roleService;
 
     @Autowired
-    private UserService userService;
+    private StaffService staffService;
 
     @Autowired
     private DepartmentService departmentService;
@@ -62,50 +58,46 @@ public class SysUserController {
     @Autowired
     private UserScoreService userScoreService;
 
-    @RequestMapping("/desktop")
-    public String desktop() {
-        return "/view/front/desktop";
-    }
 
-    @RequestMapping("/adminView")
-    public String adminView(Model model, Integer departmentId, String username, Integer departUtilId, Integer batchId) {
+    @RequestMapping("/staffView")
+    public String staffView(Model model, Integer departmentId, String staffName, Integer departUtilId, Integer batchId) {
 
         List<Department> departmentList = departmentService.findAll();
         List<Batch> batchList = batchService.findBatchList();
-        batchId = batchId==null? batchList.get(0).getId() : batchId;
+        batchId = batchId == null ? batchList.get(0).getId() : batchId;
         model.addAttribute("departmentId", departmentId);
         model.addAttribute("departUtilId", departUtilId);
-        model.addAttribute("username", username);
+        model.addAttribute("staffName", staffName);
         model.addAttribute("departments", departmentList);
         model.addAttribute("batchList", batchList);
         model.addAttribute("batchId", batchId);
-        return "/view/front/admin-list";
+        return "/view/front/staff-list";
     }
 
     @ResponseBody
     @SuppressWarnings("unchecked")
-    @RequestMapping("/adminList")
-    public LayUiData adminList(@RequestParam Map<String, Object> params){
+    @RequestMapping("/staffList")
+    public LayUiData staffList(@RequestParam Map<String, Object> params) {
         QueryParam param = new QueryParam(params);
-        if(!StringUtils.isEmpty(param.getDepartment()) && StringUtils.isEmpty(param.getDepartUtil())) {
+        if (!StringUtils.isEmpty(param.getDepartment()) && StringUtils.isEmpty(param.getDepartUtil())) {
             param.setUtilIds(departmentService.getUtilIds(param.getDepartment(), param.getDepartUtil()));
         }
 
-        Page<User> pageUser = pageQueryService.findUserBySoemSelect(param);
+        Page<Staff> pageUser = pageQueryService.findUserBySelect(param);
         String batchNumber = getBatchName(param.getBatchId());
 
         List<UserVo> users = new ArrayList<>();
         pageUser.getContent().forEach(user -> {
             String departUtilName = "";
-            if(!ObjectUtils.isEmpty(user.getDepartUtil())) {
+            if (!ObjectUtils.isEmpty(user.getDepartUtil())) {
                 departUtilName = user.getDepartUtil().getName();
             }
 
-            UserVo userVo = new UserVo(user.getId(), user.getUsername(), user.getCompany(), user.getProject(), departUtilName);
+            UserVo userVo = new UserVo(user.getId(), user.getStaffName(), user.getCompany(), user.getProject(), departUtilName, user.getStaffNo());
             userVo.setRaters(getUserScoreStatus(user.getId(), batchNumber));
             users.add(userVo);
         });
-        PageInfo<User> pageInfo = new PageInfo((int) pageUser.getTotalElements(), param.getPage(),
+        PageInfo<Staff> pageInfo = new PageInfo((int) pageUser.getTotalElements(), param.getPage(),
             param.getLimit(), users);
         return LayUiData.data(pageInfo.getTotalSize(), pageInfo.getPageList());
     }
@@ -114,9 +106,9 @@ public class SysUserController {
 
         List<Batch> batchList = batchService.findBatchList();
 
-        if(StringUtils.isEmpty(batchId)) {
+        if (StringUtils.isEmpty(batchId)) {
             return batchList.get(0).getBatchNumber();
-        }else {
+        } else {
             Batch batch = batchService.findOne(Integer.valueOf(batchId));
             return batch.getBatchNumber();
         }
@@ -126,70 +118,67 @@ public class SysUserController {
         return userScoreService.getUserScoreStatusByUserId(id, batchNumber);
     }
 
-    @RequestMapping("/addUserView")
-    public String addUser(Model model) {
+    @RequestMapping("/addStaffView")
+    public String addStaffView(Model model) {
         List<Role> roles = roleService.findAll();
         List<Department> departmentList = departmentService.findAll();
         model.addAttribute("roles", roles);
         model.addAttribute("departmentList", departmentList);
-        return "/view/front/admin-add";
+        return "/view/front/staff-add";
     }
 
     @ResponseBody
-    @RequestMapping(value = "/addUserDo")
-    public String addUserDo(@RequestBody UserVo user) throws Exception {
+    @RequestMapping(value = "/addStaffDo")
+    public String addStaffDo(@RequestBody UserVo user) throws Exception {
 
-        User u = userService.saveUser(user);
-        if(!ObjectUtils.isEmpty(u)) {
+        Staff u = staffService.saveUser(user);
+        if (!ObjectUtils.isEmpty(u)) {
             return "success";
-        }else {
+        } else {
             return "failed";
         }
     }
 
-    @RequestMapping("/userEdit")
-    public String userEdit(Model model, @RequestParam("id") Integer id,
-                           @RequestParam("operate") String operate) {
+    @RequestMapping("/staffEdit")
+    public String staffEdit(Model model, @RequestParam("id") Integer id,
+                            @RequestParam("operate") String operate) {
 
-        List<Role> roles = roleService.findAll();
         List<Department> departmentList = departmentService.findAll();
-        User user = userService.findById(id);
+        Staff user = staffService.findById(id);
         DepartUtil util = new DepartUtil();
-        if(!ObjectUtils.isEmpty(user.getDepartUtil())) {
+        if (!ObjectUtils.isEmpty(user.getDepartUtil())) {
             util = departmentService.findDepartUtilById(user.getDepartUtil().getId());
             model.addAttribute("departmentId", util.getDepartment().getId());
             model.addAttribute("departUtilId", util.getId());
         }
 
-        model.addAttribute("roles", roles);
         model.addAttribute("user", user);
         model.addAttribute("operate", operate);
         model.addAttribute("departmentList", departmentList);
 
-        return "/view/front/admin-edit";
+        return "/view/front/staff-edit";
     }
 
     @ResponseBody
-    @RequestMapping("/deleteUsers")
-    public String deleteUsers(@RequestBody String ids) {
-
-        userService.deleteIds(ids);
+    @RequestMapping("/deleteStaffs")
+    public String deleteStaffs(@RequestBody String ids) {
+        staffService.deleteIds(ids);
         return "success";
     }
 
     @ResponseBody
-    @RequestMapping("/deleteSingleUser")
-    public String deleteSingleUser(@RequestBody User user) {
+    @RequestMapping("/deleteSingleStaff")
+    public String deleteSingleStaff(@RequestBody User user) {
 
-        userService.deleteSingleUser(user.getId());
+        staffService.deleteSingleUser(user.getId());
         return "success";
     }
 
 
     @ResponseBody
-    @RequestMapping("/verifyRoleName")
-    public boolean uniqueUser(@RequestBody String name) {
+    @RequestMapping("/verifyStaff")
+    public boolean uniqueStaff(@RequestBody String name) {
         String username = (String) JSON.parse(name);
-        return !ObjectUtils.isEmpty(userService.findByUsername(username))? true:false;
+        return !ObjectUtils.isEmpty(staffService.findByUsername(username)) ? true : false;
     }
 }

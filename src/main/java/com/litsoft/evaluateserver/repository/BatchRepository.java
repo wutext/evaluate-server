@@ -22,4 +22,6 @@ public interface BatchRepository extends JpaRepository<Batch, Integer>, JpaSpeci
 
     @Query(value = "select  * from batch order by batch_number desc", nativeQuery = true)
     List<Batch> findAllBathch();
+
+    public Batch findByBatchNumber(String batchNumber);
 }

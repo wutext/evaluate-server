@@ -8,6 +8,28 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                 ,table = layui.table
                 ,$ = layui.$;
     var batchNumber = $("#batchNumber").val();
+
+    $("#batchNumber").blur(function() {
+        var no = "";
+        no=$(this).val();
+        if(no!="") {
+            $.ajax({
+                type: "post",
+                url: "/batch/verifyBatchNumber",
+                data: JSON.stringify(no),
+                contentType: "application/json;charset=UTF-8",
+                success: function(res) {
+                    if(res) {
+                        layer.alert("批次已存在");
+                    }
+                },error: function(xml, status, e) {
+                    alert(e+"error");
+                }
+
+            });
+            return false;
+        }
+    });
     table.render({
         elem: '#batch_data'
         ,url: '/batch/batchList?batchNumber='+ batchNumber //数据接口
@@ -52,6 +74,7 @@ layui.use(['jquery','table', 'laypage', 'layer'], function(){
                                 //关闭当前frame
                                 parent.layer.close(index);
                             });
+                            location.replace(location.href);
                         }else {
                             layer.alert("操作失败", {icon: 6},function () {
                                 // 获得frame索引
@@ -106,6 +129,7 @@ function deleteAllDo(ids) {
                         //关闭当前frame
                         parent.layer.close(index);
                     });
+                    location.replace(location.href);
                 }else {
                     layer.alert("操作失败", {icon: 6},function () {
                         // 获得frame索引
@@ -153,7 +177,10 @@ function batchOperation(title,url,w,h){
             shadeClose: true,
             shade:0.4,
             title: title,
-            content: url
+            content: url,
+            end: function () {
+                location.reload();
+            }
         });
     });
 

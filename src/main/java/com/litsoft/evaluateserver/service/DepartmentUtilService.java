@@ -51,4 +51,8 @@ public class DepartmentUtilService {
        departUtilRepository.deleteById(id);
        return true;
     }
+
+    public DepartUtil findByName(String name) {
+        return departUtilRepository.findByName(name);
+    }
 }

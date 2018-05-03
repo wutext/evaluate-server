@@ -1,5 +1,6 @@
 package com.litsoft.evaluateserver.api;
 
+import com.alibaba.fastjson.JSON;
 import com.litsoft.evaluateserver.entity.Permission;
 import com.litsoft.evaluateserver.entity.Role;
 import com.litsoft.evaluateserver.entity.User;
@@ -97,5 +98,12 @@ public class SysPermissionController {
     @RequestMapping("/deleteSinglePerm")
     public String deletePerm(@RequestParam("id") Integer id) {
         return permissionService.deletePermission(id) ? "success": "filed";
+    }
+
+    @ResponseBody
+    @RequestMapping("/verifyPermissionName")
+    public boolean verifyPermissionName(@RequestBody String name) {
+        String username = (String) JSON.parse(name);
+        return !ObjectUtils.isEmpty(permissionService.findByName(username))? true:false;
     }
 }
