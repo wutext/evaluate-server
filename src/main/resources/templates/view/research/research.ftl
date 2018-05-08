@@ -45,6 +45,57 @@
     <link href="/researchstyle/date.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="/jquery/js/jquery-data.js"></script>
     <script type="text/javascript" src="/researchstyle/date_pack.js"></script>
+
+    <style>
+
+        .wrap-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 16px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, .4);
+            z-index: 999;
+        }
+
+        .dialog {
+            position: relative;
+            margin: 15% auto;
+            width: 300px;
+            background-color: #FFFFFF;
+        }
+
+        .dialog .dialog-header {
+            height: 20px;
+            padding: 10px;
+            background-color: lightskyblue;
+        }
+
+        .dialog .dialog-body {
+            height: 30px;
+            padding: 20px;
+        }
+
+        .dialog .dialog-footer {
+            padding: 8px;
+            background-color: whitesmoke;
+        }
+
+        .btn {
+            width: 70px;
+            padding: 2px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .ml50 {
+            margin-left: 50px;
+        }
+    </style>
 </head>
 <body class="formpc">
 <div id="floatingCirclesG" style="margin-left: auto; margin-right: auto; margin-top: 50px; display: none;">
@@ -445,7 +496,7 @@
                         <footer id="Survey_action" class="formaction">
 
                             <div id="Survey_done" class="actiondone">
-                                <input class="button" value="提交" id="Survey_submit" type="submit"/>
+                                <input class="button" value="提交" id="Survey_submit" type="button"/>
                             </div>
                             <div class="clear">
                             </div>
@@ -454,7 +505,20 @@
                     </section>
 
                 </article>
-
+                <div class="wrap-dialog hide">
+                    <div class="dialog">
+                        <div class="dialog-header">
+                            <span class="dialog-title">确认提交</span>
+                        </div>
+                        <div class="dialog-body">
+                            <span class="dialog-message">有未打分的评分项，你确认提交此条信息？</span>
+                        </div>
+                        <div class="dialog-footer">
+                            <input type="button" class="btn" id="confirm" value="确认"/>
+                            <input type="button" class="btn ml50" id="cancel" value="取消"/>
+                        </div>
+                    </div>
+                </div>
                 <article id="Survey.w23700001-18" data-displaytype="2" data-required="true" data-type="text"
                          tabindex="-1" class="formwidget text col50">
                     <header><h4> 备注： <span class="required">*</span></h4></header>
@@ -485,21 +549,59 @@
                     }
                 </style>
                 <script type="text/javascript">
-
                     $(function () {
-
                         $('.date_picker').date_input();
                         $('#Survey_submit').click(function () {
-                            $('#progressCompletionScoreString').val($('#progressCompletion').html());
-                            $('#workloadScoreString').val($('#workload').html());
-                            $('#workQualityScoreString').val($('#workQuality').html());
-                            $('#workEfficiencyScoreString').val($('#workEfficiency').html());
-                            $('#workingAttitudeScoreString').val($('#workingAttitude').html());
-                            $('#attendanceScoreString').val($('#attendance1').html());
-                            $('#progressDeviationScoreString').val($('#progressDeviation').html());
-                            $('#workCooperateScoreString').val($('#workCooperate').html());
+                            var progressCompletionFen = $('#progressCompletion').html();
+                            var workloadFen = $('#workload').html();
+                            var workQualityFen = $('#workQuality').html();
+                            var workEfficiencyFen = $('#workEfficiency').html();
+                            var workingAttitudeFen = $('#workingAttitude').html();
+                            var attendance1Fen = $('#attendance1').html();
+                            var progressDeviationFen = $('#progressDeviation').html();
+                            var workCooperateFen = $('#workCooperate').html();
+                            var sign = $('#manager_sign').val();
+                            if (sign == "") {
+                                alert("评分人不能为空!");
+                                return false;
+                            }
+                            if (progressCompletionFen == 0 || workloadFen == 0 ||
+                                    workQualityFen == 0 || workEfficiencyFen == 0 ||
+                                    workingAttitudeFen == 0 || attendance1Fen == 0 ||
+                                    progressDeviationFen == 0 || workCooperateFen == 0) {
+                                $('.wrap-dialog').removeClass("hide");
+                                $('#confirm').click(function () {
+                                    $('.wrap-dialog').addClass("hide");
+                                    $('#progressCompletionScoreString').val(progressCompletionFen);
+                                    $('#workloadScoreString').val(workloadFen);
+                                    $('#workQualityScoreString').val(workQualityFen);
+                                    $('#workEfficiencyScoreString').val(workEfficiencyFen);
+                                    $('#workingAttitudeScoreString').val(workingAttitudeFen);
+                                    $('#attendanceScoreString').val(attendance1Fen);
+                                    $('#progressDeviationScoreString').val(progressDeviationFen);
+                                    $('#workCooperateScoreString').val(workCooperateFen);
+                                    $("#453e32b3-cc46-44cd-97bd-a1a0b2f708ca").submit();
+                                });
+                                $('#cancel').click(function () {
+                                    $('.wrap-dialog').addClass("hide");
+                                });
+                            } else {
+                                $('.wrap-dialog').addClass("hide");
+                                $('#progressCompletionScoreString').val(progressCompletionFen);
+                                $('#workloadScoreString').val(workloadFen);
+                                $('#workQualityScoreString').val(workQualityFen);
+                                $('#workEfficiencyScoreString').val(workEfficiencyFen);
+                                $('#workingAttitudeScoreString').val(workingAttitudeFen);
+                                $('#attendanceScoreString').val(attendance1Fen);
+                                $('#progressDeviationScoreString').val(progressDeviationFen);
+                                $('#workCooperateScoreString').val(workCooperateFen);
+                                $("#453e32b3-cc46-44cd-97bd-a1a0b2f708ca").submit();
+                            }
+
+
                             //$(this).submit();
                         });
+
 
                     })
 
@@ -513,7 +615,7 @@
                     scoreFun($("#cooperate_work"));
 
                     var myDate = new Date();
-                    var s = myDate.getFullYear() + "-" + myDate.getMonth() + "-" + myDate.getDate();
+                    var s = myDate.getFullYear() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getDate();
                     ;
                     $("#data").val(s);
                     var totalScore = 0;

@@ -51,7 +51,7 @@
             <th>出勤率得分</th>
             <th>进度偏差得分</th>
             <th>工作配合情况得分</th>
-            <th>评分角色类型;1:客户2:经理3:人事</th>
+            <th>评分角色类型;1:客户2:经理3:人事4:销售类型</th>
             <th>创建时间</th>
             <th>评分人签字</th>
             <th>合计得分</th>
@@ -77,6 +77,7 @@
                 <#if userScore.type == 1>客户</#if>
                 <#if userScore.type == 2>经理</#if>
                 <#if userScore.type == 3>人事</#if>
+                <#if userScore.type == 4>销售类型</#if>
             </td>
             <td>${userScore.createTime?string("yyyy-MM")}</td>
             <td>${userScore.signName}</td>

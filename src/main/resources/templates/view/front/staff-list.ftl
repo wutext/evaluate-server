@@ -2,14 +2,15 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>员工管理</title>
-    <meta name="renderer" content="webkit" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
-    <link rel="stylesheet" href="/layui/css/font.css"  media="all">
-    <link rel="stylesheet" href="/layui/css/xadmin.css"  media="all">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layui/css/font.css" media="all">
+    <link rel="stylesheet" href="/layui/css/xadmin.css" media="all">
 
     <script language="JavaScript" type="text/javascript" src="/jquery/js/jquery-3.1.1.min.js" charset="utf-8"></script>
     <script language="JavaScript" type="text/javascript" src="/jquery/js/clipBoard.min.js" charset="utf-8"></script>
@@ -23,7 +24,9 @@
     <style>
 
 
-        body{overflow-y: scroll;}
+        body {
+            overflow-y: scroll;
+        }
 
     </style>
     <![endif]-->
@@ -37,7 +40,8 @@
         <a>
           <cite>导航元素</cite></a>
       </span>
-    <a class="layui-btn layui-btn-small fsh" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+    <a class="layui-btn layui-btn-small fsh" style="line-height:1.6em;margin-top:3px;float:right"
+       href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon" style="line-height:30px">ဂ</i></a>
 </div>
 <div class="x-body">
@@ -53,12 +57,12 @@
                 <label class="layui-form-label" style="width:50px">选择批次</label>
                 <div class="layui-input-inline">
                     <select id="batch" name="batch" lay-filter="batch">
-                        <#list batchList as batch>
-                            <option
-                                <#if batch.id==batchId>select="" </#if>
-                                    value="${batch.id}">${batch.batchNumber}
-                            </option>
-                        </#list>
+                    <#list batchList as batch>
+                        <option
+                            <#if batch.id==batchId>select="" </#if>
+                            value="${batch.id}">${batch.batchNumber}
+                        </option>
+                    </#list>
                     </select>
                 </div>
 
@@ -68,8 +72,8 @@
                         <option select="" value="">请选择部门</option>
                     <#list departments as depart>
                         <option
-                                <#if departmentId?? && depart.id==departmentId>select="" </#if>
-                                value="${depart.id}">${depart.name}
+                            <#if departmentId?? && depart.id==departmentId>select="" </#if>
+                            value="${depart.id}">${depart.name}
                         </option>
                     </#list>
                     </select>
@@ -77,24 +81,27 @@
                 <div class="layui-input-inline">
                     <select id="departUtil" name="departUtil" lay-filter="departUtil">
 
-                </select>
+                    </select>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" id="staffName" name="staffName"  placeholder="请输入用户名" autocomplete="off" class="layui-input" value="${staffName!""}"/>
+                    <input type="text" id="staffName" name="staffName" placeholder="请输入用户名" autocomplete="off"
+                           class="layui-input" value="${staffName!""}"/>
                 </div>
 
                 <div class="layui-input-inline" style="width:0px">
-                    <button class="layui-btn search" onclick="searchUserPage()"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+                    <button class="layui-btn search" onclick="searchUserPage()" lay-submit="" lay-filter="sreach"><i
+                            class="layui-icon">&#xe615;</i></button>
                 </div>
             </div>
         </form>
     </div>
     <xblock>
         <button class="layui-btn delAll layui-btn-danger" id="deleteAll">批量删除</button>
-        <button class="layui-btn" onclick="addOperation('用户添加', '/staff/addStaffView')"><i class="layui-icon"></i>添加</button>
+        <button class="layui-btn" onclick="addOperation('用户添加', '/staff/addStaffView')"><i class="layui-icon"></i>添加
+        </button>
     </xblock>
 
-    <table class="layui-table"  id="table_user" lay-filter="table_demo"></table>
+    <table class="layui-table" id="table_user" lay-filter="table_demo"></table>
 
 </div>
 
@@ -103,7 +110,7 @@
         <i class="layui-icon">&#xe63c;</i>
     </a>-->
 
-    <a class="layui-btn layui-btn-xs" lay-event="edit" >
+    <a class="layui-btn layui-btn-xs" lay-event="edit">
         <i class="layui-icon">&#xe642;</i>
     </a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">
@@ -115,27 +122,28 @@
         某个身份人对该用户打过分，yes：按钮不可用并置灰；no:按钮正常
     -->
     {{#
-        var clone1 = true;
-        var clone2 = true;
-        var clone3 = true;
+    var clone1 = true;
+    var clone2 = true;
+    var clone3 = true;
+    var clone4 = true;
     }}
     <a
 
-       {{#  layui.each(d.raters, function(index, item){ }}
+            {{# layui.each(d.raters, function(index, item){ }}
 
-            {{#  if(item === 1){ }}
+            {{# if(item=== 1){ }}
 
-                {{# clone1=false }}
-            {{#  } }}
+            {{# clone1=false }}
+            {{# } }}
 
-       {{#  }); }}
+            {{# }); }}
 
-       {{#  if(clone1){ }}
+            {{# if(clone1){ }}
 
-        lay-event="clone1"
-       {{#  } }}
+            lay-event="clone1"
+            {{# } }}
 
-       class="layui-btn
+            class="layui-btn
 
          {{#  if(clone1){ }}
             layui-bg-cyan
@@ -150,21 +158,21 @@
 
     <a
 
-       {{#  layui.each(d.raters, function(index, item){ }}
+            {{# layui.each(d.raters, function(index, item){ }}
 
-       {{#  if(item === 2){ }}
+            {{# if(item=== 2){ }}
 
-       {{# clone2=false }}
-       {{#  } }}
+            {{# clone2=false }}
+            {{# } }}
 
-       {{#  }); }}
+            {{# }); }}
 
-       {{#  if(clone2){ }}
+            {{# if(clone2){ }}
 
-       lay-event="clone2"
-       {{#  } }}
+            lay-event="clone2"
+            {{# } }}
 
-       class="layui-btn
+            class="layui-btn
 
          {{#  if(clone2){ }}
             layui-bg-cyan
@@ -172,25 +180,25 @@
             layui-bg-gray
          {{#  } }}
           layui-btn-xs clone"
-       >
+    >
         经理
     </a>
     <a
-       {{#  layui.each(d.raters, function(index, item){ }}
+            {{# layui.each(d.raters, function(index, item){ }}
 
-       {{#  if(item === 3){ }}
+            {{# if(item=== 3){ }}
 
-       {{# clone3=false }}
-       {{#  } }}
+            {{# clone3=false }}
+            {{# } }}
 
-       {{#  }); }}
+            {{# }); }}
 
-       {{#  if(clone3){ }}
+            {{# if(clone3){ }}
 
-       lay-event="clone3"
-       {{#  } }}
+            lay-event="clone3"
+            {{# } }}
 
-       class="layui-btn
+            class="layui-btn
 
          {{#  if(clone3){ }}
             layui-bg-cyan
@@ -199,16 +207,43 @@
          {{#  } }}
           layui-btn-xs clone"
 
-       >
+    >
         人事
+    </a>
+    <a
+            {{# layui.each(d.raters, function(index, item){ }}
+
+            {{# if(item=== 4){ }}
+
+            {{# clone4=false }}
+            {{# } }}
+
+            {{# }); }}
+
+            {{# if(clone3){ }}
+
+            lay-event="clone4"
+            {{# } }}
+
+            class="layui-btn
+
+         {{#  if(clone4){ }}
+            layui-bg-cyan
+            {{#  } else { }}
+            layui-bg-gray
+         {{#  } }}
+          layui-btn-xs clone"
+
+    >
+        销售类型
     </a>
 
 </script>
 
 <script>
-    layui.use(['laydate', 'form', 'layer'], function(){
+    layui.use(['laydate', 'form', 'layer'], function () {
         var laydate = layui.laydate
-                ,$ = layui.jquery, layer = layui.layer, form = layui.form;
+                , $ = layui.jquery, layer = layui.layer, form = layui.form;
 
 
         //执行一个laydate实例
@@ -222,18 +257,17 @@
         });
 
 
-
     });
 
 
-
 </script>
-<script>var _hmt = _hmt || []; (function() {
+<script>var _hmt = _hmt || [];
+(function () {
     var hm = document.createElement("script");
     hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
-  })();
+})();
 </script>
 
 

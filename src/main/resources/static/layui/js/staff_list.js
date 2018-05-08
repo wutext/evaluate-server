@@ -38,11 +38,11 @@ layui.use(['jquery', 'table', 'laypage', 'layer'], function () {
         cols: [[ //表头
             {field: 'checkbox', checkbox: true, fixed: 'left', sort: true}
             , {field: 'staffName', title: '员工姓名', align: 'center', width: 100, sort: true}
-            , {field: 'staffNo', title: '工号', align: 'center', width: 100, sort: true}
+            , {field: 'staffNo', title: '工号', align: 'center', width: 80, sort: true}
             , {field: 'departmentUtil', title: '部门', align: 'center', width: 150}
             , {field: 'company', title: '所在公司', align: 'center', width: 200, sort: true}
             , {field: 'project', title: '项目名称', align: 'center', width: 200, sort: true}
-            , {fixed: 'right', title: '操作', width: 400, align: 'center', templet: '#toolBar'/* toolbar: '#toolBar'*/}
+            , {fixed: 'right', title: '操作', width: 550, align: 'center', templet: '#toolBar'/* toolbar: '#toolBar'*/}
         ]]
         ,
         page: true //开启分页
@@ -181,12 +181,12 @@ layui.use(['jquery', 'table', 'laypage', 'layer'], function () {
             getUrl(data.id, 2, cloneUrl, batchNumber);
         } else if (layEvent === 'clone3') { //编辑
             getUrl(data.id, 3, cloneUrl, batchNumber);
+        } else if (layEvent === 'clone4') { //编辑
+            getUrl(data.id, 4, cloneUrl, batchNumber);
         }
 
     });
 });
-
-
 
 
 function getUrl(userId, number, cloneUrl, batchNumber) {
