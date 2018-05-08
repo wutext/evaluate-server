@@ -497,6 +497,7 @@
 
                             <div id="Survey_done" class="actiondone">
                                 <input class="button" value="提交" id="Survey_submit" type="button"/>
+                                <input type="reset" name="reset" style="display: none;" />
                             </div>
                             <div class="clear">
                             </div>
@@ -549,6 +550,7 @@
                     }
                 </style>
                 <script type="text/javascript">
+
                     $(function () {
                         $('.date_picker').date_input();
                         $('#Survey_submit').click(function () {
@@ -581,6 +583,7 @@
                                     $('#progressDeviationScoreString').val(progressDeviationFen);
                                     $('#workCooperateScoreString').val(workCooperateFen);
                                     $("#453e32b3-cc46-44cd-97bd-a1a0b2f708ca").submit();
+                                    $("input[type=reset]").trigger("click");
                                 });
                                 $('#cancel').click(function () {
                                     $('.wrap-dialog').addClass("hide");
@@ -596,6 +599,7 @@
                                 $('#progressDeviationScoreString').val(progressDeviationFen);
                                 $('#workCooperateScoreString').val(workCooperateFen);
                                 $("#453e32b3-cc46-44cd-97bd-a1a0b2f708ca").submit();
+                                $("input[type=reset]").trigger("click");
                             }
 
 
